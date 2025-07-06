@@ -450,6 +450,7 @@ const Services = () => {
   const [selectedImageIdx, setSelectedImageIdx] = useState<number | undefined>(
     undefined
   );
+
   const [heroRef, heroInView] = useInView({
     threshold: 0.3,
     triggerOnce: true,
@@ -730,23 +731,30 @@ const Services = () => {
                 <h3 className="text-2xl font-semibold gold-text mb-6 font-playfair">
                   Choose Your Experience
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 ">
                   {selectedService.gallery.map((img: string, idx: number) => (
                     <div
                       key={idx}
                       className="bg-black/80 rounded-xl overflow-hidden border border-yellow-400/20 flex flex-col"
+                      onClick={() => setSelectedImageIdx(idx)}
                     >
-                      <img
+                      <motion.img
                         src={img}
                         alt={`Gallery ${idx + 1}`}
-                        className="w-full h-40 object-cover"
+                        className="w-full h-40 object-cover cursor-pointer"
+                        whileHover={{ scale: 1.08 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 24,
+                        }}
                       />
                       <div className="p-4 flex flex-col flex-grow">
                         <button
                           className="mt-auto premium-button w-full px-2 py-2 rounded-full text-base font-semibold transition-all duration-300 hover:scale-105"
                           onClick={() => setSelectedImageIdx(idx)}
                         >
-                          Click to know more
+                          View Details
                         </button>
                       </div>
                     </div>
@@ -775,11 +783,13 @@ const Services = () => {
               className="bg-black rounded-2xl shadow-xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="md:w-1/2 w-full flex items-center justify-center bg-black">
-                <img
+              <div className="md:w-1/2 w-full flex items-center justify-center bg-black cursor-pointer">
+                <motion.img
                   src={selectedService.gallery[selectedImageIdx]}
                   alt={`Gallery ${selectedImageIdx + 1}`}
                   className="object-cover w-full h-80"
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 24 }}
                 />
               </div>
               <div className="md:w-1/2 w-full p-8 flex flex-col justify-between">
@@ -810,6 +820,7 @@ const Services = () => {
                   Book Now
                 </button>
               </div>
+
               <button
                 onClick={() => setSelectedImageIdx(undefined)}
                 className="absolute top-4 right-4 p-2 bg-black/70 rounded-full text-white hover:bg-black/90 transition-colors border border-yellow-400/30"

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 import { useInView } from "react-intersection-observer";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -25,12 +28,28 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // 1. Send email via EmailJS
+      await emailjs.send(
+        "service_jvfiowl",
+        "template_4k5o7f9",
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          email: formData.email,
+          subject: `New Contact Form Submission from ${formData.name}`,
+          message: formData.message,
+        },
+        "158Zp5kyiVyZ43pkX"
+      );
 
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
-    setIsSubmitting(false);
+      toast.success("Thank you for your message! We'll get back to you soon.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      toast.error("Something went wrong. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -274,6 +293,7 @@ const Contact = () => {
           </motion.div>
         </div>
       </section>
+      <ToastContainer position="top-right" autoClose={3000} />
     </motion.div>
   );
 };
