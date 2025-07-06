@@ -8,6 +8,7 @@ const Booking = () => {
   const location = useLocation();
   const selectedServiceFromState = location.state?.selectedService || "";
   const selectedPackageFromState = location.state?.selectedPackage || "";
+  const selectedPriceFromState = location.state?.selectedPrice || "";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -18,6 +19,7 @@ const Booking = () => {
     eventDate: "",
     guestCount: "",
     budget: "",
+    amount: selectedPriceFromState, // <-- add this line
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,7 +53,17 @@ const Booking = () => {
         selectedPackage: selectedPackageFromState,
       }));
     }
-  }, [selectedServiceFromState, selectedPackageFromState]);
+    if (selectedPriceFromState) {
+      setFormData((prev) => ({
+        ...prev,
+        amount: selectedPriceFromState,
+      }));
+    }
+  }, [
+    selectedServiceFromState,
+    selectedPackageFromState,
+    selectedPriceFromState,
+  ]);
 
   const services = [
     "Birthday Party",
@@ -119,6 +131,7 @@ const Booking = () => {
       eventDate: "",
       guestCount: "",
       budget: "",
+      amount: "", // <-- reset this field
       message: "",
     });
     setIsSubmitted(false);
@@ -370,6 +383,24 @@ const Booking = () => {
                 </div>
                 <div>
                   <label
+                    htmlFor="amount"
+                    className="block text-lg font-medium text-gray-300 mb-3"
+                  >
+                    Amount
+                  </label>
+                  <input
+                    type="text"
+                    id="amount"
+                    name="amount"
+                    value={formData.amount}
+                    readOnly
+                    className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
+                    placeholder="Amount"
+                  />
+                </div>
+                {/* <div>
+                  
+                  <label
                     htmlFor="selectedPackage"
                     className="block text-lg font-medium text-gray-300 mb-3"
                   >
@@ -389,7 +420,7 @@ const Booking = () => {
                       </option>
                     ))}
                   </select>
-                </div>
+                </div> */}
                 <div>
                   <label
                     htmlFor="eventDate"
@@ -437,7 +468,8 @@ const Booking = () => {
                     placeholder="Number of guests"
                   />
                 </div>
-                <div className="md:col-span-2">
+
+                {/* <div className="md:col-span-2">
                   <label
                     htmlFor="budget"
                     className="block text-lg font-medium text-gray-300 mb-3"
@@ -458,7 +490,7 @@ const Booking = () => {
                       </option>
                     ))}
                   </select>
-                </div>
+                </div> */}
               </div>
             </div>
 
