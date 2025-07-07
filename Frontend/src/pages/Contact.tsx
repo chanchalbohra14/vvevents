@@ -117,11 +117,6 @@ const Contact = () => {
   //   setIsSubmitted(true);
   //   setIsSubmitting(false);
   // };
-  console.log("Sending data:", {
-    name: formData.name,
-    email: formData.email,
-    image_url: formData.image,
-  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
