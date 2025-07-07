@@ -397,53 +397,53 @@ const services = [
   },
 ];
 
-const packages = [
-  {
-    name: "Essential Package",
-    price: "₹500 - ₹1,000",
-    description: "Perfect for intimate gatherings and smaller celebrations",
-    features: [
-      "Basic decoration and styling",
-      "Event coordination on the day",
-      "Photography (2 hours)",
-      "Basic catering coordination",
-      "Setup and cleanup",
-    ],
-    popular: false,
-  },
-  {
-    name: "Premium Package",
-    price: "₹1,000 - ₹2,500",
-    description: "Comprehensive planning for memorable celebrations",
-    features: [
-      "Custom theme and decoration",
-      "Full event planning and coordination",
-      "Professional photography (4 hours)",
-      "Entertainment coordination",
-      "Premium catering options",
-      "Guest coordination",
-      "Setup and cleanup",
-    ],
-    popular: true,
-  },
-  {
-    name: "Luxury Package",
-    price: "₹2,500+",
-    description: "Ultimate luxury experience with premium services",
-    features: [
-      "Bespoke event design and styling",
-      "Complete event management",
-      "Professional photography & videography",
-      "Live entertainment coordination",
-      "Gourmet catering and bar service",
-      "VIP guest management",
-      "Luxury transportation coordination",
-      "Complete setup and cleanup",
-      "Post-event follow-up",
-    ],
-    popular: false,
-  },
-];
+// const packages = [
+//   {
+//     name: "Essential Package",
+//     price: "₹500 - ₹1,000",
+//     description: "Perfect for intimate gatherings and smaller celebrations",
+//     features: [
+//       "Basic decoration and styling",
+//       "Event coordination on the day",
+//       "Photography (2 hours)",
+//       "Basic catering coordination",
+//       "Setup and cleanup",
+//     ],
+//     popular: false,
+//   },
+//   {
+//     name: "Premium Package",
+//     price: "₹1,000 - ₹2,500",
+//     description: "Comprehensive planning for memorable celebrations",
+//     features: [
+//       "Custom theme and decoration",
+//       "Full event planning and coordination",
+//       "Professional photography (4 hours)",
+//       "Entertainment coordination",
+//       "Premium catering options",
+//       "Guest coordination",
+//       "Setup and cleanup",
+//     ],
+//     popular: true,
+//   },
+//   {
+//     name: "Luxury Package",
+//     price: "₹2,500+",
+//     description: "Ultimate luxury experience with premium services",
+//     features: [
+//       "Bespoke event design and styling",
+//       "Complete event management",
+//       "Professional photography & videography",
+//       "Live entertainment coordination",
+//       "Gourmet catering and bar service",
+//       "VIP guest management",
+//       "Luxury transportation coordination",
+//       "Complete setup and cleanup",
+//       "Post-event follow-up",
+//     ],
+//     popular: false,
+//   },
+// ];
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState<any>(null);
@@ -459,28 +459,20 @@ const Services = () => {
     threshold: 0.2,
     triggerOnce: true,
   });
-  const [packagesRef, packagesInView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
-  const navigate = useNavigate();
-  const location = useLocation();
 
-  const selectedImageFromState = location.state?.selectedImage || "";
+  const navigate = useNavigate();
 
   const handleBookService = (
     serviceName: string,
-    packageName = "",
     price = "",
     imageUrl = ""
   ) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    navigate("/booking", {
+    navigate("/contact", {
       state: {
         selectedService: serviceName,
-        selectedPackage: packageName,
         selectedPrice: price,
-        selectedImage: imageUrl, // Pass the image URL
+        selectedImage: imageUrl,
       },
     });
   };
@@ -613,7 +605,7 @@ const Services = () => {
       </section>
 
       {/* Service Packages */}
-      <section
+      {/* <section
         ref={packagesRef}
         className="py-24 bg-gradient-to-b from-gray-900 to-black"
       >
@@ -683,7 +675,7 @@ const Services = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Service Detail Modal */}
       <AnimatePresence>
@@ -811,9 +803,7 @@ const Services = () => {
                   onClick={() => {
                     handleBookService(
                       selectedService.name,
-                      "",
-                      selectedService.galleryPricing[selectedImageIdx],
-                      selectedService.gallery[selectedImageIdx] // Pass the selected image
+                      selectedService.galleryPricing[selectedImageIdx] // 💰 pass price here
                     );
                   }}
                 >

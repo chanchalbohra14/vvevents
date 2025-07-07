@@ -219,7 +219,7 @@ const Home = () => {
               <ArrowRight className="ml-2 md:ml-3" size={16} />
             </Link>
             <Link
-              to="/booking"
+              to="/contact"
               className="inline-flex items-center justify-center px-4 sm:px-6 md:px-10 py-3 md:py-4 border-2 border-yellow-400 text-yellow-400 font-semibold rounded-full hover:bg-yellow-400 hover:text-black transition-all duration-300 text-sm sm:text-base md:text-lg hover:scale-105 hover:shadow-xl w-full sm:w-auto"
             >
               Book Consultation
@@ -453,7 +453,7 @@ const Home = () => {
               that you and your guests will cherish forever
             </p>
             <Link
-              to="/booking"
+              to="/contact"
               className="inline-flex items-center px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-black text-yellow-400 font-semibold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 text-sm sm:text-base md:text-lg"
             >
               Start Planning Your Event

@@ -92,14 +92,6 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/booking"
-                  className="text-gray-300 hover:text-yellow-400 transition-colors text-sm sm:text-base md:text-lg"
-                >
-                  Booking
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -115,7 +107,7 @@ const Footer = () => {
                   className="text-yellow-400 mt-1 flex-shrink-0"
                 />
                 <span className="text-gray-300 text-sm sm:text-base md:text-lg break-all">
-                  +91 9353750459
+                  +91 9164619328
                 </span>
               </div>
               <div className="flex items-start justify-center md:justify-start space-x-2 sm:space-x-3 md:space-x-4">
@@ -124,7 +116,7 @@ const Footer = () => {
                   className="text-yellow-400 mt-1 flex-shrink-0"
                 />
                 <span className="text-gray-300 text-sm sm:text-base md:text-lg break-all">
-                  chanchal@gmail.com
+                  vvevents681@gmail.com
                 </span>
               </div>
               <div className="flex items-start justify-center md:justify-start space-x-2 sm:space-x-3 md:space-x-4">
@@ -142,12 +134,7 @@ const Footer = () => {
 
         <div className="border-t border-yellow-400/20 mt-6 sm:mt-8 md:mt-12 pt-4 sm:pt-6 md:pt-8 text-center">
           <p className="text-gray-400 text-sm sm:text-base md:text-lg flex flex-col sm:flex-row items-center justify-center">
-            <span>© 2025 Village Vacation. All rights reserved.</span>
-            <span className="flex items-center mt-1 sm:mt-0 sm:ml-2">
-              Crafted with
-              <Heart className="mx-1 sm:mx-2 text-yellow-400" size={16} />
-              for unforgettable celebrations.
-            </span>
+            <span>© 2025 vvevents.com - All rights reserved.</span>
           </p>
         </div>
       </div>
