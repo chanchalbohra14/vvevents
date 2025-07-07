@@ -33,10 +33,7 @@ const About = () => {
     threshold: 0.3,
     triggerOnce: true,
   });
-  const [teamRef, teamInView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
+
   const [processRef, processInView] = useInView({
     threshold: 0.3,
     triggerOnce: true,
@@ -45,10 +42,7 @@ const About = () => {
     threshold: 0.3,
     triggerOnce: true,
   });
-  const [testimonialsRef, testimonialsInView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
+
   const [videoRef, videoInView] = useInView({
     threshold: 0.3,
     triggerOnce: true,

@@ -121,6 +121,8 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    console.log("Image URL sent to EmailJS:", formData.image);
+    console.log("Location State:", location.state);
 
     try {
       await emailjs.send(
@@ -138,6 +140,18 @@ const Contact = () => {
           image_url: formData.image,
         },
         "wr_OvmqmdjHbctepn" // Your EmailJS public key
+      );
+      // Send confirmation to user
+      await emailjs.send(
+        "service_va8hz7f", // Service ID
+        "template_krecbyj", // Template ID
+        {
+          from_name: formData.name, // ✅ Must be passed like this
+          user_email: formData.email, // Use `user_email` if your template uses that
+          serviceType: formData.serviceType,
+          eventDate: formData.eventDate,
+        },
+        "wr_OvmqmdjHbctepn" // Public key
       );
 
       toast.success("Thank you for your message! We'll get back to you soon.");
@@ -320,6 +334,33 @@ const Contact = () => {
                 Selected Service: {selectedServiceFromState}
               </motion.div>
             )}
+            {selectedImageFromState && showSelectedService && (
+              <motion.div
+                initial={{ y: 50, opacity: 0 }}
+                animate={heroInView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="mt-10 flex justify-center"
+              >
+                <img
+                  src={selectedImageFromState}
+                  alt={selectedServiceFromState}
+                  className="w-full max-w-md rounded-xl shadow-lg object-cover"
+                />
+              </motion.div>
+            )}
+            {formData.image && (
+              <div className="mb-8 text-center">
+                <h3 className="text-xl text-gray-300 mb-4 font-semibold font-playfair">
+                  Selected Decoration Style
+                </h3>
+                <img
+                  src={formData.image}
+                  alt="Selected Decoration"
+                  className="mx-auto rounded-2xl shadow-xl max-w-md h-auto"
+                />
+              </div>
+            )}
+
             {/* {selectedPackageFromState && (
               <motion.div
                 initial={{ y: 50, opacity: 0 }}
@@ -468,8 +509,10 @@ const Contact = () => {
                     type="text"
                     id="amount"
                     name="amount"
+                    onChange={handleChange}
                     value={formData.amount}
-                    readOnly
+                    readOnly={!selectedPriceFromState}
+                    required
                     className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
                     placeholder="Amount"
                   />

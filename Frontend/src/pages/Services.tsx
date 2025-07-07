@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { X, Star, Clock, Users } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 
 const serviceGalleries: Record<string, string[]> = {
   birthday: [
@@ -472,9 +473,38 @@ const Services = () => {
       state: {
         selectedService: serviceName,
         selectedPrice: price,
-        selectedImage: imageUrl,
+        selectedImage: imageUrl, // ✅ image now correctly passed
       },
     });
+  };
+
+  const faqs = [
+    {
+      question: "How can I book a decoration service?",
+      answer:
+        "You can book directly through our website’s Contact or Booking page. Just fill out the form with your event details, and we’ll get back to you within 24 hours.",
+    },
+    {
+      question: "Do you offer decoration services at home?",
+      answer:
+        "Yes, we provide home decoration services for various occasions like birthdays, anniversaries, baby showers, and more. Setup is done at your preferred location.",
+    },
+    {
+      question: "Do I need to provide any materials for the decoration?",
+      answer:
+        "No. We bring everything required — including props, flowers, balloons, lights, and other decor essentials. If you want something custom added, let us know in advance.",
+    },
+    {
+      question: "How do I contact Village Vacation Events for support?",
+      answer:
+        "You can reach out via phone at +91 9164619328 or email us at vvevents681@gmail.com. You can also message us through Instagram or the contact form on our site.",
+    },
+  ];
+
+  const [openFAQ, setOpenFAQ] = useState(null);
+
+  const toggleFAQ = (index) => {
+    setOpenFAQ(openFAQ === index ? null : index);
   };
 
   return (
@@ -821,6 +851,51 @@ const Services = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-gradient-to-b from-gray-900 to-black">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-6xl font-bold mb-8 font-playfair">
+              Frequently Asked <span className="gold-text">Questions</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              Got questions? We’re here to help you plan the perfect event.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="border border-gray-700 rounded-xl p-6 bg-black/80 backdrop-blur-md transition-all duration-300"
+              >
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full flex items-center justify-between text-left"
+                >
+                  <span className="text-lg md:text-xl text-white font-semibold font-playfair">
+                    {faq.question}
+                  </span>
+                  <span className="text-yellow-400">
+                    {openFAQ === index ? (
+                      <Minus size={24} />
+                    ) : (
+                      <Plus size={24} />
+                    )}
+                  </span>
+                </button>
+
+                {openFAQ === index && (
+                  <div className="mt-4 text-gray-300 text-base leading-relaxed">
+                    {faq.answer}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </motion.div>
   );
 };

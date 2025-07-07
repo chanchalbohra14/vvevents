@@ -20,6 +20,16 @@
     font-family: "Playfair Display", serif;
   }
 }
+/* About.css */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #b2997e !important; /* Gold color */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 0.8;
+}
 
 @layer components {
   .gold-gradient {
