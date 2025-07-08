@@ -609,11 +609,11 @@ const Services = () => {
                       className="bg-black/80 border border-yellow-400/20 rounded-xl overflow-hidden shadow-lg"
                       onClick={() => setSelectedImageIdx(idx)}
                     >
-                      <div className="relative w-full aspect-[4/3] bg-black flex items-center justify-center">
+                      <div className="relative w-full aspect-[5/6] bg-black">
                         <motion.img
                           src={item.image}
                           alt={`Gallery ${idx + 1}`}
-                          className="max-w-full max-h-full object-contain cursor-pointer"
+                          className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                           whileHover={{ scale: 1.03 }}
                           transition={{
                             type: "spring",
@@ -655,8 +655,8 @@ const Services = () => {
                 <motion.img
                   src={selectedService.galleryPricing[selectedImageIdx].image}
                   alt={`Gallery ${selectedImageIdx + 1}`}
-                  className="object-cover w-full h-80"
-                  whileHover={{ scale: 1.08 }}
+                  className="object-contain w-full h-96 bg-black p-4 rounded-xl"
+                  whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300, damping: 24 }}
                 />
               </div>
