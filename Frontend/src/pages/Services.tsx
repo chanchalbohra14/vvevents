@@ -602,25 +602,27 @@ const Services = () => {
                 <h3 className="text-2xl font-semibold gold-text mb-6 font-playfair">
                   Choose Your Experience
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                   {selectedService.galleryPricing.map((item, idx) => (
                     <div
                       key={idx}
-                      className="bg-black/80 rounded-xl overflow-hidden border border-yellow-400/20 flex flex-col"
+                      className="bg-black/80 border border-yellow-400/20 rounded-xl overflow-hidden shadow-lg"
                       onClick={() => setSelectedImageIdx(idx)}
                     >
-                      <motion.img
-                        src={item.image}
-                        alt={`Gallery ${idx + 1}`}
-                        className="w-full h-40 object-cover cursor-pointer"
-                        whileHover={{ scale: 1.08 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 24,
-                        }}
-                      />
-                      <div className="text-center text-yellow-400 text-sm font-medium py-2">
+                      <div className="relative w-full aspect-[4/3] bg-black flex items-center justify-center">
+                        <motion.img
+                          src={item.image}
+                          alt={`Gallery ${idx + 1}`}
+                          className="max-w-full max-h-full object-contain cursor-pointer"
+                          whileHover={{ scale: 1.03 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 24,
+                          }}
+                        />
+                      </div>
+                      <div className="text-center text-yellow-400 text-base font-semibold py-3 bg-black">
                         {item.price}
                       </div>
                     </div>
