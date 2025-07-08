@@ -353,7 +353,7 @@ const Contact = () => {
                     <img
                       src={formData.image}
                       alt="Selected Decoration"
-                      className="mx-auto rounded-2xl shadow-xl max-w-sm h-auto"
+                      className="mx-auto rounded-2xl shadow-xl max-w-sm h-64 object-cover"
                     />
                   </motion.div>
                 ) : selectedImageFromState ? (

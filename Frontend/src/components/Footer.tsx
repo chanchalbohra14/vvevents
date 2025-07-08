@@ -24,7 +24,7 @@ const Footer = () => {
                 className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full border-2 border-yellow-400"
               />
               <span className="text-lg sm:text-xl md:text-2xl font-bold gold-text font-playfair">
-                Village Vacation
+                vvevents
               </span>
             </div>
             <p className="text-gray-300 mb-4 sm:mb-6 md:mb-8 max-w-md mx-auto md:mx-0 leading-relaxed text-sm sm:text-base md:text-lg">

@@ -44,15 +44,13 @@ const Home = () => {
   const services = [
     {
       name: "Birthday Party",
-      image:
-        "https://images.pexels.com/photos/1729808/pexels-photo-1729808.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/Hb/hbd1.jpg",
       description:
         "Magical birthday celebrations with custom themes, decorations, and entertainment",
     },
     {
       name: "Baby Shower Event",
-      image:
-        "https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/Bs/bs1.jpg",
       description:
         "Elegant baby shower celebrations welcoming your little bundle of joy",
     },
@@ -86,10 +84,10 @@ const Home = () => {
   ];
 
   const stats = [
-    { number: "500+", label: "Events Organized", icon: Calendar },
-    { number: "1000+", label: "Happy Clients", icon: Heart },
+    { number: "300+", label: "Events Organized", icon: Calendar },
+    { number: "300+", label: "Happy Clients", icon: Heart },
     { number: "5+", label: "Years Experience", icon: Award },
-    { number: "50+", label: "Team Members", icon: Users },
+    { number: "10+", label: "Team Members", icon: Users },
   ];
 
   const features = [
@@ -249,33 +247,42 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {services.map((service, index) => (
-              <motion.div
+              <Link
+                to="/services"
+                state={{
+                  selectedService: service.name,
+                  selectedImage: service.image,
+                  selectedPrice: service.galleryPricing?.[0],
+                }}
                 key={service.name}
-                initial={{ y: 50, opacity: 0 }}
-                animate={servicesInView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl premium-card hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer"
+                className="group relative overflow-hidden rounded-2xl premium-card hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer block"
               >
-                <div className="aspect-w-16 aspect-h-12 overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.name}
-                    className="w-full h-48 sm:h-56 md:h-64 lg:h-72 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2 md:mb-3 font-playfair">
-                    {service.name}
-                  </h3>
-                  <p className="text-gray-300 text-xs sm:text-sm md:text-base mb-2 sm:mb-3 md:mb-4 leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
-                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 gold-gradient rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
-                  <Star className="text-black" size={12} />
-                </div>
-              </motion.div>
+                <motion.div
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={servicesInView ? { y: 0, opacity: 1 } : {}}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                >
+                  <div className="aspect-w-16 aspect-h-12 overflow-hidden">
+                    <img
+                      src={service.image}
+                      alt={service.name}
+                      className="w-full h-48 sm:h-56 md:h-64 lg:h-72 object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2 md:mb-3 font-playfair">
+                      {service.name}
+                    </h3>
+                    <p className="text-gray-300 text-xs sm:text-sm md:text-base mb-2 sm:mb-3 md:mb-4 leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 gold-gradient rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                    <Star className="text-black" size={12} />
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </div>
 
@@ -293,56 +300,6 @@ const Home = () => {
               <ArrowRight className="ml-2 md:ml-3" size={16} />
             </Link>
           </motion.div>
-        </div>
-      </section>
-      {/* Introduction Section */}
-      <section
-        ref={introRef}
-        className="py-8 md:py-16 lg:py-24 bg-gradient-to-b from-black to-gray-900"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={introInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-8 md:mb-16 lg:mb-20"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 lg:mb-8 font-playfair">
-              Why Choose <span className="gold-text">Village Vacation?</span>
-            </h2>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              With over five years of experience in creating magical
-              celebrations, we've mastered the art of turning ordinary moments
-              into extraordinary memories. Our commitment to excellence and
-              attention to detail sets us apart in the world of premium event
-              planning.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ y: 50, opacity: 0 }}
-                animate={introInView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="premium-card p-4 sm:p-6 md:p-8 rounded-2xl text-center group hover:scale-105 transition-all duration-500 hover:shadow-2xl"
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 gold-gradient rounded-full mb-3 sm:mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon
-                    size={24}
-                    className="text-black sm:w-8 sm:h-8"
-                  />
-                </div>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2 sm:mb-3 md:mb-4 font-playfair">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-300 leading-relaxed text-xs sm:text-sm md:text-base">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 

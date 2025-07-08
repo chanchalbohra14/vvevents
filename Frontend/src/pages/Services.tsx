@@ -1,325 +1,319 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
 import { X, Star, Clock, Users, ArrowRight } from "lucide-react";
 import { Plus, Minus } from "lucide-react";
 
-const serviceGalleries: Record<string, string[]> = {
-  birthday: [
-    "https://images.pexels.com/photos/2072181/pexels-photo-2072181.jpeg",
-    "https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg",
-    "https://images.pexels.com/photos/1373916/pexels-photo-1373916.jpeg",
-    "https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg",
-    "https://images.pexels.com/photos/2072182/pexels-photo-2072182.jpeg",
-    "https://images.pexels.com/photos/2072183/pexels-photo-2072183.jpeg",
-    "https://images.pexels.com/photos/2072184/pexels-photo-2072184.jpeg",
-    "https://images.pexels.com/photos/2072185/pexels-photo-2072185.jpeg",
-    "https://images.pexels.com/photos/2072186/pexels-photo-2072186.jpeg",
-    "https://images.pexels.com/photos/2072187/pexels-photo-2072187.jpeg",
-    "https://images.pexels.com/photos/2072188/pexels-photo-2072188.jpeg",
-    "https://images.pexels.com/photos/2072189/pexels-photo-2072189.jpeg",
-    "https://images.pexels.com/photos/2072190/pexels-photo-2072190.jpeg",
-    "https://images.pexels.com/photos/2072191/pexels-photo-2072191.jpeg",
-    "https://images.pexels.com/photos/2072192/pexels-photo-2072192.jpeg",
-    "https://images.pexels.com/photos/2072193/pexels-photo-2072193.jpeg",
-    "https://images.pexels.com/photos/2072194/pexels-photo-2072194.jpeg",
-    "https://images.pexels.com/photos/2072195/pexels-photo-2072195.jpeg",
-    "https://images.pexels.com/photos/2072196/pexels-photo-2072196.jpeg",
-    "https://images.pexels.com/photos/2072197/pexels-photo-2072197.jpeg",
-    "https://images.pexels.com/photos/2072198/pexels-photo-2072198.jpeg",
-    "https://images.pexels.com/photos/2072199/pexels-photo-2072199.jpeg",
-    "https://images.pexels.com/photos/2072200/pexels-photo-2072200.jpeg",
-    "https://images.pexels.com/photos/2072201/pexels-photo-2072201.jpeg",
-    "https://images.pexels.com/photos/2072202/pexels-photo-2072202.jpeg",
-    "https://images.pexels.com/photos/2072203/pexels-photo-2072203.jpeg",
-    "https://images.pexels.com/photos/2072204/pexels-photo-2072204.jpeg",
-    "https://images.pexels.com/photos/2072205/pexels-photo-2072205.jpeg",
-    "https://images.pexels.com/photos/2072206/pexels-photo-2072206.jpeg",
-    "https://images.pexels.com/photos/2072207/pexels-photo-2072207.jpeg",
-  ],
-  babyshower: [
-    "https://images.pexels.com/photos/3770580/pexels-photo-3770580.jpeg",
-    "https://images.pexels.com/photos/3770581/pexels-photo-3770581.jpeg",
-    "https://images.pexels.com/photos/3770582/pexels-photo-3770582.jpeg",
-    "https://images.pexels.com/photos/3770583/pexels-photo-3770583.jpeg",
-    "https://images.pexels.com/photos/3770584/pexels-photo-3770584.jpeg",
-    "https://images.pexels.com/photos/3770585/pexels-photo-3770585.jpeg",
-    "https://images.pexels.com/photos/3770586/pexels-photo-3770586.jpeg",
-    "https://images.pexels.com/photos/3770587/pexels-photo-3770587.jpeg",
-    "https://images.pexels.com/photos/3770588/pexels-photo-3770588.jpeg",
-    "https://images.pexels.com/photos/3770589/pexels-photo-3770589.jpeg",
-    "https://images.pexels.com/photos/3770590/pexels-photo-3770590.jpeg",
-    "https://images.pexels.com/photos/3770591/pexels-photo-3770591.jpeg",
-    "https://images.pexels.com/photos/3770592/pexels-photo-3770592.jpeg",
-    "https://images.pexels.com/photos/3770593/pexels-photo-3770593.jpeg",
-    "https://images.pexels.com/photos/3770594/pexels-photo-3770594.jpeg",
-    "https://images.pexels.com/photos/3770595/pexels-photo-3770595.jpeg",
-    "https://images.pexels.com/photos/3770596/pexels-photo-3770596.jpeg",
-    "https://images.pexels.com/photos/3770597/pexels-photo-3770597.jpeg",
-    "https://images.pexels.com/photos/3770598/pexels-photo-3770598.jpeg",
-    "https://images.pexels.com/photos/3770599/pexels-photo-3770599.jpeg",
-    "https://images.pexels.com/photos/3770600/pexels-photo-3770600.jpeg",
-    "https://images.pexels.com/photos/3770601/pexels-photo-3770601.jpeg",
-    "https://images.pexels.com/photos/3770602/pexels-photo-3770602.jpeg",
-    "https://images.pexels.com/photos/3770603/pexels-photo-3770603.jpeg",
-    "https://images.pexels.com/photos/3770604/pexels-photo-3770604.jpeg",
-    "https://images.pexels.com/photos/3770605/pexels-photo-3770605.jpeg",
-    "https://images.pexels.com/photos/3770606/pexels-photo-3770606.jpeg",
-    "https://images.pexels.com/photos/3770607/pexels-photo-3770607.jpeg",
-    "https://images.pexels.com/photos/3770608/pexels-photo-3770608.jpeg",
-    "https://images.pexels.com/photos/3770609/pexels-photo-3770609.jpeg",
-  ],
-  anniversary: [
-    "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg",
-    "https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg",
-    "https://images.pexels.com/photos/1024960/pexels-photo-1024960.jpeg",
-    "https://images.pexels.com/photos/1024994/pexels-photo-1024994.jpeg",
-    "https://images.pexels.com/photos/1024995/pexels-photo-1024995.jpeg",
-    "https://images.pexels.com/photos/1024996/pexels-photo-1024996.jpeg",
-    "https://images.pexels.com/photos/1024997/pexels-photo-1024997.jpeg",
-    "https://images.pexels.com/photos/1024998/pexels-photo-1024998.jpeg",
-    "https://images.pexels.com/photos/1024999/pexels-photo-1024999.jpeg",
-    "https://images.pexels.com/photos/1025000/pexels-photo-1025000.jpeg",
-    "https://images.pexels.com/photos/1025001/pexels-photo-1025001.jpeg",
-    "https://images.pexels.com/photos/1025002/pexels-photo-1025002.jpeg",
-    "https://images.pexels.com/photos/1025003/pexels-photo-1025003.jpeg",
-    "https://images.pexels.com/photos/1025004/pexels-photo-1025004.jpeg",
-    "https://images.pexels.com/photos/1025005/pexels-photo-1025005.jpeg",
-    "https://images.pexels.com/photos/1025006/pexels-photo-1025006.jpeg",
-    "https://images.pexels.com/photos/1025007/pexels-photo-1025007.jpeg",
-    "https://images.pexels.com/photos/1025008/pexels-photo-1025008.jpeg",
-    "https://images.pexels.com/photos/1025009/pexels-photo-1025009.jpeg",
-    "https://images.pexels.com/photos/1025010/pexels-photo-1025010.jpeg",
-    "https://images.pexels.com/photos/1025011/pexels-photo-1025011.jpeg",
-    "https://images.pexels.com/photos/1025012/pexels-photo-1025012.jpeg",
-    "https://images.pexels.com/photos/1025013/pexels-photo-1025013.jpeg",
-    "https://images.pexels.com/photos/1025014/pexels-photo-1025014.jpeg",
-    "https://images.pexels.com/photos/1025015/pexels-photo-1025015.jpeg",
-    "https://images.pexels.com/photos/1025016/pexels-photo-1025016.jpeg",
-    "https://images.pexels.com/photos/1025017/pexels-photo-1025017.jpeg",
-    "https://images.pexels.com/photos/1025018/pexels-photo-1025018.jpeg",
-    "https://images.pexels.com/photos/1025019/pexels-photo-1025019.jpeg",
-    "https://images.pexels.com/photos/1025020/pexels-photo-1025020.jpeg",
-  ],
-  naming: [
-    "https://images.pexels.com/photos/8088495/pexels-photo-8088495.jpeg",
-    "https://images.pexels.com/photos/8088496/pexels-photo-8088496.jpeg",
-    "https://images.pexels.com/photos/8088497/pexels-photo-8088497.jpeg",
-    "https://images.pexels.com/photos/8088498/pexels-photo-8088498.jpeg",
-    "https://images.pexels.com/photos/8088499/pexels-photo-8088499.jpeg",
-    "https://images.pexels.com/photos/8088500/pexels-photo-8088500.jpeg",
-    "https://images.pexels.com/photos/8088501/pexels-photo-8088501.jpeg",
-    "https://images.pexels.com/photos/8088502/pexels-photo-8088502.jpeg",
-    "https://images.pexels.com/photos/8088503/pexels-photo-8088503.jpeg",
-    "https://images.pexels.com/photos/8088504/pexels-photo-8088504.jpeg",
-    "https://images.pexels.com/photos/8088505/pexels-photo-8088505.jpeg",
-    "https://images.pexels.com/photos/8088506/pexels-photo-8088506.jpeg",
-    "https://images.pexels.com/photos/8088507/pexels-photo-8088507.jpeg",
-    "https://images.pexels.com/photos/8088508/pexels-photo-8088508.jpeg",
-    "https://images.pexels.com/photos/8088509/pexels-photo-8088509.jpeg",
-    "https://images.pexels.com/photos/8088510/pexels-photo-8088510.jpeg",
-    "https://images.pexels.com/photos/8088511/pexels-photo-8088511.jpeg",
-    "https://images.pexels.com/photos/8088512/pexels-photo-8088512.jpeg",
-    "https://images.pexels.com/photos/8088513/pexels-photo-8088513.jpeg",
-    "https://images.pexels.com/photos/8088514/pexels-photo-8088514.jpeg",
-    "https://images.pexels.com/photos/8088515/pexels-photo-8088515.jpeg",
-    "https://images.pexels.com/photos/8088516/pexels-photo-8088516.jpeg",
-    "https://images.pexels.com/photos/8088517/pexels-photo-8088517.jpeg",
-    "https://images.pexels.com/photos/8088518/pexels-photo-8088518.jpeg",
-    "https://images.pexels.com/photos/8088519/pexels-photo-8088519.jpeg",
-    "https://images.pexels.com/photos/8088520/pexels-photo-8088520.jpeg",
-    "https://images.pexels.com/photos/8088521/pexels-photo-8088521.jpeg",
-    "https://images.pexels.com/photos/8088522/pexels-photo-8088522.jpeg",
-    "https://images.pexels.com/photos/8088523/pexels-photo-8088523.jpeg",
-    "https://images.pexels.com/photos/8088524/pexels-photo-8088524.jpeg",
-  ],
-  bride: [
-    "https://images.pexels.com/photos/6994991/pexels-photo-6994991.jpeg",
-    "https://images.pexels.com/photos/6994992/pexels-photo-6994992.jpeg",
-    "https://images.pexels.com/photos/6994993/pexels-photo-6994993.jpeg",
-    "https://images.pexels.com/photos/6994994/pexels-photo-6994994.jpeg",
-    "https://images.pexels.com/photos/6994995/pexels-photo-6994995.jpeg",
-    "https://images.pexels.com/photos/6994996/pexels-photo-6994996.jpeg",
-    "https://images.pexels.com/photos/6994997/pexels-photo-6994997.jpeg",
-    "https://images.pexels.com/photos/6994998/pexels-photo-6994998.jpeg",
-    "https://images.pexels.com/photos/6994999/pexels-photo-6994999.jpeg",
-    "https://images.pexels.com/photos/6995000/pexels-photo-6995000.jpeg",
-    "https://images.pexels.com/photos/6995001/pexels-photo-6995001.jpeg",
-    "https://images.pexels.com/photos/6995002/pexels-photo-6995002.jpeg",
-    "https://images.pexels.com/photos/6995003/pexels-photo-6995003.jpeg",
-    "https://images.pexels.com/photos/6995004/pexels-photo-6995004.jpeg",
-    "https://images.pexels.com/photos/6995005/pexels-photo-6995005.jpeg",
-    "https://images.pexels.com/photos/6995006/pexels-photo-6995006.jpeg",
-    "https://images.pexels.com/photos/6995007/pexels-photo-6995007.jpeg",
-    "https://images.pexels.com/photos/6995008/pexels-photo-6995008.jpeg",
-    "https://images.pexels.com/photos/6995009/pexels-photo-6995009.jpeg",
-    "https://images.pexels.com/photos/6995010/pexels-photo-6995010.jpeg",
-    "https://images.pexels.com/photos/6995011/pexels-photo-6995011.jpeg",
-    "https://images.pexels.com/photos/6995012/pexels-photo-6995012.jpeg",
-    "https://images.pexels.com/photos/6995013/pexels-photo-6995013.jpeg",
-    "https://images.pexels.com/photos/6995014/pexels-photo-6995014.jpeg",
-    "https://images.pexels.com/photos/6995015/pexels-photo-6995015.jpeg",
-    "https://images.pexels.com/photos/6995016/pexels-photo-6995016.jpeg",
-    "https://images.pexels.com/photos/6995017/pexels-photo-6995017.jpeg",
-    "https://images.pexels.com/photos/6995018/pexels-photo-6995018.jpeg",
-    "https://images.pexels.com/photos/6995019/pexels-photo-6995019.jpeg",
-    "https://images.pexels.com/photos/6995020/pexels-photo-6995020.jpeg",
-  ],
-  office: [
-    "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
-    "https://images.pexels.com/photos/3184419/pexels-photo-3184419.jpeg",
-    "https://images.pexels.com/photos/3184420/pexels-photo-3184420.jpeg",
-    "https://images.pexels.com/photos/3184421/pexels-photo-3184421.jpeg",
-    "https://images.pexels.com/photos/3184422/pexels-photo-3184422.jpeg",
-    "https://images.pexels.com/photos/3184423/pexels-photo-3184423.jpeg",
-    "https://images.pexels.com/photos/3184424/pexels-photo-3184424.jpeg",
-    "https://images.pexels.com/photos/3184425/pexels-photo-3184425.jpeg",
-    "https://images.pexels.com/photos/3184426/pexels-photo-3184426.jpeg",
-    "https://images.pexels.com/photos/3184427/pexels-photo-3184427.jpeg",
-    "https://images.pexels.com/photos/3184428/pexels-photo-3184428.jpeg",
-    "https://images.pexels.com/photos/3184429/pexels-photo-3184429.jpeg",
-    "https://images.pexels.com/photos/3184430/pexels-photo-3184430.jpeg",
-    "https://images.pexels.com/photos/3184431/pexels-photo-3184431.jpeg",
-    "https://images.pexels.com/photos/3184432/pexels-photo-3184432.jpeg",
-    "https://images.pexels.com/photos/3184433/pexels-photo-3184433.jpeg",
-    "https://images.pexels.com/photos/3184434/pexels-photo-3184434.jpeg",
-    "https://images.pexels.com/photos/3184435/pexels-photo-3184435.jpeg",
-    "https://images.pexels.com/photos/3184436/pexels-photo-3184436.jpeg",
-    "https://images.pexels.com/photos/3184437/pexels-photo-3184437.jpeg",
-    "https://images.pexels.com/photos/3184438/pexels-photo-3184438.jpeg",
-    "https://images.pexels.com/photos/3184439/pexels-photo-3184439.jpeg",
-    "https://images.pexels.com/photos/3184440/pexels-photo-3184440.jpeg",
-    "https://images.pexels.com/photos/3184441/pexels-photo-3184441.jpeg",
-    "https://images.pexels.com/photos/3184442/pexels-photo-3184442.jpeg",
-    "https://images.pexels.com/photos/3184443/pexels-photo-3184443.jpeg",
-    "https://images.pexels.com/photos/3184444/pexels-photo-3184444.jpeg",
-    "https://images.pexels.com/photos/3184445/pexels-photo-3184445.jpeg",
-    "https://images.pexels.com/photos/3184446/pexels-photo-3184446.jpeg",
-    "https://images.pexels.com/photos/3184447/pexels-photo-3184447.jpeg",
-  ],
-  housewarming: [
-    "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg",
-    "https://images.pexels.com/photos/1190299/pexels-photo-1190299.jpeg",
-    "https://images.pexels.com/photos/1190300/pexels-photo-1190300.jpeg",
-    "https://images.pexels.com/photos/1190301/pexels-photo-1190301.jpeg",
-    "https://images.pexels.com/photos/1190302/pexels-photo-1190302.jpeg",
-    "https://images.pexels.com/photos/1190303/pexels-photo-1190303.jpeg",
-    "https://images.pexels.com/photos/1190304/pexels-photo-1190304.jpeg",
-    "https://images.pexels.com/photos/1190305/pexels-photo-1190305.jpeg",
-    "https://images.pexels.com/photos/1190306/pexels-photo-1190306.jpeg",
-    "https://images.pexels.com/photos/1190307/pexels-photo-1190307.jpeg",
-    "https://images.pexels.com/photos/1190308/pexels-photo-1190308.jpeg",
-    "https://images.pexels.com/photos/1190309/pexels-photo-1190309.jpeg",
-    "https://images.pexels.com/photos/1190310/pexels-photo-1190310.jpeg",
-    "https://images.pexels.com/photos/1190311/pexels-photo-1190311.jpeg",
-    "https://images.pexels.com/photos/1190312/pexels-photo-1190312.jpeg",
-    "https://images.pexels.com/photos/1190313/pexels-photo-1190313.jpeg",
-    "https://images.pexels.com/photos/1190314/pexels-photo-1190314.jpeg",
-    "https://images.pexels.com/photos/1190315/pexels-photo-1190315.jpeg",
-    "https://images.pexels.com/photos/1190316/pexels-photo-1190316.jpeg",
-    "https://images.pexels.com/photos/1190317/pexels-photo-1190317.jpeg",
-    "https://images.pexels.com/photos/1190318/pexels-photo-1190318.jpeg",
-    "https://images.pexels.com/photos/1190319/pexels-photo-1190319.jpeg",
-    "https://images.pexels.com/photos/1190320/pexels-photo-1190320.jpeg",
-    "https://images.pexels.com/photos/1190321/pexels-photo-1190321.jpeg",
-    "https://images.pexels.com/photos/1190322/pexels-photo-1190322.jpeg",
-    "https://images.pexels.com/photos/1190323/pexels-photo-1190323.jpeg",
-    "https://images.pexels.com/photos/1190324/pexels-photo-1190324.jpeg",
-    "https://images.pexels.com/photos/1190325/pexels-photo-1190325.jpeg",
-    "https://images.pexels.com/photos/1190326/pexels-photo-1190326.jpeg",
-    "https://images.pexels.com/photos/1190327/pexels-photo-1190327.jpeg",
-  ],
-  retirement: [
-    "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg",
-    "https://images.pexels.com/photos/1024994/pexels-photo-1024994.jpeg",
-    "https://images.pexels.com/photos/1024995/pexels-photo-1024995.jpeg",
-    "https://images.pexels.com/photos/1024996/pexels-photo-1024996.jpeg",
-    "https://images.pexels.com/photos/1024997/pexels-photo-1024997.jpeg",
-    "https://images.pexels.com/photos/1024998/pexels-photo-1024998.jpeg",
-    "https://images.pexels.com/photos/1024999/pexels-photo-1024999.jpeg",
-    "https://images.pexels.com/photos/1025000/pexels-photo-1025000.jpeg",
-    "https://images.pexels.com/photos/1025001/pexels-photo-1025001.jpeg",
-    "https://images.pexels.com/photos/1025002/pexels-photo-1025002.jpeg",
-    "https://images.pexels.com/photos/1025003/pexels-photo-1025003.jpeg",
-    "https://images.pexels.com/photos/1025004/pexels-photo-1025004.jpeg",
-    "https://images.pexels.com/photos/1025005/pexels-photo-1025005.jpeg",
-    "https://images.pexels.com/photos/1025006/pexels-photo-1025006.jpeg",
-    "https://images.pexels.com/photos/1025007/pexels-photo-1025007.jpeg",
-    "https://images.pexels.com/photos/1025008/pexels-photo-1025008.jpeg",
-    "https://images.pexels.com/photos/1025009/pexels-photo-1025009.jpeg",
-    "https://images.pexels.com/photos/1025010/pexels-photo-1025010.jpeg",
-    "https://images.pexels.com/photos/1025011/pexels-photo-1025011.jpeg",
-    "https://images.pexels.com/photos/1025012/pexels-photo-1025012.jpeg",
-    "https://images.pexels.com/photos/1025013/pexels-photo-1025013.jpeg",
-    "https://images.pexels.com/photos/1025014/pexels-photo-1025014.jpeg",
-    "https://images.pexels.com/photos/1025015/pexels-photo-1025015.jpeg",
-    "https://images.pexels.com/photos/1025016/pexels-photo-1025016.jpeg",
-    "https://images.pexels.com/photos/1025017/pexels-photo-1025017.jpeg",
-    "https://images.pexels.com/photos/1025018/pexels-photo-1025018.jpeg",
-    "https://images.pexels.com/photos/1025019/pexels-photo-1025019.jpeg",
-    "https://images.pexels.com/photos/1025020/pexels-photo-1025020.jpeg",
-    "https://images.pexels.com/photos/1025021/pexels-photo-1025021.jpeg",
-    "https://images.pexels.com/photos/1025022/pexels-photo-1025022.jpeg",
-  ],
-  graduation: [
-    "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg",
-    "https://images.pexels.com/photos/267886/pexels-photo-267886.jpeg",
-    "https://images.pexels.com/photos/267887/pexels-photo-267887.jpeg",
-    "https://images.pexels.com/photos/267888/pexels-photo-267888.jpeg",
-    "https://images.pexels.com/photos/267889/pexels-photo-267889.jpeg",
-    "https://images.pexels.com/photos/267890/pexels-photo-267890.jpeg",
-    "https://images.pexels.com/photos/267891/pexels-photo-267891.jpeg",
-    "https://images.pexels.com/photos/267892/pexels-photo-267892.jpeg",
-    "https://images.pexels.com/photos/267893/pexels-photo-267893.jpeg",
-    "https://images.pexels.com/photos/267894/pexels-photo-267894.jpeg",
-    "https://images.pexels.com/photos/267895/pexels-photo-267895.jpeg",
-    "https://images.pexels.com/photos/267896/pexels-photo-267896.jpeg",
-    "https://images.pexels.com/photos/267897/pexels-photo-267897.jpeg",
-    "https://images.pexels.com/photos/267898/pexels-photo-267898.jpeg",
-    "https://images.pexels.com/photos/267899/pexels-photo-267899.jpeg",
-    "https://images.pexels.com/photos/267900/pexels-photo-267900.jpeg",
-    "https://images.pexels.com/photos/267901/pexels-photo-267901.jpeg",
-    "https://images.pexels.com/photos/267902/pexels-photo-267902.jpeg",
-    "https://images.pexels.com/photos/267903/pexels-photo-267903.jpeg",
-    "https://images.pexels.com/photos/267904/pexels-photo-267904.jpeg",
-    "https://images.pexels.com/photos/267905/pexels-photo-267905.jpeg",
-    "https://images.pexels.com/photos/267906/pexels-photo-267906.jpeg",
-    "https://images.pexels.com/photos/267907/pexels-photo-267907.jpeg",
-    "https://images.pexels.com/photos/267908/pexels-photo-267908.jpeg",
-    "https://images.pexels.com/photos/267909/pexels-photo-267909.jpeg",
-    "https://images.pexels.com/photos/267910/pexels-photo-267910.jpeg",
-    "https://images.pexels.com/photos/267911/pexels-photo-267911.jpeg",
-    "https://images.pexels.com/photos/267912/pexels-photo-267912.jpeg",
-    "https://images.pexels.com/photos/267913/pexels-photo-267913.jpeg",
-  ],
-};
+const birthdayGalleryPricing = [
+  { image: "/Hb/hbd1.jpg", price: "₹6500" },
+  { image: "/Hb/hbd2.jpg", price: "₹8500" },
+  { image: "/Hb/hbd3.jpg", price: "₹8500" },
+  { image: "/Hb/hbd4.jpg", price: "₹12500" },
+  { image: "/Hb/hbd5.jpg", price: "₹3500" },
+  { image: "/Hb/hbd6.jpg", price: "₹2500" },
+  { image: "/Hb/hbd7.jpg", price: "₹2000" },
+  { image: "/Hb/hbd8.jpg", price: "₹1800" },
+  { image: "/Hb/hbd9.jpg", price: "₹18500" },
+  { image: "/Hb/hbd10.jpg", price: "₹4000" },
+  { image: "/Hb/hbd11.jpg", price: "₹3000" },
+  { image: "/Hb/hbd12.jpg", price: "₹2500" },
+  { image: "/Hb/hbd13.jpg", price: "₹3000" },
+  { image: "/Hb/hbd14.jpg", price: "₹3500" },
+  { image: "/Hb/hbd15.jpg", price: "₹15500" },
+  { image: "/Hb/hbd16.jpg", price: "₹20500" },
+  { image: "/Hb/hbd17.jpg", price: "₹2000" },
+  { image: "/Hb/hbd18.jpg", price: "₹2000" },
+  { image: "/Hb/hbd19.jpg", price: "₹3500" },
+  { image: "/Hb/hbd20.jpg", price: "₹6500" },
+  { image: "/Hb/hbd21.jpg", price: "₹4500" },
+  { image: "/Hb/hbd22.jpg", price: "₹15500" },
+  { image: "/Hb/hbd23.jpg", price: "₹18500" },
+  { image: "/Hb/hbd24.jpg", price: "₹2000" },
+  { image: "/Hb/hbd25.jpg", price: "₹1700" },
+  { image: "/Hb/hbd26.jpg", price: "₹1750" },
+  { image: "/Hb/hbd27.jpg", price: "₹1800" },
+  { image: "/Hb/hbd28.jpg", price: "₹1850" },
+  { image: "/Hb/hbd29.jpg", price: "₹1900" },
+  { image: "/Hb/hbd30.jpg", price: "₹1950" },
+];
+const babyshowerGalleryPricing = [
+  { image: "/Bs/bs1.jpg", price: "₹500" },
+  { image: "/Bs/bs2.jpg", price: "₹550" },
+  { image: "/Bs/bs3.jpg", price: "₹600" },
+  { image: "/Bs/bs4.jpg", price: "₹650" },
+  { image: "/Bs/bs5.jpg", price: "₹700" },
+  { image: "/Bs/bs6.jpg", price: "₹750" },
+  { image: "/Bs/bs7.jpg", price: "₹800" },
+  { image: "/Bs/bs8.jpg", price: "₹850" },
+  { image: "/Bs/bs9.jpg", price: "₹900" },
+  { image: "/Bs/bs10.jpg", price: "₹950" },
+  { image: "/Bs/bs11.jpg", price: "₹1000" },
+  { image: "/Bs/bs12.jpg", price: "₹1050" },
+  { image: "/Bs/bs13.jpg", price: "₹1100" },
+  { image: "/Bs/bs14.jpg", price: "₹1150" },
+  { image: "/Bs/bs15.jpg", price: "₹1200" },
+  { image: "/Bs/bs16.jpg", price: "₹1250" },
+  { image: "/Bs/bs17.jpg", price: "₹1300" },
+  { image: "/Bs/bs18.jpg", price: "₹1350" },
+  { image: "/Bs/bs19.jpg", price: "₹1400" },
+  { image: "/Bs/bs20.jpg", price: "₹1450" },
+  { image: "/Bs/bs21.jpg", price: "₹1500" },
+  { image: "/Bs/bs22.jpg", price: "₹1550" },
+  { image: "/Bs/bs23.jpg", price: "₹1600" },
+  { image: "/Bs/bs24.jpg", price: "₹1650" },
+  { image: "/Bs/bs25.jpg", price: "₹1700" },
+  { image: "/Bs/bs26.jpg", price: "₹1750" },
+  { image: "/Bs/bs27.jpg", price: "₹1800" },
+  { image: "/Bs/bs28.jpg", price: "₹1850" },
+  { image: "/Bs/bs29.jpg", price: "₹1900" },
+  { image: "/Bs/bs30.jpg", price: "₹1950" },
+];
 
-const generateGalleryPricing = () =>
-  Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`);
+const anniversaryGalleryPricing = [
+  { image: "/Av/av1.jpg", price: "₹500" },
+  { image: "/Av/av2.jpg", price: "₹550" },
+  { image: "/Av/av3.jpg", price: "₹600" },
+  { image: "/Av/av4.jpg", price: "₹650" },
+  { image: "/Av/av5.jpg", price: "₹700" },
+  { image: "/Av/av6.jpg", price: "₹750" },
+  { image: "/Av/av7.jpg", price: "₹800" },
+  { image: "/Av/av8.jpg", price: "₹850" },
+  { image: "/Av/av9.jpg", price: "₹900" },
+  { image: "/Av/av10.jpg", price: "₹950" },
+  { image: "/Av/av11.jpg", price: "₹1000" },
+  { image: "/Av/av12.jpg", price: "₹1050" },
+  { image: "/Av/av13.jpg", price: "₹1100" },
+  { image: "/Av/av14.jpg", price: "₹1150" },
+  { image: "/Av/av15.jpg", price: "₹1200" },
+  { image: "/Av/av16.jpg", price: "₹1250" },
+  { image: "/Av/av17.jpg", price: "₹1300" },
+  { image: "/Av/av18.jpg", price: "₹1350" },
+  { image: "/Av/av19.jpg", price: "₹1400" },
+  { image: "/Av/av20.jpg", price: "₹1450" },
+  { image: "/Av/av21.jpg", price: "₹1500" },
+  { image: "/Av/av22.jpg", price: "₹1550" },
+  { image: "/Av/av23.jpg", price: "₹1600" },
+  { image: "/Av/av24.jpg", price: "₹1650" },
+  { image: "/Av/av25.jpg", price: "₹1700" },
+  { image: "/Av/av26.jpg", price: "₹1750" },
+  { image: "/Av/av27.jpg", price: "₹1800" },
+  { image: "/Av/av28.jpg", price: "₹1850" },
+  { image: "/Av/av29.jpg", price: "₹1900" },
+  { image: "/Av/av30.jpg", price: "₹1950" },
+];
+
+const namingGalleryPricing = [
+  { image: "/Nc/nc1.jpg", price: "₹500" },
+  { image: "/Nc/nc2.jpg", price: "₹550" },
+  { image: "/Nc/nc3.jpg", price: "₹600" },
+  { image: "/Nc/nc4.jpg", price: "₹650" },
+  { image: "/Nc/nc5.jpg", price: "₹700" },
+  { image: "/Nc/nc6.jpg", price: "₹750" },
+  { image: "/Nc/nc7.jpg", price: "₹800" },
+  { image: "/Nc/nc8.jpg", price: "₹850" },
+  { image: "/Nc/nc9.jpg", price: "₹900" },
+  { image: "/Nc/nc10.jpg", price: "₹950" },
+  { image: "/Nc/nc11.jpg", price: "₹1000" },
+  { image: "/Nc/nc12.jpg", price: "₹1050" },
+  { image: "/Nc/nc13.jpg", price: "₹1100" },
+  { image: "/Nc/nc14.jpg", price: "₹1150" },
+  { image: "/Nc/nc15.jpg", price: "₹1200" },
+  { image: "/Nc/nc16.jpg", price: "₹1250" },
+  { image: "/Nc/nc17.jpg", price: "₹1300" },
+  { image: "/Nc/nc18.jpg", price: "₹1350" },
+  { image: "/Nc/nc19.jpg", price: "₹1400" },
+  { image: "/Nc/nc20.jpg", price: "₹1450" },
+  { image: "/Nc/nc21.jpg", price: "₹1500" },
+  { image: "/Nc/nc22.jpg", price: "₹1550" },
+  { image: "/Nc/nc23.jpg", price: "₹1600" },
+  { image: "/Nc/nc24.jpg", price: "₹1650" },
+  { image: "/Nc/nc25.jpg", price: "₹1700" },
+  { image: "/Nc/nc26.jpg", price: "₹1750" },
+  { image: "/Nc/nc27.jpg", price: "₹1800" },
+  { image: "/Nc/nc28.jpg", price: "₹1850" },
+  { image: "/Nc/nc29.jpg", price: "₹1900" },
+  { image: "/Nc/nc30.jpg", price: "₹1950" },
+];
+
+const brideGalleryPricing = [
+  { image: "/Br/br1.jpg", price: "₹500" },
+  { image: "/Br/br2.jpg", price: "₹550" },
+  { image: "/Br/br3.jpg", price: "₹600" },
+  { image: "/Br/br4.jpg", price: "₹650" },
+  { image: "/Br/br5.jpg", price: "₹700" },
+  { image: "/Br/br6.jpg", price: "₹750" },
+  { image: "/Br/br7.jpg", price: "₹800" },
+  { image: "/Br/br8.jpg", price: "₹850" },
+  { image: "/Br/br9.jpg", price: "₹900" },
+  { image: "/Br/br10.jpg", price: "₹950" },
+  { image: "/Br/br11.jpg", price: "₹1000" },
+  { image: "/Br/br12.jpg", price: "₹1050" },
+  { image: "/Br/br13.jpg", price: "₹1100" },
+  { image: "/Br/br14.jpg", price: "₹1150" },
+  { image: "/Br/br15.jpg", price: "₹1200" },
+  { image: "/Br/br16.jpg", price: "₹1250" },
+  { image: "/Br/br17.jpg", price: "₹1300" },
+  { image: "/Br/br18.jpg", price: "₹1350" },
+  { image: "/Br/br19.jpg", price: "₹1400" },
+  { image: "/Br/br20.jpg", price: "₹1450" },
+  { image: "/Br/br21.jpg", price: "₹1500" },
+  { image: "/Br/br22.jpg", price: "₹1550" },
+  { image: "/Br/br23.jpg", price: "₹1600" },
+  { image: "/Br/br24.jpg", price: "₹1650" },
+  { image: "/Br/br25.jpg", price: "₹1700" },
+  { image: "/Br/br26.jpg", price: "₹1750" },
+  { image: "/Br/br27.jpg", price: "₹1800" },
+  { image: "/Br/br28.jpg", price: "₹1850" },
+  { image: "/Br/br29.jpg", price: "₹1900" },
+  { image: "/Br/br30.jpg", price: "₹1950" },
+];
+
+const officeGalleryPricing = [
+  { image: "/Of/of1.jpg", price: "₹500" },
+  { image: "/Of/of2.jpg", price: "₹550" },
+  { image: "/Of/of3.jpg", price: "₹600" },
+  { image: "/Of/of4.jpg", price: "₹650" },
+  { image: "/Of/of5.jpg", price: "₹700" },
+  { image: "/Of/of6.jpg", price: "₹750" },
+  { image: "/Of/of7.jpg", price: "₹800" },
+  { image: "/Of/of8.jpg", price: "₹850" },
+  { image: "/Of/of9.jpg", price: "₹900" },
+  { image: "/Of/of10.jpg", price: "₹950" },
+  { image: "/Of/of11.jpg", price: "₹1000" },
+  { image: "/Of/of12.jpg", price: "₹1050" },
+  { image: "/Of/of13.jpg", price: "₹1100" },
+  { image: "/Of/of14.jpg", price: "₹1150" },
+  { image: "/Of/of15.jpg", price: "₹1200" },
+  { image: "/Of/of16.jpg", price: "₹1250" },
+  { image: "/Of/of17.jpg", price: "₹1300" },
+  { image: "/Of/of18.jpg", price: "₹1350" },
+  { image: "/Of/of19.jpg", price: "₹1400" },
+  { image: "/Of/of20.jpg", price: "₹1450" },
+  { image: "/Of/of21.jpg", price: "₹1500" },
+  { image: "/Of/of22.jpg", price: "₹1550" },
+  { image: "/Of/of23.jpg", price: "₹1600" },
+  { image: "/Of/of24.jpg", price: "₹1650" },
+  { image: "/Of/of25.jpg", price: "₹1700" },
+  { image: "/Of/of26.jpg", price: "₹1750" },
+  { image: "/Of/of27.jpg", price: "₹1800" },
+  { image: "/Of/of28.jpg", price: "₹1850" },
+  { image: "/Of/of29.jpg", price: "₹1900" },
+  { image: "/Of/of30.jpg", price: "₹1950" },
+];
+const houseWarmingGalleryPricing = [
+  { image: "/Hw/hw1.jpg", price: "₹500" },
+  { image: "/Hw/hw2.jpg", price: "₹550" },
+  { image: "/Hw/hw3.jpg", price: "₹600" },
+  { image: "/Hw/hw4.jpg", price: "₹650" },
+  { image: "/Hw/hw5.jpg", price: "₹700" },
+  { image: "/Hw/hw6.jpg", price: "₹750" },
+  { image: "/Hw/hw7.jpg", price: "₹800" },
+  { image: "/Hw/hw8.jpg", price: "₹850" },
+  { image: "/Hw/hw9.jpg", price: "₹900" },
+  { image: "/Hw/hw10.jpg", price: "₹950" },
+  { image: "/Hw/hw11.jpg", price: "₹1000" },
+  { image: "/Hw/hw12.jpg", price: "₹1050" },
+  { image: "/Hw/hw13.jpg", price: "₹1100" },
+  { image: "/Hw/hw14.jpg", price: "₹1150" },
+  { image: "/Hw/hw15.jpg", price: "₹1200" },
+  { image: "/Hw/hw16.jpg", price: "₹1250" },
+  { image: "/Hw/hw17.jpg", price: "₹1300" },
+  { image: "/Hw/hw18.jpg", price: "₹1350" },
+  { image: "/Hw/hw19.jpg", price: "₹1400" },
+  { image: "/Hw/hw20.jpg", price: "₹1450" },
+  { image: "/Hw/hw21.jpg", price: "₹1500" },
+  { image: "/Hw/hw22.jpg", price: "₹1550" },
+  { image: "/Hw/hw23.jpg", price: "₹1600" },
+  { image: "/Hw/hw24.jpg", price: "₹1650" },
+  { image: "/Hw/hw25.jpg", price: "₹1700" },
+  { image: "/Hw/hw26.jpg", price: "₹1750" },
+  { image: "/Hw/hw27.jpg", price: "₹1800" },
+  { image: "/Hw/hw28.jpg", price: "₹1850" },
+  { image: "/Hw/hw29.jpg", price: "₹1900" },
+  { image: "/Hw/hw30.jpg", price: "₹1950" },
+];
+const graduationGalleryPricing = [
+  { image: "/Gc/gc1.jpg", price: "₹500" },
+  { image: "/Gc/gc2.jpg", price: "₹550" },
+  { image: "/Gc/gc3.jpg", price: "₹600" },
+  { image: "/Gc/gc4.jpg", price: "₹650" },
+  { image: "/Gc/gc5.jpg", price: "₹700" },
+  { image: "/Gc/gc6.jpg", price: "₹750" },
+  { image: "/Gc/gc7.jpg", price: "₹800" },
+  { image: "/Gc/gc8.jpg", price: "₹850" },
+  { image: "/Gc/gc9.jpg", price: "₹900" },
+  { image: "/Gc/gc10.jpg", price: "₹950" },
+  { image: "/Gc/gc11.jpg", price: "₹1000" },
+  { image: "/Gc/gc12.jpg", price: "₹1050" },
+  { image: "/Gc/gc13.jpg", price: "₹1100" },
+  { image: "/Gc/gc14.jpg", price: "₹1150" },
+  { image: "/Gc/gc15.jpg", price: "₹1200" },
+  { image: "/Gc/gc16.jpg", price: "₹1250" },
+  { image: "/Gc/gc17.jpg", price: "₹1300" },
+  { image: "/Gc/gc18.jpg", price: "₹1350" },
+  { image: "/Gc/gc19.jpg", price: "₹1400" },
+  { image: "/Gc/gc20.jpg", price: "₹1450" },
+  { image: "/Gc/gc21.jpg", price: "₹1500" },
+  { image: "/Gc/gc22.jpg", price: "₹1550" },
+  { image: "/Gc/gc23.jpg", price: "₹1600" },
+  { image: "/Gc/gc24.jpg", price: "₹1650" },
+  { image: "/Gc/gc25.jpg", price: "₹1700" },
+  { image: "/Gc/gc26.jpg", price: "₹1750" },
+  { image: "/Gc/gc27.jpg", price: "₹1800" },
+  { image: "/Gc/gc28.jpg", price: "₹1850" },
+  { image: "/Gc/gc29.jpg", price: "₹1900" },
+  { image: "/Gc/gc30.jpg", price: "₹1950" },
+];
+const retirementGalleryPricing = [
+  { image: "/Rt/rt1.jpg", price: "₹500" },
+  { image: "/Rt/rt2.jpg", price: "₹550" },
+  { image: "/Rt/rt3.jpg", price: "₹600" },
+  { image: "/Rt/rt4.jpg", price: "₹650" },
+  { image: "/Rt/rt5.jpg", price: "₹700" },
+  { image: "/Rt/rt6.jpg", price: "₹750" },
+  { image: "/Rt/rt7.jpg", price: "₹800" },
+  { image: "/Rt/rt8.jpg", price: "₹850" },
+  { image: "/Rt/rt9.jpg", price: "₹900" },
+  { image: "/Rt/rt10.jpg", price: "₹950" },
+  { image: "/Rt/rt11.jpg", price: "₹1000" },
+  { image: "/Rt/rt12.jpg", price: "₹1050" },
+  { image: "/Rt/rt13.jpg", price: "₹1100" },
+  { image: "/Rt/rt14.jpg", price: "₹1150" },
+  { image: "/Rt/rt15.jpg", price: "₹1200" },
+  { image: "/Rt/rt16.jpg", price: "₹1250" },
+  { image: "/Rt/rt17.jpg", price: "₹1300" },
+  { image: "/Rt/rt18.jpg", price: "₹1350" },
+  { image: "/Rt/rt19.jpg", price: "₹1400" },
+  { image: "/Rt/rt20.jpg", price: "₹1450" },
+  { image: "/Rt/rt21.jpg", price: "₹1500" },
+  { image: "/Rt/rt22.jpg", price: "₹1550" },
+  { image: "/Rt/rt23.jpg", price: "₹1600" },
+  { image: "/Rt/rt24.jpg", price: "₹1650" },
+  { image: "/Rt/rt25.jpg", price: "₹1700" },
+  { image: "/Rt/rt26.jpg", price: "₹1750" },
+  { image: "/Rt/rt27.jpg", price: "₹1800" },
+  { image: "/Rt/rt28.jpg", price: "₹1850" },
+  { image: "/Rt/rt29.jpg", price: "₹1900" },
+  { image: "/Rt/rt30.jpg", price: "₹1950" },
+];
 
 const services = [
   {
     id: 1,
     name: "Birthday Party",
-    image:
-      "https://images.pexels.com/photos/1729808/pexels-photo-1729808.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "/Hb/hbd8.jpg",
     description:
       "Celebrate another year of life with joy, laughter, and unforgettable memories.",
-    pricing: "Starting from ₹500",
-    gallery: serviceGalleries.birthday,
-    galleryPricing: Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`),
+    galleryPricing: birthdayGalleryPricing,
   },
   {
     id: 2,
     name: "Baby Shower Event",
-    image:
-      "https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "/Bs/bs1.jpg",
     description:
       "Welcome the newest family member with a beautiful and memorable celebration.",
-    pricing: "Starting from ₹500",
-    gallery: serviceGalleries.babyshower,
-    galleryPricing: Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`),
+    galleryPricing: babyshowerGalleryPricing,
   },
   {
     id: 3,
@@ -328,9 +322,7 @@ const services = [
       "https://images.pexels.com/photos/1024960/pexels-photo-1024960.jpeg?auto=compress&cs=tinysrgb&w=800",
     description:
       "Honor your love story with an elegant celebration of your journey together.",
-    pricing: "Starting from ₹500",
-    gallery: serviceGalleries.anniversary,
-    galleryPricing: Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`),
+    galleryPricing: anniversaryGalleryPricing,
   },
   {
     id: 4,
@@ -339,9 +331,7 @@ const services = [
       "https://images.pexels.com/photos/8088495/pexels-photo-8088495.jpeg?auto=compress&cs=tinysrgb&w=800",
     description:
       "Celebrate the blessing of your child's name with a sacred and joyful ceremony.",
-    pricing: "Starting from ₹500",
-    gallery: serviceGalleries.naming,
-    galleryPricing: Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`),
+    galleryPricing: namingGalleryPricing,
   },
   {
     id: 5,
@@ -350,9 +340,7 @@ const services = [
       "https://images.pexels.com/photos/6994991/pexels-photo-6994991.jpeg?auto=compress&cs=tinysrgb&w=800",
     description:
       "Celebrate the bride-to-be with an unforgettable pre-wedding celebration.",
-    pricing: "Starting from ₹500",
-    gallery: serviceGalleries.bride,
-    galleryPricing: Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`),
+    galleryPricing: brideGalleryPricing,
   },
   {
     id: 6,
@@ -361,9 +349,7 @@ const services = [
       "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800",
     description:
       "Mark your business milestone with a professional and memorable inauguration.",
-    pricing: "Starting from ₹500",
-    gallery: serviceGalleries.office,
-    galleryPricing: Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`),
+    galleryPricing: officeGalleryPricing,
   },
   {
     id: 7,
@@ -371,9 +357,7 @@ const services = [
     image:
       "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=800",
     description: "Bless your new home with a warm and welcoming celebration.",
-    pricing: "Starting from ₹500",
-    gallery: serviceGalleries.housewarming,
-    galleryPricing: Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`),
+    galleryPricing: houseWarmingGalleryPricing,
   },
   {
     id: 8,
@@ -382,9 +366,7 @@ const services = [
       "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800",
     description:
       "Honor a lifetime of dedication with a memorable retirement celebration.",
-    pricing: "Starting from ₹500",
-    gallery: serviceGalleries.retirement,
-    galleryPricing: Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`),
+    galleryPricing: retirementGalleryPricing,
   },
   {
     id: 9,
@@ -392,59 +374,9 @@ const services = [
     image:
       "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800",
     description: "Celebrate academic achievements with pride and joy.",
-    pricing: "Starting from ₹500",
-    gallery: serviceGalleries.graduation,
-    galleryPricing: Array.from({ length: 30 }, (_, i) => `₹${500 + i * 50}`),
+    galleryPricing: graduationGalleryPricing,
   },
 ];
-
-// const packages = [
-//   {
-//     name: "Essential Package",
-//     price: "₹500 - ₹1,000",
-//     description: "Perfect for intimate gatherings and smaller celebrations",
-//     features: [
-//       "Basic decoration and styling",
-//       "Event coordination on the day",
-//       "Photography (2 hours)",
-//       "Basic catering coordination",
-//       "Setup and cleanup",
-//     ],
-//     popular: false,
-//   },
-//   {
-//     name: "Premium Package",
-//     price: "₹1,000 - ₹2,500",
-//     description: "Comprehensive planning for memorable celebrations",
-//     features: [
-//       "Custom theme and decoration",
-//       "Full event planning and coordination",
-//       "Professional photography (4 hours)",
-//       "Entertainment coordination",
-//       "Premium catering options",
-//       "Guest coordination",
-//       "Setup and cleanup",
-//     ],
-//     popular: true,
-//   },
-//   {
-//     name: "Luxury Package",
-//     price: "₹2,500+",
-//     description: "Ultimate luxury experience with premium services",
-//     features: [
-//       "Bespoke event design and styling",
-//       "Complete event management",
-//       "Professional photography & videography",
-//       "Live entertainment coordination",
-//       "Gourmet catering and bar service",
-//       "VIP guest management",
-//       "Luxury transportation coordination",
-//       "Complete setup and cleanup",
-//       "Post-event follow-up",
-//     ],
-//     popular: false,
-//   },
-// ];
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState<any>(null);
@@ -490,7 +422,7 @@ const Services = () => {
         "No. We bring everything required — including props, flowers, balloons, lights, and other decor essentials. If you want something custom added, let us know in advance.",
     },
     {
-      question: "How do I contact Village Vacation Events for support?",
+      question: "How do I contact vvevents for support?",
       answer:
         "You can reach out via phone at +91 9164619328 or email us at vvevents681@gmail.com. You can also message us through Instagram or the contact form on our site.",
     },
@@ -548,15 +480,15 @@ const Services = () => {
           >
             <div className="flex items-center">
               <Clock className="text-yellow-400 mr-2" size={20} />
-              <span>500+ Events Completed</span>
+              <span>300+ Events Completed</span>
             </div>
             <div className="flex items-center">
               <Users className="text-yellow-400 mr-2" size={20} />
-              <span>1000+ Happy Clients</span>
+              <span>300+ Happy Clients</span>
             </div>
             <div className="flex items-center">
               <Star className="text-yellow-400 mr-2" size={20} />
-              <span>5-Star Rated Service</span>
+              <span>4.3-Star Rated Service</span>
             </div>
           </motion.div>
         </div>
@@ -629,79 +561,6 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Service Packages */}
-      {/* <section
-        ref={packagesRef}
-        className="py-24 bg-gradient-to-b from-gray-900 to-black"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={packagesInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-5xl md:text-6xl font-bold mb-8 font-playfair">
-              Service <span className="gold-text">Packages</span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              Choose from our carefully crafted packages designed to meet
-              different needs and budgets
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {packages.map((pkg, index) => (
-              <motion.div
-                key={pkg.name}
-                initial={{ y: 50, opacity: 0 }}
-                animate={packagesInView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className={`premium-card p-8 rounded-2xl text-center group hover:scale-105 transition-all duration-500 hover:shadow-2xl relative flex flex-col h-full ${
-                  pkg.popular ? "border-2 border-yellow-400" : ""
-                }`}
-              >
-                {pkg.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="gold-gradient text-black px-6 py-2 rounded-full text-sm font-semibold">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-                <div className="flex-grow">
-                  <h3 className="text-3xl font-bold text-white mb-4 font-playfair">
-                    {pkg.name}
-                  </h3>
-                  <div className="text-4xl font-bold gold-text mb-6 font-playfair">
-                    {pkg.price}
-                  </div>
-                  <p className="text-gray-300 mb-8 leading-relaxed">
-                    {pkg.description}
-                  </p>
-                  <ul className="space-y-4 mb-8 flex-grow">
-                    {pkg.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start text-gray-300">
-                        <Star
-                          className="text-yellow-400 mr-3 flex-shrink-0 mt-1"
-                          size={16}
-                        />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <button
-                  onClick={() => handleBookService("", pkg.name)}
-                  className="premium-button w-full px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 mt-auto"
-                >
-                  Choose Package
-                </button>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
       {/* Service Detail Modal */}
       <AnimatePresence>
         {selectedService && (
@@ -736,27 +595,22 @@ const Services = () => {
                   <h2 className="text-4xl md:text-5xl font-bold text-white font-playfair">
                     {selectedService.name}
                   </h2>
-                  <div className="flex items-center gap-6 mt-4 text-gray-300">
-                    <div className="flex items-center">
-                      <Star className="text-yellow-400 mr-2" size={20} />
-                      <span>{selectedService.pricing}</span>
-                    </div>
-                  </div>
+                  <div className="flex items-center gap-6 mt-4 text-gray-300"></div>
                 </div>
               </div>
               <div className="p-10">
                 <h3 className="text-2xl font-semibold gold-text mb-6 font-playfair">
                   Choose Your Experience
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 ">
-                  {selectedService.gallery.map((img: string, idx: number) => (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                  {selectedService.galleryPricing.map((item, idx) => (
                     <div
                       key={idx}
                       className="bg-black/80 rounded-xl overflow-hidden border border-yellow-400/20 flex flex-col"
                       onClick={() => setSelectedImageIdx(idx)}
                     >
                       <motion.img
-                        src={img}
+                        src={item.image}
                         alt={`Gallery ${idx + 1}`}
                         className="w-full h-40 object-cover cursor-pointer"
                         whileHover={{ scale: 1.08 }}
@@ -766,13 +620,8 @@ const Services = () => {
                           damping: 24,
                         }}
                       />
-                      <div className="p-4 flex flex-col flex-grow">
-                        <button
-                          className="mt-auto premium-button w-full px-2 py-2 rounded-full text-base font-semibold transition-all duration-300 hover:scale-105"
-                          onClick={() => setSelectedImageIdx(idx)}
-                        >
-                          View Details
-                        </button>
+                      <div className="text-center text-yellow-400 text-sm font-medium py-2">
+                        {item.price}
                       </div>
                     </div>
                   ))}
@@ -802,7 +651,7 @@ const Services = () => {
             >
               <div className="md:w-1/2 w-full flex items-center justify-center bg-black cursor-pointer">
                 <motion.img
-                  src={selectedService.gallery[selectedImageIdx]}
+                  src={selectedService.galleryPricing[selectedImageIdx].image}
                   alt={`Gallery ${selectedImageIdx + 1}`}
                   className="object-cover w-full h-80"
                   whileHover={{ scale: 1.08 }}
@@ -820,7 +669,7 @@ const Services = () => {
                     option.
                   </p>
                   <div className="text-lg font-semibold gold-text mb-6">
-                    {selectedService.galleryPricing[selectedImageIdx]}
+                    {selectedService.galleryPricing[selectedImageIdx].price}
                   </div>
                 </div>
                 <button
@@ -828,8 +677,8 @@ const Services = () => {
                   onClick={() => {
                     handleBookService(
                       selectedService.name,
-                      selectedService.galleryPricing[selectedImageIdx], // 💰 price
-                      selectedService.image // 🖼 image URL
+                      selectedService.galleryPricing[selectedImageIdx].price, // ✅ price
+                      selectedService.galleryPricing[selectedImageIdx].image // ✅ image
                     );
                   }}
                 >
@@ -838,10 +687,10 @@ const Services = () => {
               </div>
 
               <button
-                onClick={() => setSelectedImageIdx(undefined)}
-                className="absolute top-4 right-4 p-2 bg-black/70 rounded-full text-white hover:bg-black/90 transition-colors border border-yellow-400/30"
+                onClick={() => setSelectedService(null)}
+                className="absolute top-6 right-6 p-3 bg-black/70 rounded-full text-white hover:bg-black/90 transition-colors border border-yellow-400/30 hover:scale-110 transition-transform duration-300"
               >
-                <X size={20} />
+                <X size={24} />
               </button>
             </motion.div>
           </motion.div>

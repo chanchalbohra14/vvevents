@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
@@ -6,14 +6,8 @@ import {
   Award,
   Users,
   Target,
-  Star,
-  Clock,
   Shield,
   Sparkles,
-  Trophy,
-  Globe,
-  Camera,
-  Music,
   ChevronLeft,
   ChevronRight,
   Play,
@@ -38,15 +32,7 @@ const About = () => {
     threshold: 0.3,
     triggerOnce: true,
   });
-  const [achievementsRef, achievementsInView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
 
-  const [videoRef, videoInView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
   const [sliderRef, sliderInView] = useInView({
     threshold: 0.3,
     triggerOnce: true,
@@ -193,79 +179,6 @@ const About = () => {
     },
   ];
 
-  const teamMembers = [
-    {
-      name: "Sarah Johnson",
-      role: "Founder & Creative Director",
-      image:
-        "https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=500",
-      bio: "With over 8 years in luxury event planning, Sarah founded Village Vacation with a vision to create extraordinary celebrations. Her attention to detail and creative flair have made her a sought-after planner for high-profile events.",
-      specialties: [
-        "Luxury Weddings",
-        "Corporate Events",
-        "Creative Direction",
-      ],
-      achievements: "Featured in Event Planning Magazine 2023",
-    },
-    {
-      name: "Michael Chen",
-      role: "Senior Event Coordinator",
-      image:
-        "https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&w=500",
-      bio: "Michael brings precision and organization to every event. His background in hospitality management and passion for creating seamless experiences ensures every detail is perfectly executed.",
-      specialties: [
-        "Event Coordination",
-        "Vendor Management",
-        "Timeline Planning",
-      ],
-      achievements: "Certified Event Management Professional",
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Design & Styling Lead",
-      image:
-        "https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg?auto=compress&cs=tinysrgb&w=500",
-      bio: "Emily transforms spaces into magical environments. Her artistic background and keen eye for aesthetics create stunning visual experiences that leave lasting impressions.",
-      specialties: ["Floral Design", "Space Styling", "Color Coordination"],
-      achievements: "Award-winning Floral Designer 2024",
-    },
-    {
-      name: "David Thompson",
-      role: "Client Relations Manager",
-      image:
-        "https://images.pexels.com/photos/3777931/pexels-photo-3777931.jpeg?auto=compress&cs=tinysrgb&w=500",
-      bio: "David ensures every client feels heard and valued throughout their journey with us. His warm personality and dedication to service excellence make him the perfect liaison between clients and our team.",
-      specialties: [
-        "Client Communication",
-        "Consultation",
-        "Relationship Building",
-      ],
-      achievements: "98% Client Satisfaction Rating",
-    },
-    {
-      name: "Lisa Park",
-      role: "Operations Manager",
-      image:
-        "https://images.pexels.com/photos/3785074/pexels-photo-3785074.jpeg?auto=compress&cs=tinysrgb&w=500",
-      bio: "Lisa keeps our operations running smoothly behind the scenes. Her strategic thinking and problem-solving skills ensure that every event is delivered flawlessly and on time.",
-      specialties: [
-        "Operations Management",
-        "Quality Control",
-        "Team Coordination",
-      ],
-      achievements: "MBA in Operations Management",
-    },
-    {
-      name: "James Wilson",
-      role: "Technical Director",
-      image:
-        "https://images.pexels.com/photos/3777946/pexels-photo-3777946.jpeg?auto=compress&cs=tinysrgb&w=500",
-      bio: "James handles all technical aspects of our events, from lighting and sound to multimedia presentations. His expertise ensures that every technical element enhances the overall experience.",
-      specialties: ["Audio/Visual", "Lighting Design", "Technical Setup"],
-      achievements: "Certified Audio/Visual Technician",
-    },
-  ];
-
   const processSteps = [
     {
       step: "01",
@@ -308,63 +221,6 @@ const About = () => {
       description:
         "We follow up to ensure your complete satisfaction and gather feedback for continuous improvement.",
       icon: Heart,
-    },
-  ];
-
-  const achievements = [
-    {
-      icon: Trophy,
-      title: "Industry Awards",
-      description:
-        'Winner of "Best Event Planning Company 2024" by Event Industry Awards',
-    },
-    {
-      icon: Globe,
-      title: "International Recognition",
-      description:
-        "Featured in top event planning magazines across 15 countries",
-    },
-    {
-      icon: Camera,
-      title: "Media Coverage",
-      description:
-        "Our events have been featured in over 50 publications and media outlets",
-    },
-    {
-      icon: Music,
-      title: "Celebrity Events",
-      description:
-        "Trusted by celebrities and high-profile clients for their most important celebrations",
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: "Jennifer Martinez",
-      role: "Bride",
-      image:
-        "https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg?auto=compress&cs=tinysrgb&w=100",
-      quote:
-        "Village Vacation made our wedding absolutely magical. Every detail was perfect, and Sarah's team went above and beyond our expectations.",
-      rating: 5,
-    },
-    {
-      name: "Robert Kim",
-      role: "CEO, Tech Innovations",
-      image:
-        "https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&w=100",
-      quote:
-        "The office inauguration event was flawless. Professional, elegant, and perfectly executed. Our stakeholders were thoroughly impressed.",
-      rating: 5,
-    },
-    {
-      name: "Maria Santos",
-      role: "Mother of Two",
-      image:
-        "https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=100",
-      quote:
-        "Both my children's birthday parties were incredible. The team understood exactly what we wanted and delivered beyond our dreams.",
-      rating: 5,
     },
   ];
 
@@ -645,87 +501,7 @@ const About = () => {
           </motion.div>
         </div>
       </section>
-      {/* Achievements Section */}
-      <section
-        ref={achievementsRef}
-        className="py-24 bg-gradient-to-b from-gray-900 to-black"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={achievementsInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-5xl md:text-6xl font-bold mb-8 font-playfair">
-              Our <span className="gold-text">Achievements</span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              Recognition and accolades that reflect our commitment to
-              excellence and innovation in event planning
-            </p>
-          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {achievements.map((achievement, index) => (
-              <motion.div
-                key={achievement.title}
-                initial={{ y: 50, opacity: 0 }}
-                animate={achievementsInView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="text-center premium-card p-8 rounded-2xl group hover:scale-105 transition-all duration-500 hover:shadow-2xl"
-              >
-                <div className="inline-flex items-center justify-center w-20 h-20 gold-gradient rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <achievement.icon size={40} className="text-black" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-4 font-playfair">
-                  {achievement.title}
-                </h3>
-                <p className="text-gray-300 leading-relaxed text-sm">
-                  {achievement.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* YouTube Video Section */}
-      <section ref={videoRef} className="py-24 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={videoInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-5xl md:text-6xl font-bold mb-8 font-playfair">
-              See Our <span className="gold-text">Magic</span> in Action
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Watch how we transform spaces and create unforgettable experiences
-              for our clients
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={videoInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full"
-          >
-            <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border-2 border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-              <iframe
-                className="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/Mwxufn7vvgU"
-                title="Event Planning Showcase - Luxury Celebrations"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </motion.div>
-        </div>
-      </section>
       {/* Values Section */}
       <section ref={valuesRef} className="py-24 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -816,100 +592,6 @@ const About = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Team Section - Fixed visibility with better background and contrast */}
-      {/* <section ref={teamRef} className="py-24 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={teamInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-5xl md:text-6xl font-bold mb-8 font-playfair text-white">
-              Meet Our <span className="gold-text">Team</span>
-            </h2>
-            <p className="text-xl text-gray-200 max-w-4xl mx-auto leading-relaxed">
-              Our diverse team of creative professionals brings together years of experience in event planning, 
-              design, coordination, and hospitality. Each member is passionate about creating extraordinary 
-              experiences and dedicated to making your celebration perfect.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ y: 50, opacity: 0 }}
-                animate={teamInView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="premium-card rounded-2xl overflow-hidden group hover:scale-105 transition-all duration-500 hover:shadow-2xl bg-gradient-to-b from-gray-800/90 to-gray-900/90 border border-yellow-400/20 hover:border-yellow-400/40"
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                </div>
-                <div className="p-8 bg-gradient-to-b from-gray-800 to-gray-900">
-                  <h3 className="text-2xl font-semibold text-white mb-2 font-playfair">{member.name}</h3>
-                  <p className="gold-text font-semibold mb-4 text-lg">{member.role}</p>
-                  <p className="text-gray-200 mb-6 leading-relaxed">{member.bio}</p>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="text-yellow-400 font-semibold mb-2">Specialties:</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {member.specialties.map((specialty, idx) => (
-                          <span
-                            key={idx}
-                            className="px-3 py-1 bg-yellow-400/20 text-yellow-400 rounded-full text-sm border border-yellow-400/30 hover:bg-yellow-400/30 transition-colors duration-300"
-                          >
-                            {specialty}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="pt-4 border-t border-yellow-400/20">
-                      <p className="text-yellow-400 text-sm font-medium">{member.achievements}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* Mission Statement - Fixed visibility with better contrast */}
-      <section className="py-24 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="premium-card bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-sm p-12 rounded-3xl border-2 border-yellow-400/30 hover:scale-105 transition-all duration-500 hover:border-yellow-400/50 shadow-2xl"
-          >
-            <Star className="w-16 h-16 text-yellow-400 mx-auto mb-8" />
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 font-playfair">
-              Our Mission
-            </h2>
-            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
-              "We don't just plan events – we create memories that last a
-              lifetime. Every celebration is a chance to bring joy, love, and
-              magic into the world, and we consider ourselves privileged to be
-              part of your most precious moments. Our mission is to transform
-              your vision into reality, exceeding expectations while creating
-              experiences that touch hearts and inspire souls."
-            </p>
-            <p className="text-yellow-400 text-lg font-semibold">
-              - The Village Vacation Team
-            </p>
-          </motion.div>
         </div>
       </section>
     </motion.div>

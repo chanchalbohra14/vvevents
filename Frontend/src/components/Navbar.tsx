@@ -50,7 +50,7 @@ const Navbar = () => {
               className="h-8 w-8 sm:h-10 sm:w-10 md:h-14 md:w-14 rounded-full border-2 border-yellow-400 shadow-lg group-hover:scale-110 transition-transform duration-300"
             />
             <span className="text-base sm:text-lg md:text-2xl font-bold gold-text font-playfair group-hover:scale-105 transition-transform duration-300">
-              Village Vacation
+              vvevents
             </span>
           </Link>
 
