@@ -6,8 +6,8 @@ import {
   MapPin,
   Facebook,
   Instagram,
-  Twitter,
   Heart,
+  Youtube,
 } from "lucide-react";
 
 const Footer = () => {
@@ -34,7 +34,8 @@ const Footer = () => {
             </p>
             <div className="flex justify-center md:justify-start space-x-3 sm:space-x-4 md:space-x-6">
               <a
-                href="#"
+                href="https://www.facebook.com/share/19jJH8YcVL/"
+                target="blank"
                 className="text-gray-400 hover:text-yellow-400 transition-colors p-2 rounded-full hover:bg-yellow-400/10 min-h-[44px] min-w-[44px] flex items-center justify-center"
               >
                 <Facebook size={18} />
@@ -47,10 +48,11 @@ const Footer = () => {
                 <Instagram size={18} />
               </a>
               <a
-                href="#"
+                href="https://youtube.com/@vvevents-i2w?si=zX8yAXHa-svOPAqe"
+                target="blank"
                 className="text-gray-400 hover:text-yellow-400 transition-colors p-2 rounded-full hover:bg-yellow-400/10 min-h-[44px] min-w-[44px] flex items-center justify-center"
               >
-                <Twitter size={18} />
+                <Youtube size={18} />
               </a>
             </div>
           </div>

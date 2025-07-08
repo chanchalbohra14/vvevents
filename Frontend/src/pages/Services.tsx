@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
-import { X, Star, Clock, Users } from "lucide-react";
+import { X, Star, Clock, Users, ArrowRight } from "lucide-react";
 import { Plus, Minus } from "lucide-react";
 
 const serviceGalleries: Record<string, string[]> = {
@@ -609,10 +609,10 @@ const Services = () => {
                   </p>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center text-yellow-400 font-semibold">
-                      <span className="text-sm">Know More</span>
-                      <Star
-                        className="ml-2 group-hover:rotate-12 transition-transform duration-300"
-                        size={18}
+                      <span className="text-sm"> Book Now</span>
+                      <ArrowRight
+                        className="ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                        size={14}
                       />
                     </div>
                     <div className="text-yellow-400 text-sm font-semibold">

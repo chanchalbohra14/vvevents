@@ -36,10 +36,10 @@ const Home = () => {
     triggerOnce: true,
   });
 
-  const handleServiceClick = (serviceName) => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    navigate("/services", { state: { selectedService: serviceName } });
-  };
+  // const handleServiceClick = (serviceName) => {
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  //   navigate("/services", { state: { selectedService: serviceName } });
+  // };
 
   const services = [
     {
@@ -271,13 +271,6 @@ const Home = () => {
                   <p className="text-gray-300 text-xs sm:text-sm md:text-base mb-2 sm:mb-3 md:mb-4 leading-relaxed">
                     {service.description}
                   </p>
-                  <div className="inline-flex items-center text-yellow-400 hover:text-yellow-300 transition-colors font-semibold text-xs sm:text-sm md:text-base">
-                    Book Now
-                    <ArrowRight
-                      className="ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300"
-                      size={14}
-                    />
-                  </div>
                 </div>
                 <div className="absolute top-3 sm:top-4 right-3 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 gold-gradient rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
                   <Star className="text-black" size={12} />
