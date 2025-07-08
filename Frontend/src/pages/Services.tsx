@@ -463,17 +463,12 @@ const Services = () => {
 
   const navigate = useNavigate();
 
-  const handleBookService = (
-    serviceName: string,
-    price = "",
-    imageUrl = ""
-  ) => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleBookService = (serviceName, price, imageUrl) => {
     navigate("/contact", {
       state: {
         selectedService: serviceName,
         selectedPrice: price,
-        selectedImage: imageUrl, // ✅ image now correctly passed
+        selectedImage: imageUrl, // ✅ now passed correctly
       },
     });
   };
@@ -833,7 +828,8 @@ const Services = () => {
                   onClick={() => {
                     handleBookService(
                       selectedService.name,
-                      selectedService.galleryPricing[selectedImageIdx] // 💰 pass price here
+                      selectedService.galleryPricing[selectedImageIdx], // 💰 price
+                      selectedService.image // 🖼 image URL
                     );
                   }}
                 >

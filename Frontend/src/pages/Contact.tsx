@@ -57,17 +57,16 @@ const Contact = () => {
         amount: selectedPriceFromState,
       }));
     }
+  }, [selectedServiceFromState, selectedPriceFromState]);
+
+  useEffect(() => {
     if (selectedImageFromState) {
       setFormData((prev) => ({
         ...prev,
-        image: selectedImageFromState, // <-- save image
+        image: selectedImageFromState, // ✅ sets image for EmailJS
       }));
     }
-  }, [
-    selectedServiceFromState,
-    selectedPriceFromState,
-    selectedImageFromState,
-  ]);
+  }, [selectedImageFromState]);
 
   const services = [
     "Birthday Party",
@@ -141,6 +140,8 @@ const Contact = () => {
         },
         "wr_OvmqmdjHbctepn" // Your EmailJS public key
       );
+      console.log(formData.image);
+
       // Send confirmation to user
       await emailjs.send(
         "service_va8hz7f", // Service ID
@@ -323,54 +324,54 @@ const Contact = () => {
             you and help bring your celebration dreams to life with our premium
             services.
           </motion.p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-col justify-center items-center gap-6 mt-6">
+            {/* Selected Service Text */}
             {selectedServiceFromState && showSelectedService && (
               <motion.div
                 initial={{ y: 50, opacity: 0 }}
                 animate={heroInView ? { y: 0, opacity: 1 } : {}}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="inline-block gold-gradient text-black px-8 py-4 rounded-full font-semibold text-lg"
+                className="gold-gradient text-black px-8 py-4 rounded-full font-semibold text-lg text-center"
               >
                 Selected Service: {selectedServiceFromState}
               </motion.div>
             )}
-            {selectedImageFromState && showSelectedService && (
-              <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                animate={heroInView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="mt-10 flex justify-center"
-              >
-                <img
-                  src={selectedImageFromState}
-                  alt={selectedServiceFromState}
-                  className="w-full max-w-md rounded-xl shadow-lg object-cover"
-                />
-              </motion.div>
-            )}
-            {formData.image && (
-              <div className="mb-8 text-center">
-                <h3 className="text-xl text-gray-300 mb-4 font-semibold font-playfair">
-                  Selected Decoration Style
-                </h3>
-                <img
-                  src={formData.image}
-                  alt="Selected Decoration"
-                  className="mx-auto rounded-2xl shadow-xl max-w-md h-auto"
-                />
-              </div>
-            )}
 
-            {/* {selectedPackageFromState && (
-              <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                animate={heroInView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="inline-block bg-yellow-400/20 text-yellow-400 border border-yellow-400/30 px-8 py-4 rounded-full font-semibold text-lg"
-              >
-                Selected Package: {selectedPackageFromState}
-              </motion.div>
-            )} */}
+            {/* Only one image: formData.image has priority */}
+            {showSelectedService && (
+              <>
+                {formData.image ? (
+                  <motion.div
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={heroInView ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="text-center"
+                  >
+                    <h3 className="text-xl text-gray-300 mb-4 font-semibold font-playfair">
+                      Selected Decoration Style
+                    </h3>
+                    <img
+                      src={formData.image}
+                      alt="Selected Decoration"
+                      className="mx-auto rounded-2xl shadow-xl max-w-sm h-auto"
+                    />
+                  </motion.div>
+                ) : selectedImageFromState ? (
+                  <motion.div
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={heroInView ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="text-center"
+                  >
+                    <img
+                      src={selectedImageFromState}
+                      alt={selectedServiceFromState}
+                      className="mx-auto rounded-xl shadow-lg max-w-md object-cover"
+                    />
+                  </motion.div>
+                ) : null}
+              </>
+            )}
           </div>
         </div>
       </section>
