@@ -38,7 +38,7 @@ const Home = () => {
 
   const handleServiceClick = (serviceName) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    navigate("/booking", { state: { selectedService: serviceName } });
+    navigate("/services", { state: { selectedService: serviceName } });
   };
 
   const services = [
@@ -255,7 +255,6 @@ const Home = () => {
                 animate={servicesInView ? { y: 0, opacity: 1 } : {}}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 className="group relative overflow-hidden rounded-2xl premium-card hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer"
-                onClick={() => handleServiceClick(service.name)}
               >
                 <div className="aspect-w-16 aspect-h-12 overflow-hidden">
                   <img
