@@ -44,74 +44,75 @@ const About = () => {
 
   const sliderImages = [
     {
-      src: "https://images.pexels.com/photos/1729808/pexels-photo-1729808.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      src: "Hb/hbd16.jpg",
       alt: "Birthday celebration with colorful decorations and happy guests",
       caption: "Birthday Party Celebrations",
       description:
         "Creating magical moments for every age with custom themes and joyful celebrations",
     },
     {
-      src: "https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      src: "Bs/bs10.jpg",
       alt: "Baby shower with elegant pastel decorations and expecting parents",
       caption: "Baby Shower Events",
       description:
         "Welcoming new life with elegant celebrations and heartwarming moments",
     },
     {
-      src: "https://images.pexels.com/photos/1024960/pexels-photo-1024960.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      src: "WA/WA8.jpg",
       alt: "Anniversary celebration with romantic setup and couple",
       caption: "Anniversary Celebrations",
       description:
         "Honoring love stories with romantic and meaningful celebrations",
     },
     {
-      src: "https://images.pexels.com/photos/6994991/pexels-photo-6994991.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      src: "Br/br6.jpg",
       alt: "Bridal party celebration with bride and friends",
       caption: "Bride-To-Be Parties",
       description:
         "Celebrating the bride-to-be with unforgettable pre-wedding experiences",
     },
     {
-      src: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      src: "Of/of5.jpg",
       alt: "Professional office inauguration ceremony with ribbon cutting",
       caption: "Office Inaugurations",
       description:
         "Professional milestone celebrations that make lasting impressions",
     },
     {
-      src: "https://images.pexels.com/photos/8088495/pexels-photo-8088495.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      src: "Nc/nc30.jpg",
       alt: "Traditional naming ceremony with family gathering",
       caption: "Naming Ceremonies",
       description:
         "Sacred traditions blended with modern celebration for meaningful moments",
     },
     {
-      src: "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      src: "Hw/hw8.jpg",
       alt: "House warming celebration with family and friends",
       caption: "House Warming Ceremonies",
       description:
         "Blessing new homes with warmth, joy, and community celebration",
     },
     {
-      src: "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      src: "Gc/gc2.jpg",
       alt: "Graduation celebration with academic theme and graduates",
       caption: "Graduation Celebrations",
       description:
         "Honoring academic achievements and celebrating bright futures ahead",
     },
+
     {
-      src: "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      alt: "Elegant event venue setup with luxury decorations",
-      caption: "Luxury Event Setups",
-      description:
-        "Premium event designs that transform spaces into magical experiences",
-    },
-    {
-      src: "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      src: "Rt/rt1.jpg",
       alt: "Retirement party celebration with colleagues and retiree",
       caption: "Retirement Parties",
       description:
         "Celebrating lifetime achievements and new beginnings with honor and joy",
+    },
+    {
+      src: "Br/br3.jpg",
+      alt: "Bridal party celebration with bride and friends",
+      caption: "Bride-To-Be Parties",
+      description:
+        "Celebrating the bride-to-be with unforgettable pre-wedding experiences",
     },
   ];
 
@@ -234,10 +235,11 @@ const About = () => {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative py-24 overflow-hidden"
+        className="relative py-28 overflow-hidden"
         style={{
           backgroundImage:
             "url(https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=1920)",
+
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -322,28 +324,28 @@ const About = () => {
               <motion.img
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                src="https://images.pexels.com/photos/1729808/pexels-photo-1729808.jpeg?auto=compress&cs=tinysrgb&w=500"
+                src="About/a2.jpg"
                 alt="Birthday celebration planning"
                 className="rounded-2xl shadow-2xl border-2 border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
               />
               <motion.img
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                src="https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=500"
+                src="About/a3.jpg"
                 alt="Baby shower celebration"
                 className="rounded-2xl shadow-2xl mt-12 border-2 border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
               />
               <motion.img
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                src="https://images.pexels.com/photos/1024960/pexels-photo-1024960.jpeg?auto=compress&cs=tinysrgb&w=500"
+                src="About/a4.jpg"
                 alt="Anniversary party setup"
                 className="rounded-2xl shadow-2xl -mt-12 border-2 border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
               />
               <motion.img
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                src="https://images.pexels.com/photos/6994991/pexels-photo-6994991.jpeg?auto=compress&cs=tinysrgb&w=500"
+                src="About/a1.jpg"
                 alt="Bridal celebration moments"
                 className="rounded-2xl shadow-2xl border-2 border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
               />
@@ -356,7 +358,7 @@ const About = () => {
         ref={sliderRef}
         className="py-24 bg-gradient-to-b from-gray-900 to-black"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             animate={sliderInView ? { y: 0, opacity: 1 } : {}}

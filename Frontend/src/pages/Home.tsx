@@ -44,7 +44,7 @@ const Home = () => {
   const services = [
     {
       name: "Birthday Party",
-      image: "/Hb/hbd1.jpg",
+      image: "/Hb/hbd8.jpg",
       description:
         "Magical birthday celebrations with custom themes, decorations, and entertainment",
     },
@@ -56,28 +56,24 @@ const Home = () => {
     },
     {
       name: "Anniversary Celebration",
-      image:
-        "https://images.pexels.com/photos/1024960/pexels-photo-1024960.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/WA/WA30.jpg",
       description:
         "Romantic anniversary celebrations honoring your love story and journey together",
     },
     {
       name: "Naming Ceremony",
-      image:
-        "https://images.pexels.com/photos/8088495/pexels-photo-8088495.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/Nc/nc30.jpg",
       description:
         "Sacred naming ceremonies blending tradition with modern celebration",
     },
     {
       name: "Bride-To-Be Party",
-      image:
-        "https://images.pexels.com/photos/6994991/pexels-photo-6994991.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/Br/br6.jpg",
       description: "Unforgettable bridal celebrations and bachelorette parties",
     },
     {
       name: "Office Inauguration",
-      image:
-        "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/Of/of5.jpg",
       description:
         "Professional office inaugurations and corporate milestone celebrations",
     },
@@ -328,14 +324,15 @@ const Home = () => {
             className="relative max-w-4xl mx-auto"
           >
             <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/Mwxufn7vvgU?rel=0"
-                title="Event Planning Showcase - Luxury Celebrations"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                allowFullScreen
-              ></iframe>
+              <video
+                className="absolute inset-0 w-full h-full object-cover"
+                src="/video/vid.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+              />
             </div>
           </motion.div>
         </div>

@@ -299,7 +299,8 @@ const Contact = () => {
         className="relative py-24 overflow-hidden"
         style={{
           backgroundImage:
-            "url(https://images.pexels.com/photos/1024967/pexels-photo-1024967.jpeg?auto=compress&cs=tinysrgb&w=1920)",
+            "url(https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=1920)",
+
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
