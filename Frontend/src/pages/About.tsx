@@ -235,10 +235,9 @@ const About = () => {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative py-28 overflow-hidden"
+        className="relative py-36 overflow-hidden"
         style={{
-          backgroundImage:
-            "url(https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=1920)",
+          backgroundImage: "url(/Top/a.jpg)",
 
           backgroundSize: "cover",
           backgroundPosition: "center",
