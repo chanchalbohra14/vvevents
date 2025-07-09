@@ -19,7 +19,7 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start space-x-2 sm:space-x-3 md:space-x-4 mb-3 sm:mb-4 md:mb-6">
               <img
-                src="/logo.jpg"
+                src="/LOGO/logo.jpg"
                 alt="Village Vacation"
                 className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full border-2 border-yellow-400"
               />

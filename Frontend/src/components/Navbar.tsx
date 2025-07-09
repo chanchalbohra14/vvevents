@@ -45,7 +45,7 @@ const Navbar = () => {
             className="flex items-center space-x-2 md:space-x-4 group"
           >
             <img
-              src="/logo.jpg"
+              src="/LOGO/logo.jpg"
               alt="Village Vacation"
               className="h-8 w-8 sm:h-10 sm:w-10 md:h-14 md:w-14 rounded-full border-2 border-yellow-400 shadow-lg group-hover:scale-110 transition-transform duration-300"
             />
