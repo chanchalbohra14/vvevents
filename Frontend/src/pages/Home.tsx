@@ -299,7 +299,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* YouTube Video Section */}
+      {/*  Video Section */}
       <section ref={videoRef} className="py-8 md:py-16 lg:py-24 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -326,7 +326,7 @@ const Home = () => {
             <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
               <video
                 className="absolute inset-0 w-full h-full object-cover"
-                src="/video/vid.mp4"
+                src="/video/main-video.mp4"
                 autoPlay
                 muted
                 loop
