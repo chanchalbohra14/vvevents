@@ -109,19 +109,27 @@ const Footer = () => {
                   size={16}
                   className="text-yellow-400 mt-1 flex-shrink-0"
                 />
-                <span className="text-gray-300 text-sm sm:text-base md:text-lg break-all">
+                <a
+                  href="tel:+919164619328"
+                  className="text-gray-300 text-sm sm:text-base md:text-lg break-all hover:text-yellow-400 transition-colors duration-200"
+                >
                   +91 9164619328
-                </span>
+                </a>
               </div>
+
               <div className="flex items-start justify-center md:justify-start space-x-2 sm:space-x-3 md:space-x-4">
                 <Mail
                   size={16}
                   className="text-yellow-400 mt-1 flex-shrink-0"
                 />
-                <span className="text-gray-300 text-sm sm:text-base md:text-lg break-all">
+                <a
+                  href="mailto:vvevents681@gmail.com"
+                  className="text-gray-300 text-sm sm:text-base md:text-lg break-all hover:text-yellow-400 transition-colors duration-200"
+                >
                   vvevents681@gmail.com
-                </span>
+                </a>
               </div>
+
               <div className="flex items-start justify-center md:justify-start space-x-2 sm:space-x-3 md:space-x-4">
                 <MapPin
                   size={16}

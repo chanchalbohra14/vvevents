@@ -375,7 +375,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-
       {/* Booking Form */}
       <section
         ref={formRef}
@@ -678,9 +677,28 @@ const Contact = () => {
                 <h3 className="text-2xl font-semibold text-white mb-4 font-playfair">
                   {info.title}
                 </h3>
-                <p className="text-gray-300 font-medium mb-2 text-lg">
-                  {info.details}
+
+                {/* ✅ Clickable phone and email */}
+                <p className="text-gray-300 font-medium mb-2 text-sm whitespace-nowrap overflow-hidden text-ellipsis text-center">
+                  {info.title === "Phone" ? (
+                    <a
+                      href={`tel:${info.details.replace(/\s+/g, "")}`}
+                      className="text-inherit hover:text-yellow-400 transition-colors duration-200"
+                    >
+                      {info.details}
+                    </a>
+                  ) : info.title === "Email" ? (
+                    <a
+                      href={`mailto:${info.details}`}
+                      className="text-inherit hover:text-yellow-400 transition-colors duration-200"
+                    >
+                      {info.details}
+                    </a>
+                  ) : (
+                    info.details
+                  )}
                 </p>
+
                 <p className="text-gray-400">{info.subtitle}</p>
               </motion.div>
             ))}
@@ -732,7 +750,6 @@ const Contact = () => {
           </p>
         </div>
       </section>
-
       <ToastContainer position="top-right" autoClose={3000} />
     </motion.div>
   );
