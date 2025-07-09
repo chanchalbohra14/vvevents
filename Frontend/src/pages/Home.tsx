@@ -44,36 +44,36 @@ const Home = () => {
   const services = [
     {
       name: "Birthday Party",
-      image: "/Hb/hbd8.jpg",
+      image: "/Hb/hbd.jpeg",
       description:
         "Magical birthday celebrations with custom themes, decorations, and entertainment",
     },
     {
       name: "Baby Shower Event",
-      image: "/Bs/bs1.jpg",
+      image: "/Bs/bs.jpeg",
       description:
         "Elegant baby shower celebrations welcoming your little bundle of joy",
     },
     {
       name: "Anniversary Celebration",
-      image: "/WA/WA30.jpg",
+      image: "/WA/WA.jpeg",
       description:
         "Romantic anniversary celebrations honoring your love story and journey together",
     },
     {
       name: "Naming Ceremony",
-      image: "/Nc/nc30.jpg",
+      image: "/Nc/nc.jpeg",
       description:
         "Sacred naming ceremonies blending tradition with modern celebration",
     },
     {
       name: "Bride-To-Be Party",
-      image: "/Br/br6.jpg",
+      image: "/Br/br.jpeg",
       description: "Unforgettable bridal celebrations and bachelorette parties",
     },
     {
       name: "Office Inauguration",
-      image: "/Of/of5.jpg",
+      image: "/Of/of.jpeg",
       description:
         "Professional office inaugurations and corporate milestone celebrations",
     },

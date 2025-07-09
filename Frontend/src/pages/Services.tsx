@@ -240,7 +240,7 @@ const services = [
   {
     id: 1,
     name: "Birthday Party",
-    image: "/Hb/hbd8.jpg",
+    image: "/Hb/hbd.jpeg",
     description:
       "Celebrate another year of life with joy, laughter, and unforgettable memories.",
     galleryPricing: birthdayGalleryPricing,
@@ -248,7 +248,7 @@ const services = [
   {
     id: 2,
     name: "Baby Shower Event",
-    image: "/Bs/bs1.jpg",
+    image: "/Bs/bs.jpeg",
     description:
       "Welcome the newest family member with a beautiful and memorable celebration.",
     galleryPricing: babyshowerGalleryPricing,
@@ -256,7 +256,7 @@ const services = [
   {
     id: 3,
     name: "Anniversary Celebration",
-    image: "/WA/WA30.jpg",
+    image: "/WA/WA.jpeg",
     description:
       "Honor your love story with an elegant celebration of your journey together.",
     galleryPricing: anniversaryGalleryPricing,
@@ -264,7 +264,7 @@ const services = [
   {
     id: 4,
     name: "Naming Ceremony",
-    image: "Nc/nc30.jpg",
+    image: "Nc/nc.jpeg",
     description:
       "Celebrate the blessing of your child's name with a sacred and joyful ceremony.",
     galleryPricing: namingGalleryPricing,
@@ -272,7 +272,7 @@ const services = [
   {
     id: 5,
     name: "Bride-To-Be Party",
-    image: "Br/br6.jpg",
+    image: "Br/br.jpeg",
     description:
       "Celebrate the bride-to-be with an unforgettable pre-wedding celebration.",
     galleryPricing: brideGalleryPricing,
@@ -280,7 +280,7 @@ const services = [
   {
     id: 6,
     name: "Office Inauguration",
-    image: "Of/of5.jpg",
+    image: "Of/of.jpeg",
     description:
       "Mark your business milestone with a professional and memorable inauguration.",
     galleryPricing: officeGalleryPricing,
@@ -295,7 +295,7 @@ const services = [
   {
     id: 8,
     name: "Retirement Party",
-    image: "Rt/rt1.jpg",
+    image: "Rt/rt.jpeg",
     description:
       "Honor a lifetime of dedication with a memorable retirement celebration.",
     galleryPricing: retirementGalleryPricing,
@@ -303,7 +303,7 @@ const services = [
   {
     id: 9,
     name: "Graduation Celebration",
-    image: "Gc/gc2.jpg",
+    image: "Gc/gc.jpeg",
     description: "Celebrate academic achievements with pride and joy.",
     galleryPricing: graduationGalleryPricing,
   },

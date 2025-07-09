@@ -145,7 +145,7 @@ const Footer = () => {
 
         <div className="border-t border-yellow-400/20 mt-6 sm:mt-8 md:mt-12 pt-4 sm:pt-6 md:pt-8 text-center">
           <p className="text-gray-400 text-sm sm:text-base md:text-lg flex flex-col sm:flex-row items-center justify-center">
-            <span>© 2025 vvevents.com - All rights reserved.</span>
+            <span>© 2025 vvevent.com - All rights reserved.</span>
           </p>
         </div>
       </div>
