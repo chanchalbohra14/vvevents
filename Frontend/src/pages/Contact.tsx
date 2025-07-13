@@ -61,9 +61,14 @@ const Contact = () => {
 
   useEffect(() => {
     if (selectedImageFromState) {
+      const baseURL =
+        import.meta.env.MODE === "development"
+          ? "https://www.vvevent.in" // ✅ Your actual domain
+          : window.location.origin;
+
       setFormData((prev) => ({
         ...prev,
-        image: selectedImageFromState, // ✅ sets image for EmailJS
+        image: `${baseURL}${selectedImageFromState}`, // 🔁 Now sends full URL like https://www.vvevent.in/Bs/bs3.jpg
       }));
     }
   }, [selectedImageFromState]);
@@ -80,23 +85,6 @@ const Contact = () => {
     "Graduation Celebration",
     "Other (Please specify in message)",
   ];
-
-  // const packages = [
-  //   "Essential Package (₹500 - ₹1,000)",
-  //   "Premium Package (₹1,000 - ₹2,500)",
-  //   "Luxury Package (₹2,500+)",
-  //   "Custom Package (Please specify in message)",
-  // ];
-
-  // const budgetRanges = [
-  //   "Under ₹1,000",
-  //   "₹1,000 - ₹2,500",
-  //   "₹2,500 - ₹5,000",
-  //   "₹5,000 - ₹10,000",
-  //   "₹10,000 - ₹25,000",
-  //   "₹25,000+",
-  //   "I need help determining budget",
-  // ];
 
   // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
