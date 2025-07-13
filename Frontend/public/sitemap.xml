@@ -4,22 +4,26 @@
 
   <url>
     <loc>https://www.vvevent.in/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2025-07-12</lastmod>
+    <priority>1.00</priority>
   </url>
+
   <url>
     <loc>https://www.vvevent.in/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2025-07-12</lastmod>
+    <priority>0.85</priority>
   </url>
+
   <url>
     <loc>https://www.vvevent.in/services</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2025-07-12</lastmod>
+    <priority>0.85</priority>
   </url>
+
   <url>
     <loc>https://www.vvevent.in/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2025-07-12</lastmod>
+    <priority>0.80</priority>
   </url>
+
 </urlset>
