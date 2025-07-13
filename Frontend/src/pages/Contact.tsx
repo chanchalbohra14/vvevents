@@ -63,12 +63,15 @@ const Contact = () => {
     if (selectedImageFromState) {
       const baseURL =
         import.meta.env.MODE === "development"
-          ? "https://www.vvevent.in" // ✅ Your actual domain
-          : window.location.origin;
+          ? "http://localhost:5173"
+          : "https://www.vvevent.in";
+
+      const fullImageURL = `${baseURL}${selectedImageFromState}`;
+      console.log("📸 Final image URL for email:", fullImageURL);
 
       setFormData((prev) => ({
         ...prev,
-        image: `${baseURL}${selectedImageFromState}`, // 🔁 Now sends full URL like https://www.vvevent.in/Bs/bs3.jpg
+        image: fullImageURL,
       }));
     }
   }, [selectedImageFromState]);
