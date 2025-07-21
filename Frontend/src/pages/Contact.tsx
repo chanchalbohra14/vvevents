@@ -725,7 +725,7 @@ const Contact = () => {
           >
             <img
               src="QR CODE/qr.jpeg" // 🔁 Replace with your actual image path
-              alt="Village Vacation UPI QR Code"
+              alt="vvevent UPI QR Code"
               className="w-64 h-64 object-contain"
             />
           </motion.div>

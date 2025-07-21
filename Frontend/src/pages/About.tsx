@@ -283,12 +283,11 @@ const About = () => {
               </h2>
               <div className="space-y-8 text-gray-300 text-lg leading-relaxed">
                 <p>
-                  Village Vacation began as a small dream in 2019 when our
-                  founder realized that every celebration deserves to be
-                  extraordinary. What started as organizing events for friends
-                  and family quickly grew into a passion for creating
-                  unforgettable experiences that touch hearts and create lasting
-                  memories.
+                  vvevent began as a small dream in 2019 when our founder
+                  realized that every celebration deserves to be extraordinary.
+                  What started as organizing events for friends and family
+                  quickly grew into a passion for creating unforgettable
+                  experiences that touch hearts and create lasting memories.
                 </p>
                 <p>
                   Today, we're a team of dedicated professionals who understand
