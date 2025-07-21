@@ -176,7 +176,7 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold mb-4 md:mb-6"
           >
-            <span className="gold-text font-playfair">Village Vacation</span>
+            <span className="gold-text font-playfair">vvevent</span>
           </motion.h1>
 
           <motion.p

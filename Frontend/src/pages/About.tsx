@@ -259,9 +259,9 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl md:text-2xl text-gray-200 leading-relaxed"
           >
-            Born from a passion for creating magical moments, Village Vacation
-            has been transforming ordinary celebrations into extraordinary
-            memories for over five years.
+            Born from a passion for creating magical moments, vvevent has been
+            transforming ordinary celebrations into extraordinary memories for
+            over five years.
           </motion.p>
         </div>
       </section>

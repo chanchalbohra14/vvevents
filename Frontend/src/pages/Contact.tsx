@@ -213,9 +213,9 @@ const Contact = () => {
             Booking <span className="gold-text">Confirmed!</span>
           </h1>
           <p className="text-xl text-gray-300 mb-12 leading-relaxed">
-            Thank you for choosing Village Vacation! We've received your booking
-            request and will contact you within 24 hours to discuss the details
-            of your special event.
+            Thank you for choosing vvevent! We've received your booking request
+            and will contact you within 24 hours to discuss the details of your
+            special event.
           </p>
           <div className="premium-card rounded-3xl p-8 mb-12">
             <h3 className="text-2xl font-semibold gold-text mb-6 font-playfair">

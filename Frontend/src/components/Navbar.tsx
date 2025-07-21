@@ -46,7 +46,7 @@ const Navbar = () => {
           >
             <img
               src="/LOGO/logo.jpg"
-              alt="Village Vacation"
+              alt="vvevent logo"
               className="h-8 w-8 sm:h-10 sm:w-10 md:h-14 md:w-14 rounded-full border border-yellow-400 shadow-lg group-hover:scale-110 transition-transform duration-300"
             />
 
