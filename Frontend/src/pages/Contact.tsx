@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { useInView } from "react-intersection-observer";
-import { Calendar, Send, CheckCircle } from "lucide-react";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import {
+  Calendar,
+  Send,
+  CheckCircle,
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+} from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const selectedServiceFromState = location.state?.selectedService || "";
   const selectedPriceFromState = location.state?.selectedPrice || "";
   const selectedImageFromState = location.state?.selectedImage || "";
-  const [showSelectedService, setShowSelectedService] = useState(true);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -39,42 +46,20 @@ const Contact = () => {
     triggerOnce: true,
   });
 
-  // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
 
-  useEffect(() => {
-    if (selectedServiceFromState) {
-      setFormData((prev) => ({
-        ...prev,
-        serviceType: selectedServiceFromState,
-      }));
-    }
-    if (selectedPriceFromState) {
-      setFormData((prev) => ({
-        ...prev,
-        amount: selectedPriceFromState,
-      }));
-    }
-  }, [selectedServiceFromState, selectedPriceFromState]);
-
-  useEffect(() => {
-    if (selectedImageFromState) {
-      const baseURL =
-        import.meta.env.MODE === "development"
-          ? "http://localhost:5173"
-          : "https://www.vvevent.in";
-
-      const fullImageURL = `${baseURL}${selectedImageFromState}`;
-      console.log("📸 Final image URL for email:", fullImageURL);
-
-      setFormData((prev) => ({
-        ...prev,
-        image: fullImageURL,
-      }));
-    }
-  }, [selectedImageFromState]);
+    setFormData((prev) => ({
+      ...prev,
+      serviceType: selectedServiceFromState,
+      amount: selectedPriceFromState,
+      image: selectedImageFromState || "",
+    }));
+  }, [
+    selectedServiceFromState,
+    selectedPriceFromState,
+    selectedImageFromState,
+  ]);
 
   const services = [
     "Birthday Party",
@@ -89,35 +74,19 @@ const Contact = () => {
     "Other (Please specify in message)",
   ];
 
-  // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
-
-  // Get date 1 year from now
   const oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
   const maxDate = oneYearFromNow.toISOString().split("T")[0];
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-
-  //   // Simulate form submission and email sending
-  //   await new Promise((resolve) => setTimeout(resolve, 3000));
-
-  //   setIsSubmitted(true);
-  //   setIsSubmitting(false);
-  // };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log("Image URL sent to EmailJS:", formData.image);
-    console.log("Location State:", location.state);
 
     try {
       await emailjs.send(
-        "service_va8hz7f", // Your EmailJS service ID
-        "template_w9ozm7n", // Your EmailJS template ID
+        import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID_ADMIN as string,
         {
           from_name: formData.name,
           from_email: formData.email,
@@ -129,36 +98,23 @@ const Contact = () => {
           message: formData.message,
           image_url: formData.image,
         },
-        "wr_OvmqmdjHbctepn" // Your EmailJS public key
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
       );
-      console.log(formData.image);
 
-      // Send confirmation to user
       await emailjs.send(
-        "service_va8hz7f", // Service ID
-        "template_krecbyj", // Template ID
+        import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID_CLIENT as string,
         {
-          from_name: formData.name, // ✅ Must be passed like this
-          user_email: formData.email, // Use `user_email` if your template uses that
+          from_name: formData.name,
+          user_email: formData.email,
           serviceType: formData.serviceType,
           eventDate: formData.eventDate,
         },
-        "wr_OvmqmdjHbctepn" // Public key
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
       );
 
       toast.success("Thank you for your message! We'll get back to you soon.");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        serviceType: "",
-        amount: "",
-        eventDate: "",
-        guestCount: "",
-        message: "",
-        image: "",
-      });
-      setShowSelectedService(false);
+      setIsSubmitted(true);
     } catch (error) {
       console.error("EmailJS error:", error);
       toast.error("Something went wrong. Please try again later.");
@@ -167,7 +123,11 @@ const Contact = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -184,11 +144,9 @@ const Contact = () => {
       eventDate: "",
       guestCount: "",
       message: "",
-      image: "", // also reset the image
+      image: "",
     });
-
-    // Clear URL state
-    window.history.replaceState({}, document.title); // removes location.state
+    window.history.replaceState({}, document.title, location.pathname);
     setIsSubmitted(false);
   };
 
@@ -290,7 +248,6 @@ const Contact = () => {
         className="relative py-28 overflow-hidden"
         style={{
           backgroundImage: "url(/Top/c.jpg)",
-
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -317,7 +274,7 @@ const Contact = () => {
           </motion.p>
           <div className="flex flex-col justify-center items-center gap-6 mt-6">
             {/* Selected Service Text */}
-            {selectedServiceFromState && showSelectedService && (
+            {selectedServiceFromState && (
               <motion.div
                 initial={{ y: 50, opacity: 0 }}
                 animate={heroInView ? { y: 0, opacity: 1 } : {}}
@@ -328,40 +285,23 @@ const Contact = () => {
               </motion.div>
             )}
 
-            {/* Only one image: formData.image has priority */}
-            {showSelectedService && (
-              <>
-                {formData.image ? (
-                  <motion.div
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={heroInView ? { y: 0, opacity: 1 } : {}}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                    className="text-center"
-                  >
-                    <h3 className="text-xl text-gray-300 mb-4 font-semibold font-playfair">
-                      Selected Decoration Style
-                    </h3>
-                    <img
-                      src={formData.image}
-                      alt="Selected Decoration"
-                      className="mx-auto rounded-2xl shadow-xl max-w-sm h-64 object-cover"
-                    />
-                  </motion.div>
-                ) : selectedImageFromState ? (
-                  <motion.div
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={heroInView ? { y: 0, opacity: 1 } : {}}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                    className="text-center"
-                  >
-                    <img
-                      src={selectedImageFromState}
-                      alt={selectedServiceFromState}
-                      className="mx-auto rounded-xl shadow-lg max-w-md object-cover"
-                    />
-                  </motion.div>
-                ) : null}
-              </>
+            {/* Display selected image if available */}
+            {selectedImageFromState && (
+              <motion.div
+                initial={{ y: 50, opacity: 0 }}
+                animate={heroInView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="text-center"
+              >
+                <h3 className="text-xl text-gray-300 mb-4 font-semibold font-playfair">
+                  Selected Decoration Style
+                </h3>
+                <img
+                  src={selectedImageFromState}
+                  alt="Selected Decoration"
+                  className="mx-auto rounded-2xl shadow-xl max-w-sm h-64 object-cover"
+                />
+              </motion.div>
             )}
           </div>
         </div>
@@ -502,35 +442,16 @@ const Contact = () => {
                     name="amount"
                     onChange={handleChange}
                     value={formData.amount}
-                    readOnly={!selectedPriceFromState}
+                    readOnly={!!selectedPriceFromState}
                     required
-                    className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
+                    className={`premium-input w-full px-6 py-4 rounded-xl text-white transition-all duration-300 ${
+                      selectedPriceFromState
+                        ? "cursor-not-allowed bg-gray-800"
+                        : ""
+                    }`}
                     placeholder="Amount"
                   />
                 </div>
-                {/* <div>
-                  
-                  <label
-                    htmlFor="selectedPackage"
-                    className="block text-lg font-medium text-gray-300 mb-3"
-                  >
-                    Select Package
-                  </label>
-                  <select
-                    id="selectedPackage"
-                    name="selectedPackage"
-                    value={formData.selectedPackage}
-                    onChange={handleChange}
-                    className="premium-input w-full px-6 py-4 rounded-xl text-white transition-all duration-300"
-                  >
-                    <option value="">Select a package</option>
-                    {packages.map((pkg) => (
-                      <option key={pkg} value={pkg} className="bg-gray-800">
-                        {pkg}
-                      </option>
-                    ))}
-                  </select>
-                </div> */}
                 <div>
                   <label
                     htmlFor="eventDate"
@@ -569,34 +490,12 @@ const Contact = () => {
                     name="guestCount"
                     value={formData.guestCount}
                     onChange={handleChange}
+                    onWheel={(e) => e.currentTarget.blur()}
                     min="1"
                     className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
                     placeholder="Number of guests"
                   />
                 </div>
-
-                {/* <div className="md:col-span-2">
-                  <label
-                    htmlFor="budget"
-                    className="block text-lg font-medium text-gray-300 mb-3"
-                  >
-                    Budget Range
-                  </label>
-                  <select
-                    id="budget"
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="premium-input w-full px-6 py-4 rounded-xl text-white transition-all duration-300"
-                  >
-                    <option value="">Select budget range</option>
-                    {budgetRanges.map((range) => (
-                      <option key={range} value={range} className="bg-gray-800">
-                        {range}
-                      </option>
-                    ))}
-                  </select>
-                </div> */}
               </div>
             </div>
 
@@ -668,8 +567,6 @@ const Contact = () => {
                 <h3 className="text-2xl font-semibold text-white mb-4 font-playfair">
                   {info.title}
                 </h3>
-
-                {/* ✅ Clickable phone and email */}
                 <p className="text-gray-300 font-medium mb-2 text-sm whitespace-nowrap overflow-hidden text-ellipsis text-center">
                   {info.title === "Phone" ? (
                     <a
@@ -689,7 +586,6 @@ const Contact = () => {
                     info.details
                   )}
                 </p>
-
                 <p className="text-gray-400">{info.subtitle}</p>
               </motion.div>
             ))}
@@ -716,7 +612,6 @@ const Contact = () => {
             Scan the UPI QR code below to make your payment and confirm your
             booking.
           </motion.p>
-
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -724,12 +619,11 @@ const Contact = () => {
             className="inline-block rounded-2xl overflow-hidden border-4 border-yellow-400 shadow-2xl"
           >
             <img
-              src="QR CODE/qr.jpeg" // 🔁 Replace with your actual image path
+              src="QR CODE/qr.jpeg"
               alt="vvevent UPI QR Code"
               className="w-64 h-64 object-contain"
             />
           </motion.div>
-
           <p className="text-gray-400 mt-6 text-lg">
             UPI ID:{" "}
             <span className="text-yellow-300 font-semibold">

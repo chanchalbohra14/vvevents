@@ -31,6 +31,16 @@
   opacity: 0.8;
 }
 
+.swiper-pagination-bullet {
+  background-color: white !important; /* Makes inactive dots white */
+  opacity: 0.5 !important; /* Makes inactive dots slightly transparent */
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ffd700 !important; /* Keeps the active dot gold */
+  opacity: 1 !important; /* Makes the active dot fully visible */
+}
+
 @layer components {
   .gold-gradient {
     background: linear-gradient(135deg, #ffd700 0%, #ffa500 50%, #ff8c00 100%);
@@ -41,6 +51,8 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    /* i have added the below line */
+    color: transparent;
   }
 
   .premium-card {
@@ -126,6 +138,102 @@
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #ffa500, #ff8c00);
 }
+
+/* i have added the below class to hide scrollbar when needed */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Scrollbar Styles (optional, but recommended for a premium feel) */
+.horizontal-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #ffd700; /* gold color */
+  border-radius: 10px;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar-track {
+  background-color: #333;
+  border-radius: 10px;
+}
+
+/* Horizontal Gallery Styles */
+.horizontal-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem; /* Equivalent to gap-6 */
+  padding-bottom: 2rem;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+.horizontal-gallery-card {
+  flex-shrink: 0;
+  width: 18rem; /* Equivalent to w-72 or custom size */
+  height: 18rem; /* Equivalent to h-90 or custom size */
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem; /* Equivalent to rounded-xl */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  scroll-snap-align: start;
+}
+
+.horizontal-gallery-card:hover {
+  transform: scale(1.05);
+}
+
+.horizontal-gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.horizontal-gallery-card:hover img {
+  transform: scale(1.1);
+}
+
+.view-all-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(255, 215, 0, 0.5),
+    rgba(255, 215, 0, 0.1)
+  );
+  border: 2px solid #ffd700;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.view-all-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+  height: 2px;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar-thumb {
+  /* This is the new, more subtle color */
+  background-color: rgba(255, 215, 0, 0.4); /* Subtle gold with 40% opacity */
+  border-radius: 10px;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar-track {
+  background-color: #333;
+  border-radius: 10px;
+}
+/* i have added till here  */
 
 /* Smooth animations */
 * {
