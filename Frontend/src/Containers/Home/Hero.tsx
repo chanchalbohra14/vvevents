@@ -8,7 +8,6 @@ import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
-// import "./styles/App.css";
 
 interface HeroSliderProps {
   heroInView: boolean;
@@ -16,51 +15,17 @@ interface HeroSliderProps {
 
 interface Slide {
   image: string;
-  title: string;
-  tagline: string;
-  description: string;
 }
 
 const heroSlides: Slide[] = [
-  {
-    image: "/Hero/hero4.jpg", // Grand opening
-    title: "Grand Openings",
-    tagline: "Start Strong, Shine Bright",
-    description:
-      "Mark the beginning of your business journey with a standout event. We bring flair, excitement, and professionalism to every grand opening.",
-  },
-  {
-    image: "/Hero/hero2.jpg", // Bride-to-be
-    title: "Bride To Be",
-    tagline: "Celebrating the Journey to ‘I Do’",
-    description:
-      "From dreamy bridal showers to unforgettable bachelorette parties, we craft every detail to honor the bride-to-be in style and joy.",
-  },
-  {
-    image: "/Hero/hero1.jpg", // Wedding
-    title: "Elegant Weddings",
-    tagline: "Your Love Story, Beautifully Crafted",
-    description:
-      "We design and execute flawless weddings that reflect your unique style and vision. Let us handle every detail while you cherish every moment.",
-  },
-  {
-    image: "/Hero/hero3.jpg", // Baby shower
-    title: "Baby Showers",
-    tagline: "Welcoming New Life with Love",
-    description:
-      "Celebrate the arrival of your little one with a heartwarming baby shower. We create moments filled with love, laughter, and lasting memories.",
-  },
-
-  {
-    image: "/Hero/hero5.jpg", // Graduation
-    title: "Graduation Celebrations",
-    tagline: "Honoring Achievements, Embracing Futures",
-    description:
-      "Celebrate academic milestones with a touch of class. Our graduation events are designed to reflect pride, accomplishment, and new beginnings.",
-  },
+  { image: "/Hero/hero4.jpg" },
+  { image: "/Hero/hero2.jpg" },
+  { image: "/Hero/hero1.jpg" },
+  { image: "/Hero/hero3.jpg" },
+  { image: "/Hero/hero5.jpg" },
 ];
 
-const Hero: React.FC<HeroSliderProps> = ({ heroInView }) => {
+const Hero: React.FC<HeroSliderProps> = () => {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <Swiper
@@ -79,59 +44,32 @@ const Hero: React.FC<HeroSliderProps> = ({ heroInView }) => {
         className="w-full h-full absolute inset-0"
       >
         {heroSlides.map((slide, index) => (
-          <SwiperSlide key={index} className="relative w-full h-full">
-            {/* Background Image and Overlay */}
+          <SwiperSlide key={index} className="relative w-full h-full py-5">
+            {/* Background Image */}
             <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-in-out"
-              style={{ backgroundImage: `url(${slide?.image})` }}
+              className="absolute inset-1 bg-cover bg-center transition-transform duration-1000 ease-in-out"
+              style={{ backgroundImage: `url(${slide.image})` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+            <div className="absolute inset-1 bg-gradient-to-b from-black/10 via-black/20 to-black/30" />
 
-            {/* Content for the slide */}
-            <div className="relative z-10 text-center max-w-6xl mx-auto px-4 hero-content w-full h-full flex flex-col justify-center items-center">
-              <motion.h1
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold mb-4 md:mb-6"
-              >
-                <span className="gold-text font-playfair">{slide?.title}</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-base sm:text-lg md:text-xl lg:text-3xl text-gray-200 mb-3 md:mb-4 leading-relaxed font-light"
-              >
-                {slide?.tagline}
-              </motion.p>
-
-              <motion.p
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-6 md:mb-12 leading-relaxed max-w-4xl mx-auto"
-              >
-                {slide?.description}
-              </motion.p>
-
+            {/* Bottom Buttons */}
+            <div className="absolute bottom-6 sm:bottom-24 left-0 right-0 z-10 flex justify-center px-4">
               <motion.div
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 1 }}
-                className="flex flex-col sm:flex-row gap-3 md:gap-6 justify-center items-center"
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="flex flex-row flex-wrap justify-center gap-2 sm:gap-4"
               >
                 <Link
                   to="/services"
-                  className="premium-button inline-flex items-center justify-center px-4 sm:px-6 md:px-10 py-3 md:py-4 rounded-full text-sm sm:text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl w-full sm:w-auto"
+                  className="premium-button inline-flex items-center justify-center px-2 py-1 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full text-[10px] sm:text-xs md:text-base font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl text-black bg-white"
                 >
                   Explore Services
-                  <ArrowRight className="ml-2 md:ml-3" size={16} />
+                  <ArrowRight className="ml-1 sm:ml-2 md:ml-3" size={10} />
                 </Link>
                 <Link
                   to="/contact"
-                  className="inline-flex items-center justify-center px-4 sm:px-6 md:px-10 py-3 md:py-4 border-2 border-yellow-400 text-yellow-400 font-semibold rounded-full hover:bg-yellow-400 hover:text-black transition-all duration-300 text-sm sm:text-base md:text-lg hover:scale-105 hover:shadow-xl w-full sm:w-auto"
+                  className="inline-flex items-center justify-center px-2 py-1 sm:px-4 sm:py-2 md:px-6 md:py-3 border-2 border-yellow-400 text-yellow-400 font-semibold rounded-full hover:bg-yellow-400 hover:text-black transition-all duration-300 text-[10px] sm:text-xs md:text-base hover:scale-105 hover:shadow-xl"
                 >
                   Book Consultation
                 </Link>
@@ -141,7 +79,7 @@ const Hero: React.FC<HeroSliderProps> = ({ heroInView }) => {
         ))}
       </Swiper>
 
-      {/* This div is for the floating, animated gold circles. It remains outside the Swiper to appear on top of all slides. */}
+      {/* Floating animated gold circles */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}

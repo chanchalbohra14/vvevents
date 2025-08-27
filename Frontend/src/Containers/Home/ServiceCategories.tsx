@@ -114,28 +114,30 @@ const ServiceCategories: React.FC<ServiceCategoriesProps> = ({
 
         {/* Mobile Grid Layout - 3 columns, 2 rows (6 categories) */}
         <div className="md:hidden">
-          <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
+          <div className="grid grid-cols-3 gap-5 max-w-sm mx-auto px-2 sm:px-0">
             {displayedServices.map((service, index) => (
               <motion.div
                 key={service.name || index}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={servicesInView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="text-center"
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="flex flex-col items-center text-center"
               >
                 <Link
                   to={`/services/${createSlug(service.name)}`}
-                  className="w-20 h-20 xs:w-24 xs:h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden premium-card inline-block transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer relative group"
+                  aria-label={`View details for ${service.name}`}
+                  className="w-24 h-24 sm:w-28 sm:h-28 aspect-square rounded-full overflow-hidden bg-black/10 shadow-md premium-card inline-block transition-transform duration-300 hover:scale-105 hover:shadow-lg relative group"
                 >
                   <img
-                    src={service.image || "/placeholder.jpg"}
+                    src={service.image || "/Br/br3.jpg"}
                     alt={service.name || "Service image"}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    // className="w-full h-full object-cover rounded-full transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover rounded-full scale-[1.15] transition-transform duration-700 group-hover:scale-[1.25]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 group-hover:opacity-0" />
                 </Link>
-                <p className="text-xs sm:text-sm font-semibold text-white mt-0 sm:mt-2 font-inter">
-                  {service.name}
+                <p className="text-[11px] sm:text-sm font-semibold text-white mt-2 font-inter leading-tight line-clamp-2">
+                  {service?.name}
                 </p>
               </motion.div>
             ))}

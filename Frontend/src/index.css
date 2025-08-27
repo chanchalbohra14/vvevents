@@ -748,7 +748,7 @@
     grid-template-columns: repeat(3, 1fr) !important;
   }
   .min-h-screen {
-    min-height: 70vh;
+    min-height: 50vh;
   }
   .horizontal-gallery-card {
     width: 6rem; /* Equivalent to w-72 or custom size */
@@ -905,5 +905,14 @@
   .pulse,
   .animated-gradient {
     animation: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  button,
+  .premium-button,
+  .cursor-pointer {
+    min-height: 20px !important;
+    min-width: 20px !important;
   }
 }
