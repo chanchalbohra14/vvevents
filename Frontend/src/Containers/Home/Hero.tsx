@@ -23,36 +23,40 @@ interface Slide {
 
 const heroSlides: Slide[] = [
   {
-    image:
-      "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    title: "Village Vacation",
-    tagline: "Premium Event Planning & Celebration Services",
+    image: "/Hero/hero4.jpg", // Grand opening
+    title: "Grand Openings",
+    tagline: "Start Strong, Shine Bright",
     description:
-      "Creating unforgettable moments for your most precious celebrations. From intimate gatherings to grand festivities, we bring your dreams to life with elegance and sophistication.",
+      "Mark the beginning of your business journey with a standout event. We bring flair, excitement, and professionalism to every grand opening.",
   },
   {
-    image:
-      "https://images.pexels.com/photos/1578351/pexels-photo-1578351.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    image: "/Hero/hero2.jpg", // Bride-to-be
+    title: "Bride To Be",
+    tagline: "Celebrating the Journey to ‘I Do’",
+    description:
+      "From dreamy bridal showers to unforgettable bachelorette parties, we craft every detail to honor the bride-to-be in style and joy.",
+  },
+  {
+    image: "/Hero/hero1.jpg", // Wedding
     title: "Elegant Weddings",
     tagline: "Your Love Story, Beautifully Crafted",
     description:
       "We design and execute flawless weddings that reflect your unique style and vision. Let us handle every detail while you cherish every moment.",
   },
   {
-    image:
-      "https://images.pexels.com/photos/976866/pexels-photo-976866.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    title: "Corporate Events",
-    tagline: "Professionalism Meets Perfection",
+    image: "/Hero/hero3.jpg", // Baby shower
+    title: "Baby Showers",
+    tagline: "Welcoming New Life with Love",
     description:
-      "Elevate your corporate gatherings with our expert planning services. We ensure your event is a resounding success, from conferences to gala dinners.",
+      "Celebrate the arrival of your little one with a heartwarming baby shower. We create moments filled with love, laughter, and lasting memories.",
   },
+
   {
-    image:
-      "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    title: "Memorable Milestones",
-    tagline: "Celebrate Every Chapter",
+    image: "/Hero/hero5.jpg", // Graduation
+    title: "Graduation Celebrations",
+    tagline: "Honoring Achievements, Embracing Futures",
     description:
-      "From birthdays to anniversaries, we turn every special occasion into a cherished memory. Personalized planning for your unique journey.",
+      "Celebrate academic milestones with a touch of class. Our graduation events are designed to reflect pride, accomplishment, and new beginnings.",
   },
 ];
 
@@ -79,7 +83,7 @@ const Hero: React.FC<HeroSliderProps> = ({ heroInView }) => {
             {/* Background Image and Overlay */}
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-in-out"
-              style={{ backgroundImage: `url(${slide.image})` }}
+              style={{ backgroundImage: `url(${slide?.image})` }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
 
@@ -91,7 +95,7 @@ const Hero: React.FC<HeroSliderProps> = ({ heroInView }) => {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold mb-4 md:mb-6"
               >
-                <span className="gold-text font-playfair">{slide.title}</span>
+                <span className="gold-text font-playfair">{slide?.title}</span>
               </motion.h1>
 
               <motion.p
@@ -100,7 +104,7 @@ const Hero: React.FC<HeroSliderProps> = ({ heroInView }) => {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="text-base sm:text-lg md:text-xl lg:text-3xl text-gray-200 mb-3 md:mb-4 leading-relaxed font-light"
               >
-                {slide.tagline}
+                {slide?.tagline}
               </motion.p>
 
               <motion.p
@@ -109,7 +113,7 @@ const Hero: React.FC<HeroSliderProps> = ({ heroInView }) => {
                 transition={{ duration: 0.8, delay: 0.8 }}
                 className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-6 md:mb-12 leading-relaxed max-w-4xl mx-auto"
               >
-                {slide.description}
+                {slide?.description}
               </motion.p>
 
               <motion.div

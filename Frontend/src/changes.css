@@ -1,0 +1,28 @@
+.text-sm {
+  font-size: 0.6rem;
+  line-height: 1.25rem;
+}
+
+.horizontal-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding-bottom: 2rem;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Inter, serif;
+}
+
+.min-h-screen {
+  min-height: 70vh;
+}
+
+

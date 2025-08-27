@@ -171,6 +171,7 @@
   padding-bottom: 2rem;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
+  overflow-y: hidden;
 }
 
 .horizontal-gallery-card {
@@ -288,6 +289,7 @@
 }
 
 /* Laptop/Desktop responsive improvements (1024px and up) */
+/* media query for laptop */
 @media (min-width: 1024px) {
   /* Ensure proper spacing for large screens */
   .max-w-7xl {
@@ -350,15 +352,8 @@
   }
 }
 
-/* Tablet responsive improvements (768px to 1023px) - Keep existing perfect layout */
-@media (min-width: 768px) and (max-width: 1023px) {
-  /* Maintain tablet layout as is - it's already perfect */
-  .tablet-optimized {
-    /* Tablet-specific optimizations if needed */
-  }
-}
-
 /* Mobile responsive improvements (up to 767px) */
+/* media query for tablets */
 @media (max-width: 767px) {
   /* Typography adjustments for mobile */
   h1,
@@ -701,6 +696,7 @@
 }
 
 /* Extra small mobile devices (up to 480px) */
+/* media query for mobile */
 @media (max-width: 480px) {
   .px-4 {
     padding-left: 0.75rem !important;
@@ -750,6 +746,13 @@
 
   .about-thumbnail-grid {
     grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .min-h-screen {
+    min-height: 70vh;
+  }
+  .horizontal-gallery-card {
+    width: 6rem; /* Equivalent to w-72 or custom size */
+    height: 8rem; /* Equivalent to h-90 or custom size */
   }
 }
 

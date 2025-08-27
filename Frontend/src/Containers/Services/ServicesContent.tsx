@@ -5,9 +5,13 @@ import HorizontalGallery from "./HorizontalGallery";
 
 interface ServicesContentProps {
   onBookService: (serviceName: string, price: string, imageUrl: string) => void;
+  showDescriptions?: boolean; // New prop to control description visibility
 }
 
-const ServicesContent: React.FC<ServicesContentProps> = ({ onBookService }) => {
+const ServicesContent: React.FC<ServicesContentProps> = ({
+  onBookService,
+  showDescriptions = false, // Default to false (hide descriptions)
+}) => {
   return (
     <section className="py-12 md:py-24 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,7 +35,7 @@ const ServicesContent: React.FC<ServicesContentProps> = ({ onBookService }) => {
         <HorizontalGallery
           key={service.id}
           name={service.name}
-          description={service.description}
+          description={showDescriptions ? service.description : undefined}
           galleryPricing={service.galleryPricing}
           onBookService={onBookService}
         />

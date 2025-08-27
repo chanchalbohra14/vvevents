@@ -11,7 +11,7 @@ interface GalleryItem {
 
 interface HorizontalGalleryProps {
   name: string;
-  description: string;
+  description?: string; // Made optional
   galleryPricing: GalleryItem[];
   // Add the new prop
   onBookService: (serviceName: string, price: string, imageUrl: string) => void;
@@ -31,7 +31,10 @@ const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
             <h3 className="text-4xl md:text-5xl font-bold font-playfair mb-2 gold-text">
               {name}
             </h3>
-            <p className="text-xl text-gray-300 max-w-2xl">{description}</p>
+            {/* Conditionally render description only if it exists */}
+            {description && (
+              <p className="text-xl text-gray-300 max-w-2xl">{description}</p>
+            )}
           </div>
           <Link
             to={`/services/${createSlug(name)}`}

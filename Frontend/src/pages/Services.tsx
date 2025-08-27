@@ -133,7 +133,10 @@ const Services = () => {
       {selectedService ? (
         <ServiceGallery service={selectedService} />
       ) : (
-        <ServicesContent onBookService={handleBookService} />
+        <ServicesContent
+          onBookService={handleBookService}
+          showDescriptions={true}
+        />
       )}
 
       <section className="py-24 bg-gradient-to-b from-gray-900 to-black">

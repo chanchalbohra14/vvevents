@@ -17,11 +17,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
   const location = useLocation();
+  // const navigate = useNavigate();
   const selectedServiceFromState = location.state?.selectedService || "";
   const selectedPriceFromState = location.state?.selectedPrice || "";
   const selectedImageFromState = location.state?.selectedImage || "";
-
-  // const [showSelectedService, setShowSelectedService] = useState(true);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -80,60 +79,14 @@ const Contact = () => {
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
   const maxDate = oneYearFromNow.toISOString().split("T")[0];
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-
-  //   try {
-  //     await emailjs.send(
-  //       import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
-  //       import.meta.env.VITE_EMAILJS_TEMPLATE_ID_ADMIN as string,
-  //       {
-  //         from_name: formData.name,
-  //         from_email: formData.email,
-  //         phone: formData.phone,
-  //         serviceType: formData.serviceType,
-  //         amount: formData.amount,
-  //         eventDate: formData.eventDate,
-  //         guestCount: formData.guestCount,
-  //         message: formData.message,
-  //         image_url: formData.image,
-  //       },
-  //       import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
-  //     );
-
-  //     await emailjs.send(
-  //       import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
-  //       import.meta.env.VITE_EMAILJS_TEMPLATE_ID_CLIENT as string,
-  //       {
-  //         from_name: formData.name,
-  //         user_email: formData.email,
-  //         serviceType: formData.serviceType,
-  //         eventDate: formData.eventDate,
-  //       },
-  //       import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
-  //     );
-
-  //     toast.success("Thank you for your message! We'll get back to you soon.");
-  //     setIsSubmitted(true);
-  //   } catch (error) {
-  //     console.error("EmailJS error:", error);
-  //     toast.error("Something went wrong. Please try again later.");
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // console.log("Image URL sent to EmailJS:", formData.image);
-    // console.log("Location State:", location.state);
 
     try {
       await emailjs.send(
-        "service_va8hz7f", // Your EmailJS service ID
-        "template_w9ozm7n", // Your EmailJS template ID
+        import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID_ADMIN as string,
         {
           from_name: formData.name,
           from_email: formData.email,
@@ -145,36 +98,23 @@ const Contact = () => {
           message: formData.message,
           image_url: formData.image,
         },
-        "wr_OvmqmdjHbctepn" // Your EmailJS public key
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
       );
-      // console.log(formData.image);
 
-      // Send confirmation to user
       await emailjs.send(
-        "service_va8hz7f", // Service ID
-        "template_krecbyj", // Template ID
+        import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID_CLIENT as string,
         {
-          from_name: formData.name, // ✅ Must be passed like this
-          user_email: formData.email, // Use `user_email` if your template uses that
+          from_name: formData.name,
+          user_email: formData.email,
           serviceType: formData.serviceType,
           eventDate: formData.eventDate,
         },
-        "wr_OvmqmdjHbctepn" // Public key
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
       );
 
       toast.success("Thank you for your message! We'll get back to you soon.");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        serviceType: "",
-        amount: "",
-        eventDate: "",
-        guestCount: "",
-        message: "",
-        image: "",
-      });
-      // setShowSelectedService(false);
+      setIsSubmitted(true);
     } catch (error) {
       console.error("EmailJS error:", error);
       toast.error("Something went wrong. Please try again later.");
