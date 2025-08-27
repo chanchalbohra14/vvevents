@@ -86,18 +86,6 @@ const Hero: React.FC<HeroSliderProps> = () => {
             />
             <div className="absolute inset-1 bg-gradient-to-b from-black/10 via-black/20 to-black/30" />
 
-            {/* Title Overlay */}
-            <motion.h1
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="absolute inset-0 z-10 flex items-center justify-center text-center px-6 py-4 text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold mb-4 md:mb-6"
-            >
-              <span className="gold-text font-playfair py-3">
-                {slide?.title}
-              </span>
-            </motion.h1>
-
             {/* Bottom Buttons */}
             <div className="absolute bottom-6 sm:bottom-24 left-0 right-0 z-10 flex justify-center px-4">
               <motion.div

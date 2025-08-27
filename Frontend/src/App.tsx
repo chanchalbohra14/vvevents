@@ -8,12 +8,16 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
+import MobileBottomNav from "./components/MobileBottomNav";
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-black text-white">
-        <Navbar />
+        <div className="hidden md:block">
+          <Navbar />
+        </div>
+        {/* <Navbar /> */}
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -24,6 +28,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </AnimatePresence>
+        {/* 👇 Bottom Nav for Mobile */}
+        <MobileBottomNav />
         <Footer />
         <ScrollToTop />
       </div>

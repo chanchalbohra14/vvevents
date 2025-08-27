@@ -126,7 +126,8 @@ const ServiceCategories: React.FC<ServiceCategoriesProps> = ({
                 <Link
                   to={`/services/${createSlug(service.name)}`}
                   aria-label={`View details for ${service.name}`}
-                  className="w-24 h-24 sm:w-28 sm:h-28 aspect-square rounded-full overflow-hidden bg-black/10 shadow-md premium-card inline-block transition-transform duration-300 hover:scale-105 hover:shadow-lg relative group"
+                  // className="w-24 h-24 sm:w-28 sm:h-28 aspect-square rounded-full overflow-hidden bg-black/10 shadow-md premium-card inline-block transition-transform duration-300 hover:scale-105 hover:shadow-lg relative group"
+                  className="w-24 h-24 sm:w-28 sm:h-28 aspect-square rounded-full overflow-hidden bg-black/10 shadow-md premium-card inline-block transition-transform duration-300 hover:scale-105 hover:shadow-lg relative group border-2 sm:border-[3px] border-yellow-400/20"
                 >
                   <img
                     src={service.image || "/Br/br3.jpg"}

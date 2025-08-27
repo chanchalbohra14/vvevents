@@ -748,7 +748,7 @@
     grid-template-columns: repeat(3, 1fr) !important;
   }
   .min-h-screen {
-    min-height: 50vh;
+    min-height: 30vh;
   }
   .horizontal-gallery-card {
     width: 6rem; /* Equivalent to w-72 or custom size */
@@ -909,10 +909,12 @@
 }
 
 @media (max-width: 480px) {
-  button,
   .premium-button,
   .cursor-pointer {
-    min-height: 20px !important;
+    /* smaller visible size */
+    min-height: 20px !important; /* still accessible for touch */
     min-width: 20px !important;
+    font-size: 8px !important;
+    font-weight: 600 !important;
   }
 }
