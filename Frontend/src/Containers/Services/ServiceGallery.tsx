@@ -126,7 +126,7 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
               </div>
               <button
                 onClick={() => setSelectedImageIdx(undefined)}
-                className="absolute top-6 right-6 p-3 bg-black/70 rounded-full text-white hover:bg-black/90 transition-colors border border-yellow-400/30 hover:scale-110 transition-transform duration-300"
+                className="absolute top-6 right-6 p-3 bg-black/70 rounded-full text-white hover:bg-black/90 border border-yellow-400/30 hover:scale-110 transition-transform duration-300"
               >
                 <X size={24} />
               </button>
