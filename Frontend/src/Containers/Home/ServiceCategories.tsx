@@ -47,7 +47,7 @@ const ServiceCategories: React.FC<ServiceCategoriesProps> = ({
   return (
     <section className="py-8 md:py-16 lg:py-24 bg-black">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        {/* <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={servicesInView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
@@ -61,7 +61,7 @@ const ServiceCategories: React.FC<ServiceCategoriesProps> = ({
             your life. Each service is tailored to your unique vision and
             executed with premium attention to detail.
           </p>
-        </motion.div>
+        </motion.div> */}
 
         {/* Desktop Horizontal Scroll Layout - Show All Categories */}
         <div className="hidden md:block relative">
@@ -137,7 +137,7 @@ const ServiceCategories: React.FC<ServiceCategoriesProps> = ({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 group-hover:opacity-0" />
                 </Link>
-                <p className="text-[11px] sm:text-sm font-semibold text-white mt-2 font-inter leading-tight line-clamp-2">
+                <p className="text-[11px] sm:text-sm font-semibold text-white font-inter leading-tight line-clamp-2">
                   {service?.name}
                 </p>
               </motion.div>

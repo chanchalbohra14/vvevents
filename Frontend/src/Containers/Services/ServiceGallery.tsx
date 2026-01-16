@@ -44,7 +44,7 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
             {service.galleryPricing.map((item, idx) => (
               <div
                 key={idx}
@@ -60,10 +60,15 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
                     transition={{ type: "spring", stiffness: 300, damping: 24 }}
                   />
                 </div>
-                {service.name !== "House Warming Ceremony" && (
-                  <div className="text-center text-yellow-400 text-base font-semibold py-3 bg-black">
+
+                {/* Price Tag - Fixed height to keep grid items aligned */}
+                {service.name !== "House Warming Ceremony" ? (
+                  <div className="text-center text-yellow-400 text-sm md:text-base font-semibold py-3 bg-black">
                     {item.price}
                   </div>
+                ) : (
+                  /* Empty space to maintain alignment if price is hidden */
+                  <div className="py-3 bg-black md:block hidden"></div>
                 )}
               </div>
             ))}
@@ -105,8 +110,13 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
                   <p className="text-gray-300 mb-4">
                     {service.name === "House Warming Ceremony"
                       ? "Each light length costs ₹500, and the number of lengths required depends on the size of the house."
-                      : "Experience this special moment with our premium service option."}
+                      : " "}
                   </p>
+                  {/* <p className="text-gray-300 mb-4">
+                    {service.name === "House Warming Ceremony"
+                      ? "Each light length costs ₹500, and the number of lengths required depends on the size of the house."
+                      : "Experience this special moment with our premium service option."}
+                  </p> */}
                   <div className="text-lg font-semibold gold-text mb-6">
                     {service.galleryPricing[selectedImageIdx].price}
                   </div>

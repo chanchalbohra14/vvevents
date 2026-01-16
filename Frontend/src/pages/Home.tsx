@@ -86,7 +86,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* This is the correct way to include the services section */}
-      <ServicesContent onBookService={handleBookService} />
+      {/* <ServicesContent onBookService={handleBookService} /> */}
 
       <div ref={videoRef}>
         <EventVideo videoInView={videoInView} />
