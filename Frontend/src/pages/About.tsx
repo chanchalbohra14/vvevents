@@ -79,7 +79,7 @@ const About = () => {
         "Professional milestone celebrations that make lasting impressions",
     },
     {
-      src: "Nc/nc30.jpg",
+      src: "Cr/cr3.jpg",
       alt: "Traditional naming ceremony with family gathering",
       caption: "Naming Ceremonies",
       description:

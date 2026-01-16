@@ -1,11 +1,9 @@
-// src/components/ServiceGallery.tsx
-
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { X } from "lucide-react";
-import { Service } from "./Data"; // Note: This import path might be incorrect. It should likely be from "../data/servicesData" as per previous instructions.
-
+import { X, CheckCircle2 } from "lucide-react";
+// import { Service } from "../Containers/Services/Data";
+import { Service } from "./Data";
 interface ServiceGalleryProps {
   service: Service;
 }
@@ -16,7 +14,6 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
   );
   const navigate = useNavigate();
 
-  // Corrected function with explicit type annotations
   const handleBookService = (
     serviceName: string,
     price: string,
@@ -33,44 +30,58 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
 
   return (
     <>
-      <section className="py-24 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-bold mb-8 font-playfair">
-              {service.name} <span className="gold-text">Designs</span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              {service.description}
-            </p>
+      <section className="py-16 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          {/* Header Section - Reduced Margins */}
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 font-playfair tracking-tight text-white">
+                {service.name} <span className="text-yellow-500">Designs</span>
+              </h2>
+              <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+                {service.description}
+              </p>
+            </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
+          {/* Grid Section - Tightened gaps */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
             {service.galleryPricing.map((item, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="bg-black/80 border border-yellow-400/20 rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 hover:scale-[1.03]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.05 }}
+                className="group relative bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:border-yellow-500/50 shadow-2xl"
                 onClick={() => setSelectedImageIdx(idx)}
               >
-                <div className="relative w-full aspect-[5/6] bg-black">
-                  <motion.img
+                <div className="relative w-full aspect-[4/5] overflow-hidden">
+                  <img
                     src={item.image}
                     alt={`${service.name} Design ${idx + 1}`}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
+                  {/* Subtle Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                    <span className="text-white text-xs font-bold tracking-widest uppercase bg-yellow-500/20 backdrop-blur-md px-3 py-1 rounded-full border border-yellow-500/30">
+                      Quick View
+                    </span>
+                  </div>
                 </div>
 
-                {/* Price Tag - Fixed height to keep grid items aligned */}
-                {service.name !== "House Warming Ceremony" ? (
-                  <div className="text-center text-yellow-400 text-sm md:text-base font-semibold py-3 bg-black">
-                    {item.price}
+                {service.name !== "House Warming Ceremony" && (
+                  <div className="text-center py-3 bg-zinc-900/80 backdrop-blur-sm border-t border-zinc-800">
+                    <span className="text-yellow-500 text-sm md:text-base font-bold tracking-wide">
+                      {item.price}
+                    </span>
                   </div>
-                ) : (
-                  /* Empty space to maintain alignment if price is hidden */
-                  <div className="py-3 bg-black md:block hidden"></div>
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -78,68 +89,116 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
 
       {/* Image Detail Modal */}
       <AnimatePresence>
-        {typeof selectedImageIdx === "number" && (
+        {selectedImageIdx !== undefined && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
             onClick={() => setSelectedImageIdx(undefined)}
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-black rounded-2xl shadow-xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden"
+              className="bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl max-w-4xl w-full flex flex-col md:flex-row overflow-hidden relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="md:w-1/2 w-full flex items-center justify-center bg-black cursor-pointer">
-                <motion.img
-                  src={service.galleryPricing[selectedImageIdx].image}
-                  alt={`${service.name} Design ${selectedImageIdx + 1}`}
-                  className="object-contain w-full h-96 bg-black p-4 rounded-xl"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                />
-              </div>
-              <div className="md:w-1/2 w-full p-8 flex flex-col justify-between">
-                <div>
-                  <h4 className="text-2xl font-bold text-white mb-4 font-playfair">
-                    {service.name}
-                  </h4>
-                  <p className="text-gray-300 mb-4">
-                    {service.name === "House Warming Ceremony"
-                      ? "Each light length costs ₹500, and the number of lengths required depends on the size of the house."
-                      : " "}
-                  </p>
-                  {/* <p className="text-gray-300 mb-4">
-                    {service.name === "House Warming Ceremony"
-                      ? "Each light length costs ₹500, and the number of lengths required depends on the size of the house."
-                      : "Experience this special moment with our premium service option."}
-                  </p> */}
-                  <div className="text-lg font-semibold gold-text mb-6">
-                    {service.galleryPricing[selectedImageIdx].price}
-                  </div>
-                </div>
-                <button
-                  className="premium-button w-full px-4 py-2 rounded-full text-base font-semibold transition-all duration-300 hover:scale-105"
-                  onClick={() => {
-                    handleBookService(
-                      service.name,
-                      service.galleryPricing[selectedImageIdx].price,
-                      service.galleryPricing[selectedImageIdx].image
-                    );
-                  }}
-                >
-                  Book Now
-                </button>
-              </div>
+              {/* Close Button */}
               <button
                 onClick={() => setSelectedImageIdx(undefined)}
-                className="absolute top-6 right-6 p-3 bg-black/70 rounded-full text-white hover:bg-black/90 border border-yellow-400/30 hover:scale-110 transition-transform duration-300"
+                className="absolute top-3 right-3 z-20 p-2 bg-black/40 hover:bg-zinc-800 text-white rounded-full transition-colors border border-zinc-700"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
+
+              {/* Left Side: Image */}
+              <div className="md:w-1/2 bg-black flex items-center justify-center">
+                <img
+                  src={service.galleryPricing[selectedImageIdx].image}
+                  alt="Theme Detail"
+                  className="w-full h-[350px] md:h-[500px] object-contain p-2"
+                />
+              </div>
+
+              {/* Right Side: Details */}
+              <div className="md:w-1/2 p-6 md:p-10 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="h-px w-6 bg-yellow-500"></span>
+                    <span className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest">
+                      Curated Theme
+                    </span>
+                  </div>
+
+                  <h4 className="text-2xl font-bold text-white mb-3">
+                    {service.name}
+                  </h4>
+
+                  <div className="text-3xl font-black text-white mb-6">
+                    {service.galleryPricing[selectedImageIdx].price}
+                    {service.name === "House Warming Ceremony" && (
+                      <span className="text-zinc-500 text-xs font-normal ml-2">
+                        / per length
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="space-y-3 mb-8">
+                    {service.name === "House Warming Ceremony" ? (
+                      <div className="p-2 rounded-lg bg-yellow-500/5 border border-yellow-500/10">
+                        <p className="text-xs text-yellow-200/70 leading-relaxed italic">
+                          💡 Each light length costs ₹500. Total requirement
+                          depends on house dimensions.
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 gap-2">
+                        {[
+                          "Full Setup",
+                          "Premium Decor",
+                          "Delivery Included",
+                        ].map((text) => (
+                          <div
+                            key={text}
+                            className="flex items-center gap-2 text-zinc-400 text-xs"
+                          >
+                            <CheckCircle2
+                              size={14}
+                              className="text-yellow-500"
+                            />
+                            {text}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <button
+                    className="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-2 rounded-lg font-bold transition-all duration-300 flex items-center justify-center gap-2 group"
+                    onClick={() => {
+                      handleBookService(
+                        service.name,
+                        service.galleryPricing[selectedImageIdx].price,
+                        service.galleryPricing[selectedImageIdx].image
+                      );
+                    }}
+                  >
+                    Confirm Booking
+                    <motion.span
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    >
+                      →
+                    </motion.span>
+                  </button>
+                  <p className="text-center text-zinc-600 text-[10px] uppercase tracking-tighter">
+                    Best Price • Professional Decorators
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         )}

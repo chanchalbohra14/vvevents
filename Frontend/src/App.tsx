@@ -9,6 +9,8 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import MobileBottomNav from "./components/MobileBottomNav";
+import ThemeDecorationPage from "./pages/ThemeDecorationPage";
+// import ThemeDecorationPage from "./pages/ThemeDecorationPage";
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/theme-decoration" element={<ThemeDecorationPage/> } />
             <Route path="/services/:slug" element={<Services />} />
             {/* <Route path="/services" element={<Services />} /> */}
             <Route path="/contact" element={<Contact />} />

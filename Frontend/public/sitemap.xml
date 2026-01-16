@@ -19,11 +19,16 @@
     <lastmod>2025-07-12</lastmod>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://www.vvevent.in/theme-decoration</loc>
+    <lastmod>2025-07-12</lastmod>
+    <priority>0.85</priority>
+  </url>
 
   <url>
     <loc>https://www.vvevent.in/contact</loc>
     <lastmod>2025-07-12</lastmod>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
 
 </urlset>

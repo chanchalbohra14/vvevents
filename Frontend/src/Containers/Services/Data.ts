@@ -285,6 +285,51 @@ const retirementGalleryPricing = [
   // ... rest of the retirement images
 ];
 
+export const themeDecorationGalleryPricing = [
+  {
+    image: "/Th/th1.jpg",
+    name: "Glitter and Butterfly Theme",
+    price: "₹15000",
+  },
+  { image: "/Th/th2.jpg", name: "Butterfly Theme", price: "₹25000" },
+  { image: "/Th/th3.jpg", name: "Glitter & Banner Theme", price: "₹10500" },
+  { image: "/Th/th4.jpg", name: "Jungle Theme", price: "₹12000" },
+  { image: "/Th/th5.jpg", name: "Mix Colour Jungle Theme", price: "₹15000" },
+  { image: "/Th/th6.jpg", name: "Micky Mouse Theme", price: "₹15500" },
+  { image: "/Th/th7.jpg", name: "Banner Theme", price: "₹8500" },
+  { image: "/Th/th8.jpg", name: "Tom & Jerry Theme", price: "₹12500" },
+  { image: "/Th/th9.jpg", name: "Red Carpet Theme", price: "₹8500" },
+  {
+    image: "/Th/th10.jpg",
+    name: "Blue glitter Garland Theme",
+    price: "₹13000",
+  },
+  { image: "/Th/th11.jpg", name: "Little krishna Theme", price: "₹28000" },
+  { image: "/Th/th12.jpg", name: "Baby Boss Theme", price: "₹18000" },
+  { image: "/Th/th13.jpg", name: "Krishna Theme", price: "₹25000" },
+  { image: "/Th/th14.jpg", name: "Mickey Mouse Theme", price: "₹35000" },
+  { image: "/Th/th15.jpg", name: "Arch Decoration ", price: "₹12000" },
+  { image: "/Th/th16.jpg", name: "Photo Theme", price: "₹12000" },
+  { image: "/Th/th17.jpg", name: "Glitter and Banner Theme", price: "₹13000" },
+  { image: "/Th/th18.jpg", name: "Jungle Theme", price: "₹25000" },
+  { image: "/Th/th19.jpg", name: "Arch Decoration Theme", price: "₹10000" },
+  { image: "/Th/th20.jpg", name: "Moon Theme", price: "₹20000" },
+  { image: "/Th/th21.jpg", name: "Coco Melon Theme", price: "₹28000" },
+  { image: "/Th/th22.jpg", name: "Little Krishna Theme", price: "₹1200" },
+  {
+    image: "/Th/th23.jpg",
+    name: "Pillers and Arch Decoration",
+    price: "₹25000",
+  },
+  { image: "/Th/th24.jpg", name: "Candy Theme", price: "₹10500" },
+  { image: "/Th/th25.jpg", name: "Sea Theme", price: "₹15000" },
+  { image: "/Th/th26.jpg", name: "Coco Melon Theme", price: "₹13500" },
+  { image: "/Th/th27.jpg", name: "Unicorn Theme", price: "₹15500" },
+  { image: "/Th/th28.jpg", name: "Astronauts Theme", price: "₹8500" },
+  { image: "/Th/th29.jpg", name: "Butterfly Theme", price: "₹25500" },
+  // { image: "/Th/th30.jpg", name: "Coco Melon Theme", price: "₹6500" },
+];
+
 // Main services array
 export const servicesData = [
   {

@@ -25,6 +25,7 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Services", path: "/services" },
+    { name: "Theme Decor", path: "/theme-decoration" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -32,7 +33,7 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ₹{
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md ${
         scrolled ? 'bg-black/95 backdrop-blur-md shadow-2xl border-b border-yellow-400/20' : 'bg-transparent'
       }`}
     >
