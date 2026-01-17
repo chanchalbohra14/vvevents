@@ -22,8 +22,15 @@ interface Slide {
 
 const heroSlides: Slide[] = [
   {
+    image: "/Hero/hero6.jpg", // Grand opening
+    title: "BirthDay Celebrations",
+    // tagline: "Start Strong, Shine Bright",
+    // description:
+    //   "Mark the beginning of your business journey with a standout event. We bring flair, excitement, and professionalism to every grand opening.",
+  },
+  {
     image: "/Hero/hero4.jpg", // Grand opening
-    title: "Grand Openings",
+    title: "Office Innaguration",
     // tagline: "Start Strong, Shine Bright",
     // description:
     //   "Mark the beginning of your business journey with a standout event. We bring flair, excitement, and professionalism to every grand opening.",
@@ -37,7 +44,7 @@ const heroSlides: Slide[] = [
   },
   {
     image: "/Hero/hero1.jpg", // Wedding
-    title: "Elegant Weddings",
+    title: "Elegant Anniversery",
     // tagline: "Your Love Story, Beautifully Crafted",
     // description:
     //   "We design and execute flawless weddings that reflect your unique style and vision. Let us handle every detail while you cherish every moment.",
@@ -108,7 +115,8 @@ const Hero: React.FC<HeroSliderProps> = () => {
               >
                 <Link
                   to="/services"
-                  className="premium-button inline-flex items-center justify-center px-3 py-[6px] sm:px-4 sm:py-2 rounded-full text-[10px] sm:text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl text-black bg-white"
+                  // className="premium-button inline-flex items-center justify-center px-3 py-[6px] sm:px-4 sm:py-2 rounded-full text-[10px] sm:text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl text-black bg-white"
+                  className="inline-flex items-center justify-center px-3 py-[6px] sm:px-4 sm:py-2 border border-yellow-400 text-yellow-400 font-medium rounded-full hover:bg-yellow-400 hover:text-black transition-all duration-300 text-[10px] sm:text-sm hover:scale-105 hover:shadow-xl"
                 >
                   Explore Services
                   <ArrowRight className="ml-1 sm:ml-2" size={12} />
@@ -116,7 +124,8 @@ const Hero: React.FC<HeroSliderProps> = () => {
 
                 <Link
                   to="/contact"
-                  className="inline-flex items-center justify-center px-3 py-[6px] sm:px-4 sm:py-2 border border-yellow-400 text-yellow-400 font-medium rounded-full hover:bg-yellow-400 hover:text-black transition-all duration-300 text-[10px] sm:text-sm hover:scale-105 hover:shadow-xl"
+                  // className="inline-flex items-center justify-center px-3 py-[6px] sm:px-4 sm:py-2 border border-yellow-400 text-yellow-400 font-medium rounded-full hover:bg-yellow-400 hover:text-black transition-all duration-300 text-[10px] sm:text-sm hover:scale-105 hover:shadow-xl"
+                  className="premium-button inline-flex items-center justify-center px-3 py-[6px] sm:px-4 sm:py-2 rounded-full text-[10px] sm:text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl text-black bg-white"
                 >
                   Book Consultation
                 </Link>

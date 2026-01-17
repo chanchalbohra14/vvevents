@@ -387,13 +387,13 @@ export const servicesData = [
       "Professional office inaugurations and corporate milestone celebrations.",
     galleryPricing: officeGalleryPricing,
   },
-  // {
-  //   id: 7,
-  //   name: "House Warming Ceremony",
-  //   image: "/Hw/hw8.jpg",
-  //   description: "Bless your new home with a warm and welcoming celebration.",
-  //   galleryPricing: houseWarmingGalleryPricing,
-  // },
+  {
+    id: 7,
+    name: "House Warming Ceremony",
+    image: "/Hw/hw8.jpg",
+    description: "Bless your new home with a warm and welcoming celebration.",
+    galleryPricing: houseWarmingGalleryPricing,
+  },
   {
     id: 8,
     name: "Retirement Party",

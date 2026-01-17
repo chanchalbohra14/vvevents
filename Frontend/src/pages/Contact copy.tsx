@@ -226,6 +226,13 @@ const Contact = () => {
     }
   };
 
+  // const handleChange = (e) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -350,84 +357,82 @@ const Contact = () => {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative py-20 md:py-28 overflow-hidden"
+        className="relative py-28 overflow-hidden"
         style={{
           backgroundImage: "url(/Top/c.jpg)",
+
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/90" />
-
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80" />
         <div className="relative z-10 max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <motion.h1
-            initial={{ y: 30, opacity: 0 }}
+            initial={{ y: 50, opacity: 0 }}
             animate={heroInView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6 font-playfair"
+            className="text-6xl md:text-7xl font-bold mb-8 font-playfair"
           >
             Book Your <span className="gold-text">Event</span>
           </motion.h1>
-
-          <div className="flex flex-col items-center gap-8 mt-10">
-            {/* Selected Service Tag */}
+          <motion.p
+            initial={{ y: 50, opacity: 0 }}
+            animate={heroInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-8"
+          >
+            Ready to start planning your perfect event? We'd love to hear from
+            you and help bring your celebration dreams to life with our premium
+            services.
+          </motion.p>
+          <div className="flex flex-col justify-center items-center gap-6 mt-6">
+            {/* Selected Service Text */}
             {selectedServiceFromState && showSelectedService && (
               <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="gold-gradient text-black px-6 py-2 rounded-full font-bold text-sm md:text-base uppercase tracking-wider shadow-lg"
+                initial={{ y: 50, opacity: 0 }}
+                animate={heroInView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="gold-gradient text-black px-8 py-4 rounded-full font-semibold text-lg text-center"
               >
-                {selectedServiceFromState}
+                Selected Service: {selectedServiceFromState}
               </motion.div>
             )}
 
-            {/* FIXED SIZE IMAGE CONTAINER */}
-            {showSelectedService &&
-              (formData.image || selectedImageFromState) && (
-                <motion.div
-                  initial={{ y: 40, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  className="relative group"
-                >
-                  {/* Decorative Background Glow */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 to-yellow-200 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-
-                  <div className="relative bg-gray-900 p-2 rounded-2xl border border-white/10 shadow-2xl">
-                    <div className="overflow-hidden rounded-xl bg-black">
-                      <img
-                        src={formData.image || selectedImageFromState}
-                        alt="Selected Theme"
-                        className="
-                  /* Mobile: Fixed square/portrait | Desktop: Slightly larger */
-                  w-[280px] h-[350px] 
-                  md:w-[400px] md:h-[500px] 
-                  object-cover 
-                  transition-transform 
-                  duration-500 
-                  group-hover:scale-105
-                "
-                      />
-                    </div>
-                    {/* Overlay Label */}
-                    <div className="absolute bottom-4 left-0 right-0">
-                      <span className="bg-black/60 backdrop-blur-md text-white text-xs py-1 px-3 rounded-full border border-white/20">
-                        Selected Theme
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
-            <motion.p
-              initial={{ y: 20, opacity: 0 }}
-              animate={heroInView ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="max-w-2xl text-lg md:text-xl text-gray-300 leading-relaxed"
-            >
-              Ready to bring your celebration dreams to life? Fill out the form
-              below to receive a personalized quote for your premium event.
-            </motion.p>
+            {/* Only one image: formData.image has priority */}
+            {showSelectedService && (
+              <>
+                {formData.image ? (
+                  <motion.div
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={heroInView ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="text-center"
+                  >
+                    <h3 className="text-xl text-gray-300 mb-4 font-semibold font-playfair">
+                      Selected Decoration Style
+                    </h3>
+                    <img
+                      src={formData.image}
+                      alt="Selected Decoration"
+                      className="mx-auto rounded-2xl shadow-xl max-w-sm h-64 object-cover"
+                    />
+                  </motion.div>
+                ) : selectedImageFromState ? (
+                  <motion.div
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={heroInView ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="text-center"
+                  >
+                    <img
+                      src={selectedImageFromState}
+                      alt={selectedServiceFromState}
+                      className="mx-auto rounded-xl shadow-lg max-w-md object-cover"
+                    />
+                  </motion.div>
+                ) : null}
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -573,7 +578,29 @@ const Contact = () => {
                     placeholder="Amount"
                   />
                 </div>
-
+                {/* <div>
+                  
+                  <label
+                    htmlFor="selectedPackage"
+                    className="block text-lg font-medium text-gray-300 mb-3"
+                  >
+                    Select Package
+                  </label>
+                  <select
+                    id="selectedPackage"
+                    name="selectedPackage"
+                    value={formData.selectedPackage}
+                    onChange={handleChange}
+                    className="premium-input w-full px-6 py-4 rounded-xl text-white transition-all duration-300"
+                  >
+                    <option value="">Select a package</option>
+                    {packages.map((pkg) => (
+                      <option key={pkg} value={pkg} className="bg-gray-800">
+                        {pkg}
+                      </option>
+                    ))}
+                  </select>
+                </div> */}
                 <div>
                   <label
                     htmlFor="eventDate"
@@ -599,6 +626,72 @@ const Contact = () => {
                     />
                   </div>
                 </div>
+                <div>
+                  <label
+                    htmlFor="guestCount"
+                    className="block text-lg font-medium text-gray-300 mb-3"
+                  >
+                    Expected Guest Count
+                  </label>
+                  <input
+                    type="number"
+                    id="guestCount"
+                    name="guestCount"
+                    value={formData.guestCount}
+                    onChange={handleChange}
+                    onWheel={(e) => e.currentTarget.blur()}
+                    min="1"
+                    className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
+                    placeholder="Number of guests"
+                  />
+                </div>
+
+                {/* <div className="md:col-span-2">
+                  <label
+                    htmlFor="budget"
+                    className="block text-lg font-medium text-gray-300 mb-3"
+                  >
+                    Budget Range
+                  </label>
+                  <select
+                    id="budget"
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleChange}
+                    className="premium-input w-full px-6 py-4 rounded-xl text-white transition-all duration-300"
+                  >
+                    <option value="">Select budget range</option>
+                    {budgetRanges.map((range) => (
+                      <option key={range} value={range} className="bg-gray-800">
+                        {range}
+                      </option>
+                    ))}
+                  </select>
+                </div> */}
+              </div>
+            </div>
+
+            {/* Additional Information */}
+            <div className="mb-12">
+              <h3 className="text-3xl font-semibold gold-text mb-8 font-playfair">
+                Additional Information
+              </h3>
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-lg font-medium text-gray-300 mb-3"
+                >
+                  Tell us about your vision
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={6}
+                  className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300 resize-none"
+                  placeholder="Describe your event vision, special requirements, themes, or any other details that will help us create the perfect celebration for you..."
+                />
               </div>
             </div>
 
