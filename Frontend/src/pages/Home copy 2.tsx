@@ -1,21 +1,23 @@
-// src/pages/Home.tsx - UPDATED
+// src/pages/Home.tsx
 
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Calendar, Users, Award, Heart, LucideIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 // Import your components
 import HeroSlider from "../Containers/Home/Hero";
 import ServiceCategories from "../Containers/Home/ServiceCategories";
 import EventVideo from "../Containers/Home/EventVideo";
 import EventStats from "../Containers/Home/EventStats";
+// import CallToAction from "../Containers/Home/CallToAction";
 import CallToAction from "../Containers/Home/CallToAction";
-import ThemeGallery from "../Containers/Home/ThemeGallery"; // NEW COMPONENT
+// import ServicesContent from "../Containers/Services/ServicesContent"; // Import the new component
 
 // Import data from the central source
 import { homeServices } from "../Containers/Services/Data";
+import ThemeDecoration from "../Containers/Home/ThemeDecoration";
 
 // Define interfaces for types
 interface Stat {
@@ -25,7 +27,7 @@ interface Stat {
 }
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize useNavigate here
 
   const [heroRef, heroInView] = useInView({
     threshold: 0.3,
@@ -35,16 +37,16 @@ const Home: React.FC = () => {
     threshold: 0.2,
     triggerOnce: true,
   });
-  const [galleryRef, galleryInView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
   const [videoRef, videoInView] = useInView({
     threshold: 0.3,
     triggerOnce: true,
   });
   const [statsRef, statsInView] = useInView({
     threshold: 0.3,
+    triggerOnce: true,
+  });
+  const [themeRef, themeInView] = useInView({
+    threshold: 0.1,
     triggerOnce: true,
   });
 
@@ -88,14 +90,13 @@ const Home: React.FC = () => {
         />
       </div>
 
-      {/* NEW THEME GALLERY SECTION - Shows 2 random from each category */}
-      <div ref={galleryRef}>
-        <ThemeGallery
-          onBookService={handleBookService}
-          showHeader={true}
-          limit={12} // Optional: limit to 12 items for home page
-        />
+      {/* NEW THEME DECORATION SECTION */}
+      <div ref={themeRef}>
+        <ThemeDecoration onBookService={handleBookService} />
       </div>
+
+      {/* This is the correct way to include the services section */}
+      {/* <ServicesContent onBookService={handleBookService} /> */}
 
       <div ref={videoRef}>
         <EventVideo videoInView={videoInView} />

@@ -64,6 +64,26 @@ const ThemeDecorationPage = () => {
             Elevate your celebrations with our beautifully curated theme
             decorations.
           </motion.p>
+
+          {/* <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={heroInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-wrap justify-center gap-8 text-gray-300"
+          >
+            <div className="flex items-center">
+              <Clock className="text-yellow-400 mr-2" size={20} />
+              <span>Quick Setup</span>
+            </div>
+            <div className="flex items-center">
+              <Users className="text-yellow-400 mr-2" size={20} />
+              <span>Custom Designs</span>
+            </div>
+            <div className="flex items-center">
+              <Star className="text-yellow-400 mr-2" size={20} />
+              <span>Premium Finish</span>
+            </div>
+          </motion.div> */}
         </div>
       </section>
 
@@ -83,18 +103,14 @@ const ThemeDecorationPage = () => {
                 <div className="relative h-72 overflow-hidden">
                   <img
                     src={item.image}
-                    alt={item.name || "Theme Decoration"}
+                    alt={item.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
 
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <button
                       onClick={() =>
-                        handleBookService(
-                          item.name || "Theme Decoration",
-                          item.price,
-                          item.image
-                        )
+                        handleBookService(item.name, item.price, item.image)
                       }
                       className="p-4 bg-yellow-500 rounded-full text-black hover:bg-yellow-400 transition"
                     >
@@ -107,7 +123,7 @@ const ThemeDecorationPage = () => {
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-3">
                     <h3 className="text-xl font-semibold text-white">
-                      {item.name || "Theme Decoration"}
+                      {item.name}
                     </h3>
                     <span className="text-yellow-500 font-bold text-lg">
                       {item.price}
@@ -118,14 +134,14 @@ const ThemeDecorationPage = () => {
                     Complete themed decoration and elegant styling customized
                     for your occasion.
                   </p>
+                  {/* <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                    Complete themed decoration including backdrop, balloons,
+                    lighting, and elegant styling customized for your occasion.
+                  </p> */}
 
                   <button
                     onClick={() =>
-                      handleBookService(
-                        item.name || "Theme Decoration",
-                        item.price,
-                        item.image
-                      )
+                      handleBookService(item.name, item.price, item.image)
                     }
                     className="w-full py-3 border border-yellow-500/30 text-yellow-500 rounded-lg group-hover:bg-yellow-500 group-hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
                   >

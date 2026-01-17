@@ -1,19 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { useInView } from "react-intersection-observer";
-import { Calendar, Send, CheckCircle } from "lucide-react";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import {
+  Calendar,
+  Send,
+  CheckCircle,
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  XCircle,
+  X,
+  Maximize2,
+  Download,
+} from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Contact = () => {
+const Contact: React.FC = () => {
   const location = useLocation();
   const selectedServiceFromState = location.state?.selectedService || "";
   const selectedPriceFromState = location.state?.selectedPrice || "";
   const selectedImageFromState = location.state?.selectedImage || "";
+
   const [showSelectedService, setShowSelectedService] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showFullImageModal, setShowFullImageModal] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,9 +43,6 @@ const Contact = () => {
     image: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
   const [heroRef, heroInView] = useInView({
     threshold: 0.3,
     triggerOnce: true,
@@ -39,39 +52,33 @@ const Contact = () => {
     triggerOnce: true,
   });
 
-  // Scroll to top when component mounts
+  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
+  // Sync state from navigation
   useEffect(() => {
-    if (selectedServiceFromState) {
+    if (selectedServiceFromState || selectedPriceFromState) {
       setFormData((prev) => ({
         ...prev,
         serviceType: selectedServiceFromState,
-      }));
-    }
-    if (selectedPriceFromState) {
-      setFormData((prev) => ({
-        ...prev,
         amount: selectedPriceFromState,
       }));
     }
   }, [selectedServiceFromState, selectedPriceFromState]);
 
+  // Handle image URL logic
   useEffect(() => {
     if (selectedImageFromState) {
       const baseURL =
         import.meta.env.MODE === "development"
-          ? "http://localhost:5173"
+          ? "http://10.199.20.220:5173"
           : "https://www.vvevent.in";
-
-      const fullImageURL = `${baseURL}${selectedImageFromState}`;
-      console.log("📸 Final image URL for email:", fullImageURL);
 
       setFormData((prev) => ({
         ...prev,
-        image: fullImageURL,
+        image: `${baseURL}${selectedImageFromState}`,
       }));
     }
   }, [selectedImageFromState]);
@@ -86,97 +93,31 @@ const Contact = () => {
     "House Warming Ceremony",
     "Retirement Party",
     "Graduation Celebration",
-    "Other (Please specify in message)",
+    "Other",
   ];
 
-  // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() + 1);
+  const maxDateStr = maxDate.toISOString().split("T")[0];
 
-  // Get date 1 year from now
-  const oneYearFromNow = new Date();
-  oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-  const maxDate = oneYearFromNow.toISOString().split("T")[0];
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-
-  //   // Simulate form submission and email sending
-  //   await new Promise((resolve) => setTimeout(resolve, 3000));
-
-  //   setIsSubmitted(true);
-  //   setIsSubmitting(false);
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-  //   console.log("Image URL sent to EmailJS:", formData.image);
-  //   console.log("Location State:", location.state);
-
-  //   try {
-  //     await emailjs.send(
-  //       "service_va8hz7f", // Your EmailJS service ID
-  //       "template_w9ozm7n", // Your EmailJS template ID
-  //       {
-  //         from_name: formData.name,
-  //         from_email: formData.email,
-  //         phone: formData.phone,
-  //         serviceType: formData.serviceType,
-  //         amount: formData.amount,
-  //         eventDate: formData.eventDate,
-  //         guestCount: formData.guestCount,
-  //         message: formData.message,
-  //         image_url: formData.image,
-  //       },
-  //       "wr_OvmqmdjHbctepn" // Your EmailJS public key
-  //     );
-  //     // console.log(formData.image);
-
-  //     // Send confirmation to user
-  //     await emailjs.send(
-  //       "service_va8hz7f", // Service ID
-  //       "template_krecbyj", // Template ID
-  //       {
-  //         from_name: formData.name, // ✅ Must be passed like this
-  //         user_email: formData.email, // Use `user_email` if your template uses that
-  //         serviceType: formData.serviceType,
-  //         eventDate: formData.eventDate,
-  //       },
-  //       "wr_OvmqmdjHbctepn" // Public key
-  //     );
-
-  //     toast.success("Thank you for your message! We'll get back to you soon.");
-  //     setFormData({
-  //       name: "",
-  //       email: "",
-  //       phone: "",
-  //       serviceType: "",
-  //       amount: "",
-  //       eventDate: "",
-  //       guestCount: "",
-  //       message: "",
-  //       image: "",
-  //     });
-  //     setShowSelectedService(false);
-  //   } catch (error) {
-  //     console.error("EmailJS error:", error);
-  //     toast.error("Something went wrong. Please try again later.");
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log("Image URL sent to EmailJS:", formData.image);
-    console.log("Location State:", location.state);
 
     try {
+      // Main Notification to Business
       await emailjs.send(
-        "service_va8hz7f", // Your EmailJS service ID
-        "template_w9ozm7n", // Your EmailJS template ID
+        "service_va8hz7f",
+        "template_w9ozm7n",
         {
           from_name: formData.name,
           from_email: formData.email,
@@ -188,53 +129,30 @@ const Contact = () => {
           message: formData.message,
           image_url: formData.image,
         },
-        "wr_OvmqmdjHbctepn" // Your EmailJS public key
+        "wr_OvmqmdjHbctepn"
       );
-      // console.log(formData.image);
 
-      // Send confirmation to user
+      // Confirmation to User
       await emailjs.send(
-        "service_va8hz7f", // Service ID
-        "template_krecbyj", // Template ID
+        "service_va8hz7f",
+        "template_krecbyj",
         {
-          from_name: formData.name, // ✅ Must be passed like this
-          user_email: formData.email, // Use `user_email` if your template uses that
+          from_name: formData.name,
+          user_email: formData.email,
           serviceType: formData.serviceType,
           eventDate: formData.eventDate,
         },
-        "wr_OvmqmdjHbctepn" // Public key
+        "wr_OvmqmdjHbctepn"
       );
 
-      toast.success("Thank you for your message! We'll get back to you soon.");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        serviceType: "",
-        amount: "",
-        eventDate: "",
-        guestCount: "",
-        message: "",
-        image: "",
-      });
-      setShowSelectedService(false);
+      toast.success("Booking request sent successfully!");
+      setIsSubmitted(true);
     } catch (error) {
       console.error("EmailJS error:", error);
-      toast.error("Something went wrong. Please try again later.");
+      toast.error("Submission failed. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
   };
 
   const resetForm = () => {
@@ -247,479 +165,457 @@ const Contact = () => {
       eventDate: "",
       guestCount: "",
       message: "",
-      image: "", // also reset the image
+      image: "",
     });
-
-    // Clear URL state
-    window.history.replaceState({}, document.title); // removes location.state
+    setShowSelectedService(false);
     setIsSubmitted(false);
+    window.history.replaceState({}, document.title);
   };
 
-  if (isSubmitted) {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="min-h-screen pt-20 flex items-center justify-center bg-gradient-to-b from-gray-900 to-black"
-      >
-        <div className="max-w-3xl mx-auto text-center px-4">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center justify-center w-32 h-32 gold-gradient rounded-full mb-12"
-          >
-            <CheckCircle size={64} className="text-black" />
-          </motion.div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 font-playfair">
-            Booking <span className="gold-text">Confirmed!</span>
-          </h1>
-          <p className="text-xl text-gray-300 mb-12 leading-relaxed">
-            Thank you for choosing vvevent! We've received your booking request
-            and will contact you within 24 hours to discuss the details of your
-            special event.
-          </p>
-          <div className="premium-card rounded-3xl p-8 mb-12">
-            <h3 className="text-2xl font-semibold gold-text mb-6 font-playfair">
-              What happens next?
-            </h3>
-            <ul className="text-left text-gray-300 space-y-4 text-lg">
-              <li className="flex items-start">
-                <span className="gold-text mr-3">•</span>
-                You'll receive a confirmation email shortly
-              </li>
-              <li className="flex items-start">
-                <span className="gold-text mr-3">•</span>
-                Our team will review your requirements
-              </li>
-              <li className="flex items-start">
-                <span className="gold-text mr-3">•</span>
-                We'll schedule a consultation call within 24 hours
-              </li>
-              <li className="flex items-start">
-                <span className="gold-text mr-3">•</span>
-                We'll provide a detailed proposal and timeline
-              </li>
-            </ul>
-          </div>
-          <button
-            onClick={resetForm}
-            className="premium-button inline-flex items-center px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105"
-          >
-            Book Another Event
-          </button>
-        </div>
-      </motion.div>
-    );
-  }
   const contactInfo = [
     {
       icon: Phone,
       title: "Phone",
       details: "+91 9164619328",
       subtitle: "Mon-Fri 9AM-6PM",
+      link: "tel:+919164619328",
     },
     {
       icon: Mail,
       title: "Email",
       details: "vvevents681@gmail.com",
-      subtitle: "We reply within 24 hours",
+      subtitle: "Replies within 24h",
+      link: "mailto:vvevents681@gmail.com",
     },
     {
       icon: MapPin,
       title: "Address",
       details: "Gandhi Nagar",
-      subtitle: "Ballari, Karnataka, India",
+      subtitle: "Ballari, Karnataka",
+      link: "#",
     },
     {
       icon: Clock,
-      title: "Business Hours",
-      details: "Mon-Fri: 9AM-6PM",
+      title: "Hours",
+      details: "9AM - 6PM",
       subtitle: "Sat-Sun: 10AM-4PM",
+      link: "#",
     },
   ];
+
+  const handleDownloadImage = async () => {
+    try {
+      const imageUrl = formData.image || selectedImageFromState;
+      if (!imageUrl) return;
+
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `vv-event-theme-${Date.now()}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast.success("Image downloaded successfully!");
+    } catch (error) {
+      console.error("Download error:", error);
+      toast.error("Failed to download image");
+    }
+  };
+
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black px-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-xl w-full text-center"
+        >
+          <div className="w-24 h-24 gold-gradient rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(234,179,8,0.3)]">
+            <CheckCircle size={48} className="text-black" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 font-playfair text-white">
+            Booking <span className="gold-text">Confirmed!</span>
+          </h1>
+          <p className="text-zinc-400 mb-8">
+            Our team will reach out to you within 24 hours to finalize your
+            celebration details.
+          </p>
+          <button
+            onClick={resetForm}
+            className="premium-button px-8 py-3 rounded-full font-bold"
+          >
+            Plan Another Event
+          </button>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen pt-20 bg-black"
+      className="bg-black text-white"
     >
+      {/* Full Image Modal */}
+      <AnimatePresence>
+        {showFullImageModal && (formData.image || selectedImageFromState) && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
+            onClick={() => setShowFullImageModal(false)}
+          >
+            <button
+              onClick={() => setShowFullImageModal(false)}
+              className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-black/80 rounded-full transition-all"
+            >
+              <X size={28} className="text-white" />
+            </button>
+
+            <div className="absolute top-4 left-4 z-50 flex gap-2">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDownloadImage();
+                }}
+                className="p-2 bg-black/50 hover:bg-black/80 rounded-full transition-all group"
+                title="Download Image"
+              >
+                <Download
+                  size={24}
+                  className="text-white group-hover:text-yellow-500"
+                />
+              </button>
+            </div>
+
+            <div className="relative max-w-7xl w-full h-full flex items-center justify-center">
+              <div className="relative max-h-[90vh] max-w-full">
+                {imageLoading && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-12 h-12 border-4 border-yellow-500/30 border-t-yellow-500 rounded-full animate-spin"></div>
+                  </div>
+                )}
+                <img
+                  src={formData.image || selectedImageFromState}
+                  alt="Selected Theme - Full View"
+                  className={`max-h-[90vh] max-w-full object-contain transition-opacity duration-300 ${
+                    imageLoading ? "opacity-0" : "opacity-100"
+                  }`}
+                  onLoad={() => setImageLoading(false)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+            </div>
+
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-black/60 backdrop-blur-sm px-6 py-3 rounded-full text-sm">
+              <span className="text-yellow-500 font-semibold mr-4">
+                {formData.serviceType}
+              </span>
+              <span className="text-white">{formData.amount}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative py-20 md:py-28 overflow-hidden"
-        style={{
-          backgroundImage: "url(/Top/c.jpg)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        className="relative py-20 md:py-32 overflow-hidden flex flex-col items-center justify-center text-center px-4"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/90" />
+        <div className="absolute inset-0 bg-[url('/Top/c.jpg')] bg-cover bg-center opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-6xl w-full">
           <motion.h1
-            initial={{ y: 30, opacity: 0 }}
+            initial={{ y: 20, opacity: 0 }}
             animate={heroInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6 font-playfair"
+            className="text-5xl md:text-7xl font-bold font-playfair mb-8"
           >
             Book Your <span className="gold-text">Event</span>
           </motion.h1>
 
-          <div className="flex flex-col items-center gap-8 mt-10">
-            {/* Selected Service Tag */}
-            {selectedServiceFromState && showSelectedService && (
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="gold-gradient text-black px-6 py-2 rounded-full font-bold text-sm md:text-base uppercase tracking-wider shadow-lg"
-              >
-                {selectedServiceFromState}
-              </motion.div>
-            )}
-
-            {/* FIXED SIZE IMAGE CONTAINER */}
+          <AnimatePresence>
             {showSelectedService &&
               (formData.image || selectedImageFromState) && (
                 <motion.div
-                  initial={{ y: 40, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  className="relative group"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="relative group mb-8 inline-block"
                 >
-                  {/* Decorative Background Glow */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 to-yellow-200 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                  <div className="absolute -inset-4 bg-yellow-500/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition duration-700"></div>
 
-                  <div className="relative bg-gray-900 p-2 rounded-2xl border border-white/10 shadow-2xl">
+                  <div className="relative bg-zinc-900 p-4 rounded-3xl border border-zinc-800 shadow-2xl max-w-2xl mx-auto">
+                    {/* Remove Selection Button */}
+                    {/* <button
+                      onClick={() => setShowSelectedService(false)}
+                      className="absolute -top-3 -right-3 z-20 bg-black text-yellow-500 rounded-full hover:text-white transition-colors p-1"
+                    >
+                      <XCircle size={24} />
+                    </button> */}
+
+                    {/* Expand Button */}
+                    <button
+                      onClick={() => setShowFullImageModal(true)}
+                      className="absolute top-4 right-4 z-20 bg-black/60 hover:bg-black/90 text-white rounded-full p-2 transition-all group"
+                      title="View full size"
+                    >
+                      <Maximize2
+                        size={20}
+                        className="group-hover:scale-110 transition-transform"
+                      />
+                    </button>
+
                     <div className="overflow-hidden rounded-xl bg-black">
                       <img
                         src={formData.image || selectedImageFromState}
                         alt="Selected Theme"
-                        className="
-                  /* Mobile: Fixed square/portrait | Desktop: Slightly larger */
-                  w-[280px] h-[350px] 
-                  md:w-[400px] md:h-[500px] 
-                  object-cover 
-                  transition-transform 
-                  duration-500 
-                  group-hover:scale-105
-                "
+                        className="w-full h-auto max-h-[500px] object-cover transition-transform duration-700 group-hover:scale-105 cursor-zoom-in"
+                        onClick={() => setShowFullImageModal(true)}
                       />
                     </div>
-                    {/* Overlay Label */}
-                    <div className="absolute bottom-4 left-0 right-0">
-                      <span className="bg-black/60 backdrop-blur-md text-white text-xs py-1 px-3 rounded-full border border-white/20">
-                        Selected Theme
-                      </span>
+                    <div className="mt-4 flex flex-col sm:flex-row justify-between items-center px-2 gap-2">
+                      <div className="text-left">
+                        <span className="text-xs uppercase tracking-widest text-zinc-500 font-bold block">
+                          Selected Theme
+                        </span>
+                        <span className="text-yellow-500 font-bold text-lg">
+                          {formData.serviceType}
+                        </span>
+                      </div>
+                      <div className="text-center xs:text-center sm:text-right">
+                        {/* <div className="text-right xs-text-center text-center xs:text-center sm:text-right"> */}
+                        <span className="text-xs uppercase tracking-widest text-zinc-500 font-bold block">
+                          Package Price
+                        </span>
+                        <span className="text-yellow-500 font-bold text-lg">
+                          {formData.amount}
+                        </span>
+                      </div>
                     </div>
+                    <p className="text-xs text-zinc-500 mt-2">
+                      Click the image or expand button to view full size
+                    </p>
                   </div>
                 </motion.div>
               )}
+          </AnimatePresence>
 
-            <motion.p
-              initial={{ y: 20, opacity: 0 }}
-              animate={heroInView ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="max-w-2xl text-lg md:text-xl text-gray-300 leading-relaxed"
-            >
-              Ready to bring your celebration dreams to life? Fill out the form
-              below to receive a personalized quote for your premium event.
-            </motion.p>
-          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={heroInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.4 }}
+            className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto italic"
+          >
+            "Ready to bring your celebration dreams to life? Fill out the form
+            below to receive a personalized quote."
+          </motion.p>
         </div>
       </section>
-      {/* Booking Form */}
-      <section
-        ref={formRef}
-        className="py-24 bg-gradient-to-b from-gray-900 to-black"
-      >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      {/* Form Section */}
+      <section ref={formRef} className="py-20 px-4 md:px-8 bg-zinc-950">
+        <div className="max-w-5xl mx-auto">
           <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={formInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={formInView ? { opacity: 1, y: 0 } : {}}
             className="text-center mb-16"
           >
-            <h2 className="text-5xl md:text-6xl font-bold mb-8 font-playfair">
+            <h2 className="text-4xl md:text-5xl font-bold font-playfair mb-4">
               Let's Plan Your <span className="gold-text">Celebration</span>
             </h2>
-            <p className="text-xl text-gray-300 leading-relaxed">
-              Tell us about your vision and we'll make it a reality with our
-              premium event planning services
+            <p className="text-zinc-500">
+              Premium event planning tailored to your vision.
             </p>
           </motion.div>
 
-          <motion.form
-            initial={{ y: 50, opacity: 0 }}
-            animate={formInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+          <form
             onSubmit={handleSubmit}
-            className="premium-card rounded-3xl p-10 shadow-2xl"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-900/50 p-6 md:p-12 rounded-3xl border border-zinc-800 shadow-2xl"
           >
-            {/* Personal Information */}
-            <div className="mb-12">
-              <h3 className="text-3xl font-semibold gold-text mb-8 font-playfair">
-                Personal Information
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-lg font-medium text-gray-300 mb-3"
-                  >
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
-                    placeholder="Enter your full name"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-lg font-medium text-gray-300 mb-3"
-                  >
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
-                    placeholder="Enter your email address"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label
-                    htmlFor="phone"
-                    className="block text-lg font-medium text-gray-300 mb-3"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
-                    placeholder="Enter your phone number"
-                  />
-                </div>
-              </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-zinc-400">
+                Full Name *
+              </label>
+              <input
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="premium-input w-full p-4 rounded-xl bg-black/50 border border-zinc-800"
+                placeholder="John Doe"
+              />
             </div>
-
-            {/* Event Details */}
-            <div className="mb-12">
-              <h3 className="text-3xl font-semibold gold-text mb-8 font-playfair">
-                Event Details
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <label
-                    htmlFor="serviceType"
-                    className="block text-lg font-medium text-gray-300 mb-3"
-                  >
-                    Service Type *
-                  </label>
-                  <select
-                    id="serviceType"
-                    name="serviceType"
-                    value={formData.serviceType}
-                    onChange={handleChange}
-                    required
-                    className="premium-input w-full px-6 py-4 rounded-xl text-white transition-all duration-300"
-                  >
-                    <option value="">Select a service</option>
-                    {services.map((service) => (
-                      <option
-                        key={service}
-                        value={service}
-                        className="bg-gray-800"
-                      >
-                        {service}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor="amount"
-                    className="block text-lg font-medium text-gray-300 mb-3"
-                  >
-                    Amount
-                  </label>
-                  <input
-                    type="text"
-                    id="amount"
-                    name="amount"
-                    onChange={handleChange}
-                    value={formData.amount}
-                    readOnly={!!selectedPriceFromState}
-                    required
-                    className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
-                    placeholder="Amount"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="eventDate"
-                    className="block text-lg font-medium text-gray-300 mb-3"
-                  >
-                    Preferred Event Date *
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="date"
-                      id="eventDate"
-                      name="eventDate"
-                      value={formData.eventDate}
-                      onChange={handleChange}
-                      required
-                      min={today}
-                      max={maxDate}
-                      className="premium-input w-full px-6 py-4 pr-12 rounded-xl text-white transition-all duration-300 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-3 [&::-webkit-calendar-picker-indicator]:w-6 [&::-webkit-calendar-picker-indicator]:h-6 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-                    />
-                    <Calendar
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-yellow-400 pointer-events-none"
-                      size={24}
-                    />
-                  </div>
-                </div>
-              </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-zinc-400">
+                Email Address *
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="premium-input w-full p-4 rounded-xl bg-black/50 border border-zinc-800"
+                placeholder="john@example.com"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-zinc-400">
+                Phone Number *
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                className="premium-input w-full p-4 rounded-xl bg-black/50 border border-zinc-800"
+                placeholder="+91 ..."
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-zinc-400">
+                Event Date *
+              </label>
+              <input
+                type="date"
+                name="eventDate"
+                min={today}
+                max={maxDateStr}
+                value={formData.eventDate}
+                onChange={handleChange}
+                required
+                className="premium-input w-full p-4 rounded-xl bg-black/50 border border-zinc-800 text-zinc-300"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-zinc-400">
+                Service Type *
+              </label>
+              <select
+                name="serviceType"
+                value={formData.serviceType}
+                onChange={handleChange}
+                required
+                className="premium-input w-full p-4 rounded-xl bg-black/50 border border-zinc-800 text-zinc-300"
+              >
+                <option value="">Select Service</option>
+                {services.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-zinc-400">
+                Package Amount
+              </label>
+              <input
+                name="amount"
+                value={formData.amount}
+                readOnly
+                className="premium-input w-full p-4 rounded-xl bg-zinc-800/50 border border-zinc-700 text-yellow-500 font-bold"
+              />
+            </div>
+            <div className="md:col-span-2 space-y-2">
+              <label className="text-sm font-semibold text-zinc-400">
+                Number of Guests *
+              </label>
+              <input
+                type="number"
+                name="guestCount"
+                min="1"
+                value={formData.guestCount}
+                onChange={handleChange}
+                required
+                className="premium-input w-full p-4 rounded-xl bg-black/50 border border-zinc-800"
+                placeholder="Enter number of guests"
+              />
+            </div>
+            <div className="md:col-span-2 space-y-2">
+              <label className="text-sm font-semibold text-zinc-400">
+                Message / Special Requirements
+              </label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows={4}
+                className="premium-input w-full p-4 rounded-xl bg-black/50 border border-zinc-800"
+                placeholder="Tell us more about your event..."
+              ></textarea>
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="premium-button w-full flex items-center justify-center px-10 py-5 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="md:col-span-2 premium-button w-full py-5 rounded-full font-bold text-lg flex items-center justify-center gap-3 disabled:opacity-50"
             >
               {isSubmitting ? (
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black" />
+                <div className="w-6 h-6 border-2 border-black border-t-transparent animate-spin rounded-full" />
               ) : (
                 <>
-                  Submit Booking Request
-                  <Send className="ml-3" size={24} />
+                  <Send size={20} /> Submit Request
                 </>
               )}
             </button>
-            <p className="text-gray-400 text-center mt-6 text-lg">
-              Want to pre-pay or block a date? Scan the payment QR code below
-              before submitting the form.
-            </p>
-
-            <p className="text-gray-400 text-center mt-6 text-lg">
-              * Required fields. We'll contact you within 24 hours to discuss
-              your event details.
-            </p>
-          </motion.form>
+          </form>
         </div>
       </section>
-      {/* Contact Info */}
-      <section className="py-24 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {contactInfo.map((info, index) => (
-              <motion.div
-                key={info.title}
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="text-center group premium-card p-8 rounded-2xl hover:scale-105 transition-all duration-300"
-              >
-                <div className="inline-flex items-center justify-center w-20 h-20 gold-gradient rounded-full mb-8 group-hover:scale-110 transition-transform duration-300">
-                  <info.icon size={40} className="text-black" />
-                </div>
-                <h3 className="text-2xl font-semibold text-white mb-4 font-playfair">
-                  {info.title}
-                </h3>
 
-                {/* ✅ Clickable phone and email */}
-                <p className="text-gray-300 font-medium mb-2 text-sm whitespace-nowrap overflow-hidden text-ellipsis text-center">
-                  {info.title === "Phone" ? (
-                    <a
-                      href={`tel:${info.details.replace(/\s+/g, "")}`}
-                      className="text-inherit hover:text-yellow-400 transition-colors duration-200"
-                    >
-                      {info.details}
-                    </a>
-                  ) : info.title === "Email" ? (
-                    <a
-                      href={`mailto:${info.details}`}
-                      className="text-inherit hover:text-yellow-400 transition-colors duration-200"
-                    >
-                      {info.details}
-                    </a>
-                  ) : (
-                    info.details
-                  )}
-                </p>
-
-                <p className="text-gray-400">{info.subtitle}</p>
-              </motion.div>
-            ))}
-          </div>
+      {/* Contact Cards */}
+      <section className="py-20 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {contactInfo.map((info, i) => (
+            <motion.a
+              key={i}
+              href={info.link}
+              whileHover={{ y: -5 }}
+              className="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl text-center group"
+            >
+              <div className="w-16 h-16 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <info.icon className="text-black" size={28} />
+              </div>
+              <h3 className="text-xl font-bold font-playfair mb-2">
+                {info.title}
+              </h3>
+              <p className="text-zinc-300 text-sm mb-1">{info.details}</p>
+              <p className="text-zinc-500 text-xs">{info.subtitle}</p>
+            </motion.a>
+          ))}
         </div>
       </section>
-      {/* Payment QR Section */}
-      <section className="py-24 bg-gradient-to-b from-black via-gray-900 to-black">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <motion.h2
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold mb-6 font-playfair text-white"
-          >
-            Secure Your Booking
-          </motion.h2>
-          <motion.p
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-300 mb-10"
-          >
-            Scan the UPI QR code below to make your payment and confirm your
-            booking.
-          </motion.p>
 
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="inline-block rounded-2xl overflow-hidden border-4 border-yellow-400 shadow-2xl"
-          >
-            <img
-              src="QR CODE/qr.jpeg" // 🔁 Replace with your actual image path
-              alt="vvevent UPI QR Code"
-              className="w-64 h-64 object-contain"
-            />
-          </motion.div>
-
-          <p className="text-gray-400 mt-6 text-lg">
-            UPI ID:{" "}
-            <span className="text-yellow-300 font-semibold">
-              9164619328@ybl
-            </span>
-            <br />
-            After payment, mention the transaction ID in the message box or send
-            confirmation via WhatsApp.
-          </p>
+      {/* Payment Section */}
+      <section className="py-20 bg-gradient-to-t from-zinc-950 to-black text-center px-4">
+        <h2 className="text-3xl md:text-5xl font-bold font-playfair mb-6 text-white">
+          Secure Your <span className="gold-text">Booking</span>
+        </h2>
+        <p className="text-zinc-400 mb-10 max-w-xl mx-auto">
+          Scan the UPI code to confirm your date instantly. Please mention the
+          transaction ID in your message.
+        </p>
+        <div className="inline-block p-4 bg-white rounded-3xl shadow-[0_0_50px_rgba(234,179,8,0.2)]">
+          <img
+            src="QR CODE/qr.jpeg"
+            alt="Payment QR"
+            className="w-64 h-64 object-contain"
+          />
         </div>
+        <p className="mt-6 text-zinc-500 font-mono">
+          UPI ID: <span className="text-yellow-500">9164619328@ybl</span>
+        </p>
       </section>
-      <ToastContainer position="top-right" autoClose={3000} />
+
+      <ToastContainer theme="dark" position="bottom-right" />
     </motion.div>
   );
 };

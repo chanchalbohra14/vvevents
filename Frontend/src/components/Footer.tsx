@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="bg-gradient-to-b from-gray-900 to-black border-t border-yellow-400/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
@@ -145,7 +146,8 @@ const Footer = () => {
 
         <div className="border-t border-yellow-400/20 mt-6 sm:mt-8 md:mt-12 pt-4 sm:pt-6 md:pt-8 text-center">
           <p className="text-gray-400 text-sm sm:text-base md:text-lg flex flex-col sm:flex-row items-center justify-center">
-            <span>© 2025 vvevent.com - All rights reserved.</span>
+            {/* <span>© 2025 vvevent.com - All rights reserved.</span> */}
+            <span>© {currentYear} vvevent.in – All rights reserved.</span>
           </p>
         </div>
       </div>
