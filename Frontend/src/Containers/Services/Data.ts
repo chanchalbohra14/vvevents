@@ -200,17 +200,17 @@ const officeGalleryPricing: ThemeItem[] = [
 ];
 
 // House Warming Gallery
-const houseWarmingGalleryPricing: ThemeItem[] = [
-  { image: "/Hw/hw1.jpg", price: "Custom", category: "House Warming Ceremony" },
-  { image: "/Hw/hw2.jpg", price: "Custom", category: "House Warming Ceremony" },
-  { image: "/Hw/hw3.jpg", price: "Custom", category: "House Warming Ceremony" },
-  { image: "/Hw/hw4.jpg", price: "Custom", category: "House Warming Ceremony" },
-  { image: "/Hw/hw5.jpg", price: "Custom", category: "House Warming Ceremony" },
-  { image: "/Hw/hw6.jpg", price: "Custom", category: "House Warming Ceremony" },
-  { image: "/Hw/hw7.jpg", price: "Custom", category: "House Warming Ceremony" },
-  { image: "/Hw/hw8.jpg", price: "Custom", category: "House Warming Ceremony" },
-  { image: "/Hw/hw9.jpg", price: "Custom", category: "House Warming Ceremony" },
-];
+// const houseWarmingGalleryPricing: ThemeItem[] = [
+//   { image: "/Hw/hw1.jpg", price: "Custom", category: "House Warming Ceremony" },
+//   { image: "/Hw/hw2.jpg", price: "Custom", category: "House Warming Ceremony" },
+//   { image: "/Hw/hw3.jpg", price: "Custom", category: "House Warming Ceremony" },
+//   { image: "/Hw/hw4.jpg", price: "Custom", category: "House Warming Ceremony" },
+//   { image: "/Hw/hw5.jpg", price: "Custom", category: "House Warming Ceremony" },
+//   { image: "/Hw/hw6.jpg", price: "Custom", category: "House Warming Ceremony" },
+//   { image: "/Hw/hw7.jpg", price: "Custom", category: "House Warming Ceremony" },
+//   { image: "/Hw/hw8.jpg", price: "Custom", category: "House Warming Ceremony" },
+//   { image: "/Hw/hw9.jpg", price: "Custom", category: "House Warming Ceremony" },
+// ];
 
 // Graduation Gallery
 const graduationGalleryPricing: ThemeItem[] = [
@@ -377,7 +377,7 @@ export const themeDecorationGalleryPricing: ThemeItem[] = [
   {
     image: "/Th/th22.jpg",
     name: "Little Krishna Theme",
-    price: "₹1200",
+    price: "₹12000",
     category: "Premium Themes",
   },
   {
@@ -636,13 +636,13 @@ export const servicesData = [
       "Professional office inaugurations and corporate milestone celebrations.",
     galleryPricing: officeGalleryPricing,
   },
-  {
-    id: 7,
-    name: "House Warming Ceremony",
-    image: "/Hw/hw8.jpg",
-    description: "Bless your new home with a warm and welcoming celebration.",
-    galleryPricing: houseWarmingGalleryPricing,
-  },
+  // {
+  //   id: 7,
+  //   name: "House Warming Ceremony",
+  //   image: "/Hw/hw8.jpg",
+  //   description: "Bless your new home with a warm and welcoming celebration.",
+  //   galleryPricing: houseWarmingGalleryPricing,
+  // },
   {
     id: 8,
     name: "Retirement Party",
