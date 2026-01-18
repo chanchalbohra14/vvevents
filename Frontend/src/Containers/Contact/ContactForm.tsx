@@ -66,7 +66,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-bold mb-8 font-playfair">
-            <span className="gold-text">Celebration</span> your special
+            <span className="gold-text">Celebrate</span> your special
             <span className="gold-text"> Moments</span>
           </h2>
           {/* <p className="text-xl text-gray-300 leading-relaxed">

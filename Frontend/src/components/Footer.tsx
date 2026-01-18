@@ -28,10 +28,12 @@ const Footer = () => {
                 vvevents
               </span>
             </div>
-            <p className="text-gray-300 mb-4 sm:mb-6 md:mb-8 max-w-md mx-auto md:mx-0 leading-relaxed text-sm sm:text-base md:text-lg">
-              Creating unforgettable moments for your special occasions. From
+            {/* Creating unforgettable moments for your special occasions. From
               intimate gatherings to grand celebrations, we bring your vision to
-              life with elegance, style, and premium attention to detail.
+              life with elegance, style, and premium attention to detail. */}
+            <p className="text-gray-300 mb-4 sm:mb-6 md:mb-8 max-w-md mx-auto md:mx-0 leading-relaxed text-sm sm:text-base md:text-lg">
+              Creating unforgettable moments with elegant, detail-driven
+              celebrations tailored to your vision.
             </p>
             <div className="flex justify-center md:justify-start space-x-3 sm:space-x-4 md:space-x-6">
               <a

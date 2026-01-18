@@ -33,8 +33,13 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
+      // className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md ${
+      //   scrolled ? 'bg-black/95 backdrop-blur-md shadow-2xl border-b border-yellow-400/20' : 'bg-transparent'
+      // }`}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md ${
-        scrolled ? 'bg-black/95 backdrop-blur-md shadow-2xl border-b border-yellow-400/20' : 'bg-transparent'
+        scrolled
+          ? "bg-black/70 shadow-2xl border-b border-yellow-400/20"
+          : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,10 +68,10 @@ const Navbar = () => {
                 key={item.name}
                 to={item.path}
                 onClick={handleNavClick}
-                className={`px-3 lg:px-4 py-2 text-base lg:text-lg font-medium transition-all duration-300 ₹{
+                className={`px-3 lg:px-4 py-2 text-base lg:text-lg font-medium transition-all duration-300 ${
                   location.pathname === item.path
-                    ? 'text-yellow-400'
-                    : 'text-white hover:text-yellow-400'
+                    ? "text-yellow-400"
+                    : "text-white hover:text-yellow-400"
                 }`}
               >
                 {item.name}
