@@ -203,8 +203,8 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
                 </div>
 
                 {/* UX Hint */}
-                <div className="absolute top-6 left-1/2 -translate-x-1/2 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] text-white/70 border border-white/10 pointer-events-none uppercase tracking-widest font-bold">
-                  Swipe to browse
+                <div className="absolute top-6 left-1/2 -translate-x-1/2 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full text-[8px] text-white/70 border border-white/10 pointer-events-none uppercase tracking-widest font-bold">
+                  click to expand
                 </div>
               </div>
 
