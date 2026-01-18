@@ -4,6 +4,16 @@ import { useInView } from "react-intersection-observer";
 import { Calendar, Send } from "lucide-react";
 
 interface ContactFormProps {
+  //   formData: {
+  //     name: string;
+  //     email: string;
+  //     phone: string;
+  //     serviceType: string;
+  //     amount: string;
+  //     eventDate: string;
+  //     guestCount: string;
+  //     message: string;
+  //   };
   formData: {
     name: string;
     email: string;
@@ -12,8 +22,11 @@ interface ContactFormProps {
     amount: string;
     eventDate: string;
     guestCount: string;
+    address: string;
+    landmark: string;
     message: string;
   };
+
   services: string[];
   today: string;
   maxDate: string;
@@ -53,12 +66,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-bold mb-8 font-playfair">
-            Let's Plan Your <span className="gold-text">Celebration</span>
+            <span className="gold-text">Celebration</span> your special
+            <span className="gold-text"> Moments</span>
           </h2>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          {/* <p className="text-xl text-gray-300 leading-relaxed">
             Tell us about your vision and we'll make it a reality with our
             premium event planning services
-          </p>
+          </p> */}
         </motion.div>
 
         <motion.form
@@ -114,6 +128,35 @@ const ContactForm: React.FC<ContactFormProps> = ({
                   required
                   className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
                   placeholder="Enter your phone number"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-lg font-medium text-gray-300 mb-3">
+                  Address *
+                </label>
+                <textarea
+                  name="address"
+                  value={formData.address}
+                  onChange={onChange}
+                  required
+                  rows={3}
+                  className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300 resize-none"
+                  placeholder="Enter event address"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-lg font-medium text-gray-300 mb-3">
+                  Landmark
+                </label>
+                <input
+                  type="text"
+                  name="landmark"
+                  value={formData.landmark}
+                  onChange={onChange}
+                  className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300"
+                  placeholder="Nearby landmark (optional)"
                 />
               </div>
             </div>
@@ -215,7 +258,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 onChange={onChange}
                 rows={6}
                 className="premium-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 transition-all duration-300 resize-none"
-                placeholder="Describe your event vision, special requirements, themes, or any other details that will help us create the perfect celebration for you..."
+                placeholder="Any other details that will help us make the perfect celebration for you..."
               />
             </div>
           </div>
@@ -229,7 +272,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black" />
             ) : (
               <>
-                Submit Booking Request
+                Submit
                 <Send className="ml-3" size={24} />
               </>
             )}

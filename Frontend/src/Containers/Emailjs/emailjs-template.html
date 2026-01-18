@@ -1,0 +1,124 @@
+<div
+  style="
+    max-width: 600px;
+    margin: auto;
+    background: #ffffff;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #2a2a2a;
+  "
+>
+  <!-- Header -->
+  <div
+    style="
+      background: linear-gradient(135deg, #d4af37, #f5d742);
+      padding: 20px;
+      text-align: center;
+      color: #000;
+    "
+  >
+    <h1 style="margin: 0; font-size: 24px">📩 New Booking Submission</h1>
+    <p style="margin: 5px 0 0; font-size: 14px">Village Vacation Events</p>
+  </div>
+
+  <!-- Content -->
+  <div style="padding: 24px">
+    <!-- Personal Details -->
+    <h2
+      style="color: #f5d742; border-bottom: 1px solid #333; padding-bottom: 8px"
+    >
+      👤 Client Details
+    </h2>
+
+    <p><strong>Name:</strong> {{from_name}}</p>
+    <p><strong>Email:</strong> {{from_email}}</p>
+    <p><strong>Phone:</strong> {{phone}}</p>
+    <p><strong>Address:</strong><br />{{address}}</p>
+    <p><strong>Landmark:</strong> {{landmark}}</p>
+
+    <!-- Event Details -->
+    <h2
+      style="
+        color: #f5d742;
+        border-bottom: 1px solid #333;
+        padding-bottom: 8px;
+        margin-top: 30px;
+      "
+    >
+      🎉 Event Details
+    </h2>
+
+    <p><strong>Service Type:</strong> {{serviceType}}</p>
+    <p><strong>Package Amount:</strong> ₹{{amount}}</p>
+    <p><strong>Event Date:</strong> {{eventDate}}</p>
+    <p><strong>Guest Count:</strong> {{guestCount}}</p>
+
+    <!-- Message -->
+    <h2
+      style="
+        color: #f5d742;
+        border-bottom: 1px solid #333;
+        padding-bottom: 8px;
+        margin-top: 30px;
+      "
+    >
+      📝 Client Message
+    </h2>
+    <p
+      style="
+        background: #ffffff;
+        color: #000000;
+        padding: 15px;
+        border-radius: 10px;
+        line-height: 1.6;
+      "
+    >
+      {{message}}
+    </p>
+
+    <!-- Image Section -->
+    <div
+      style="
+        background: #000;
+        padding: 20px;
+        border-radius: 14px;
+        margin-top: 30px;
+        text-align: center;
+      "
+    >
+      <h2 style="color: #f5d742">🖼️ Selected Decoration Style</h2>
+      <img
+        src="{{image_url}}"
+        alt="Selected Decoration Image"
+        style="max-width: 100%; border-radius: 12px; margin: 15px 0"
+      />
+      <p>
+        <a
+          href="{{image_url}}"
+          target="_blank"
+          rel="noopener"
+          style="color: #f5d742; text-decoration: underline"
+        >
+          View Full Image
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div
+    style="
+      background: #0b0b0b;
+      padding: 18px;
+      text-align: center;
+      font-size: 13px;
+      color: #aaa;
+    "
+  >
+    <strong style="color: #f5d742">Village Vacation</strong><br />
+    Ballari, Karnataka, India<br /><br />
+    📞 +91 9164619328 &nbsp;|&nbsp; 📧 vvevents681@gmail.com
+  </div>
+</div>

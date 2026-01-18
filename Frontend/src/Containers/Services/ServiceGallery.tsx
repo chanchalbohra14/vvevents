@@ -209,9 +209,9 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
               </div>
 
               {/* CONTENT SIDE */}
-              <div className="w-full md:w-2/5 lg:w-1/3 p-8 md:p-10 flex flex-col justify-between bg-zinc-950 border-t md:border-t-0 md:border-l border-zinc-800 overflow-y-auto">
+              <div className="w-full md:w-2/5 lg:w-1/3 p-8 md:p-10 flex flex-col justify-between bg-zinc-950 border-t md:border-t-0 md:border-l border-zinc-800 overflow-y-scroll">
                 <div>
-                  <div className="flex items-center gap-2 mb-4">
+                  <div className="flex items-center gap-2 mb-2">
                     <span className="h-px w-6 bg-yellow-500"></span>
                     <span className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest">
                       Design {selectedImageIdx + 1} of{" "}
@@ -219,7 +219,7 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
                     </span>
                   </div>
 
-                  <h4 className="text-3xl md:text-4xl font-bold text-white mb-4 font-playfair">
+                  <h4 className="text-3xl md:text-4xl font-bold text-white mb-3 font-playfair">
                     {service.name}
                   </h4>
 
@@ -248,9 +248,9 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ service }) => {
                       ].map((feat) => (
                         <div
                           key={feat}
-                          className="flex items-center gap-4 text-zinc-400 text-sm"
+                          className="flex items-center gap-2 text-zinc-400 text-xs"
                         >
-                          <CheckCircle2 size={18} className="text-yellow-500" />
+                          <CheckCircle2 size={16} className="text-yellow-500" />
                           {feat}
                         </div>
                       ))

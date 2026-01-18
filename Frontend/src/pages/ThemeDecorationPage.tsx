@@ -224,13 +224,13 @@ const ThemeDecorationPage = () => {
                     Design {selectedIndex + 1} of{" "}
                     {themeDecorationGalleryPricing.length}
                   </p>
-                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-playfair leading-tight">
+                  <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 font-playfair leading-tight">
                     {currentItem.name}
                   </h2>
-                  <p className="text-3xl font-black text-yellow-500 mb-8">
+                  <p className="text-3xl font-black text-yellow-500 mb-6">
                     {currentItem.price}
                   </p>
-                  <div className="space-y-2 mb-10">
+                  <div className="space-y-4 mb-4">
                     {[
                       "Complete Theme Setup",
                       "Custom Props",
@@ -238,9 +238,9 @@ const ThemeDecorationPage = () => {
                     ].map((feat) => (
                       <div
                         key={feat}
-                        className="flex items-center gap-2 text-zinc-400"
+                        className="flex items-center gap-2 text-zinc-400 text-xs"
                       >
-                        <CheckCircle2 size={20} className="text-yellow-400" />
+                        <CheckCircle2 size={15} className="text-yellow-400" />
                         {feat}
                       </div>
                     ))}

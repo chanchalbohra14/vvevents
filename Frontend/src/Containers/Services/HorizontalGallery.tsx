@@ -97,22 +97,37 @@ const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
           {/* HEADER SECTION - Enhanced */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 border border-yellow-500/20 rounded-full px-4 py-2 mb-2">
-                <Sparkles size={12} className="text-yellow-500" />
-                <span className="text-yellow-500 text-xs font-semibold uppercase tracking-wider">
-                  Premium Collection
-                </span>
+              <div className="flex justify-between">
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 border border-yellow-500/20 rounded-full px-4 py-2 mb-2">
+                  <Sparkles size={12} className="text-yellow-500" />
+                  <span className="text-yellow-500 text-xs font-semibold uppercase tracking-wider">
+                    {name}
+                  </span>
+                  <span className="gold-text text-xs font-playfair italic">
+                    Designs
+                  </span>
+                </div>
+                {/* <Link
+                  to={`/services/${createSlug(name)}`}
+                  className="group flex items-center gap-2 bg-zinc-900/50 hover:bg-gradient-to-r hover:from-yellow-500 hover:to-yellow-600 border border-zinc-800 hover:border-yellow-500 px-5 py-2.5 rounded-full text-white hover:text-black transition-all duration-500 font-body text-xs"
+                >
+                  <span>Explore All</span>
+                  <ArrowRight
+                    className="group-hover:translate-x-1 transition-transform"
+                    size={10}
+                  />
+                </Link> */}
               </div>
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <h3 className="text-3xl md:text-4xl font-bold font-playfair text-white">
                   {name}
                 </h3>
                 <span className="gold-text text-3xl font-playfair italic">
                   Designs
                 </span>
-              </div>
+              </div> */}
               {description && (
-                <p className="text-zinc-400 max-w-2xl leading-relaxed text-base">
+                <p className="text-zinc-400 max-w-2xl leading-relaxed text-sm">
                   {description}
                 </p>
               )}
@@ -120,7 +135,7 @@ const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
 
             <Link
               to={`/services/${createSlug(name)}`}
-              className="group flex items-center gap-2 bg-zinc-900/50 hover:bg-gradient-to-r hover:from-yellow-500 hover:to-yellow-600 border border-zinc-800 hover:border-yellow-500 px-5 py-2.5 rounded-full text-white hover:text-black transition-all duration-500 font-semibold text-sm"
+              className="group flex items-center gap-2 bg-zinc-900/50 hover:bg-gradient-to-r hover:from-yellow-500 hover:to-yellow-600 border border-zinc-800 hover:border-yellow-500 px-5 py-2.5 rounded-full text-white hover:text-black transition-all duration-500 font-semibold text-xs"
             >
               <span>Explore All</span>
               <ArrowRight
@@ -262,7 +277,7 @@ const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
           </div>
 
           {/* Quick Actions */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-zinc-800/50">
+          {/* <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-zinc-800/50">
             <div className="text-sm text-zinc-500">
               All designs include professional setup and customization options
             </div>
@@ -286,7 +301,7 @@ const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
                 View Details
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

@@ -264,7 +264,7 @@ const ThemeGallery: React.FC<ThemeGalleryProps> = ({
               {/* CONTENT SIDE */}
               <div className="w-full md:w-2/5 lg:w-1/3 p-8 md:p-10 flex flex-col justify-between bg-zinc-950 border-t md:border-t-0 md:border-l border-zinc-800 overflow-y-auto">
                 <div>
-                  <div className="flex items-center gap-2 mb-4">
+                  <div className="flex items-center gap-2 mb-2">
                     <span className="h-px w-6 bg-yellow-500"></span>
                     <span className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest">
                       Design {selectedIndex + 1} of {galleryItems.length}
@@ -275,11 +275,11 @@ const ThemeGallery: React.FC<ThemeGalleryProps> = ({
                     {currentItem.name}
                   </h4>
 
-                  <div className="text-4xl font-black text-yellow-500 mb-8">
+                  <div className="text-4xl font-black text-yellow-500 mb-6">
                     {currentItem.price}
                   </div>
 
-                  <div className="space-y-4 mb-6">
+                  <div className="space-y-4 mb-2">
                     {[
                       "Premium Setup",
                       "Signature Lighting",
@@ -287,9 +287,9 @@ const ThemeGallery: React.FC<ThemeGalleryProps> = ({
                     ].map((feat) => (
                       <div
                         key={feat}
-                        className="flex items-center gap-4 text-zinc-400 text-sm"
+                        className="flex items-center gap-2 text-zinc-400 text-xs"
                       >
-                        <CheckCircle2 size={18} className="text-yellow-500" />
+                        <CheckCircle2 size={15} className="text-yellow-500" />
                         {feat}
                       </div>
                     ))}

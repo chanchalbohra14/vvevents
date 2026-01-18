@@ -49,9 +49,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-8"
         >
-          Ready to start planning your perfect event? We'd love to hear from you
-          and help bring your celebration dreams to life with our premium
-          services.
+          We’d love to help bring your celebration to life.
         </motion.p>
 
         <AnimatePresence>
